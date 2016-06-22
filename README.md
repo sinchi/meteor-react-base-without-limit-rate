@@ -1,5 +1,4 @@
 # Annoncio
-A starting point for Meteor apps.
 
 <table>
   <tbody>
@@ -14,4 +13,3 @@ A starting point for Meteor apps.
   </tbody>
 </table>
 
-[Read the Documentation](
