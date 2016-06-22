@@ -31,6 +31,6 @@ Annonces.attachSchema(Annonces.schema);
 Factory.define('annonce', Annonces, {
 	title: () => faker.hacker.phrase(),
 	description: () => faker.hacker.phrase(),
-	typeAnnonce: () => 'offre',
+	typeAnnonce: () => 'xxx',
 	price: () => 100
 });
