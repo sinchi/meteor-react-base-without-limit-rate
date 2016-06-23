@@ -4,7 +4,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 export const Cities = new Mongo.Collection('cities');
 
-Cities.schema = new SimpleSchema({
+Cities.Schema = new SimpleSchema({
 	
 	name:{
 		type: String,
@@ -12,4 +12,4 @@ Cities.schema = new SimpleSchema({
 	}
 });
 
-Cities.attachSchema(Cities.schema);
+Cities.attachSchema(Cities.Schema);

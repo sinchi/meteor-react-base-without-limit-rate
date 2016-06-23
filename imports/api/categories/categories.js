@@ -4,7 +4,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 export const Categories = new Mongo.Collection('categories');
 
-Categories.schema = new SimpleSchema({
+Categories.Schema = new SimpleSchema({
 	name:{
 		type: String,
 		label: "The name of the category",
@@ -16,4 +16,4 @@ Categories.schema = new SimpleSchema({
 	}
 });
 
-Categories.attachSchema(Categories.schema);
+Categories.attachSchema(Categories.Schema);
