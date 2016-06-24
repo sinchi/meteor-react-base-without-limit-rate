@@ -32,7 +32,18 @@ describe('Annonces collection', function(){
 	});
 
 	it('updateAnnonce test', function(){
-		const { _id } = Factory.create('annonceAll');
+		const  annonce  = {
+		 title: 'sinchi',
+		  description: 'ayoub sinchi',
+		  typeAnnonce:'offre',
+		  price: 100 ,
+		  owner: '900',
+		  publication: new Date(),
+		  photos: ['tof.jpg'],
+		  city: { name: 'Casablanca' },
+		  category: { name: 'Téléphone' }
+		};
+		const _id = Annonces.insert(annonce, { selector: { type: 'all' } });
 		updateAnnonce.call({ 
 			_id,
 			update:{
@@ -49,7 +60,19 @@ describe('Annonces collection', function(){
 	});
 
 	it('removeAnnonce test', function(){
-		const { _id } = Factory.create('annonce');
+		const  annonce  = {
+		 title: 'sinchi',
+		  description: 'ayoub sinchi',
+		  typeAnnonce:'offre',
+		  price: 100 ,
+		  owner: '900',
+		  publication: new Date(),
+		  photos: ['tof.jpg'],
+		  city: { name: 'Casablanca' },
+		  category: { name: 'Téléphone' }
+		};
+		const _id = Annonces.insert(annonce, { selector: { type: 'all' } });
+		
 		removeAnnonce.call({_id});
 		const getAnnonce = Annonces.findOne(_id);
 		assert.equal(getAnnonce, undefined);

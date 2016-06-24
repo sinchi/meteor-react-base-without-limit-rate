@@ -129,7 +129,7 @@ Annonces.CarSchema = new SimpleSchema({
 	},
 	yearOfModel:{
 		type: Number,
-		label: 'the year of the model\'s car'
+		label: 'the year of the car\'s model'
 	},
 	km:{
 		type: Number,
@@ -184,7 +184,7 @@ Annonces.MotorSchema = new SimpleSchema({
 	},
 	yearOfModel:{
 		type: Number,
-		label: 'the year of the model\'s car'
+		label: 'the year of the moto\'s model'
 	},
 	km:{
 		type: Number,
