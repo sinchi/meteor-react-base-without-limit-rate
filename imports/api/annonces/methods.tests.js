@@ -46,6 +46,7 @@ describe('Annonces collection', function(){
 		const _id = Annonces.insert(annonce, { selector: { type: 'all' } });
 		updateAnnonce.call({ 
 			_id,
+			owner: annonce.owner,
 			update:{
 				title: 'belghar',
 				description: 'driss belghar',
@@ -73,7 +74,7 @@ describe('Annonces collection', function(){
 		};
 		const _id = Annonces.insert(annonce, { selector: { type: 'all' } });
 		
-		removeAnnonce.call({_id});
+		removeAnnonce.call({_id, owner: annonce.owner});
 		const getAnnonce = Annonces.findOne(_id);
 		assert.equal(getAnnonce, undefined);
 	});

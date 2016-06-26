@@ -25,170 +25,170 @@ Annonces.deny({
 Annonces.AllSchema = new SimpleSchema({	
 	title:{
 		type: String,
-		label: "The title of the annonce"
+		label: "AnnonceAll - The title of the annonce"
 	},
 	description:{
 		type: String,
-		label: 'The description of the annonce'
+		label: 'AnnonceAll - The description of the annonce'
 	},
 	typeAnnonce:{
 		type: String,
 		allowedValues:[ 'offre', 'demande' ],
-		label: 'The type of this opportunitie'
+		label: 'AnnonceAll - The type of this opportunitie'
 	},
 	city:{
 		type: Cities.Schema,
-		label: 'the city of the annonce'
+		label: 'AnnonceAll - the city of the annonce'
 	},
 	price: { 
 		type: Number,
-		label: 'The price of the annonce'
+		label: 'AnnonceAll - The price of the annonce'
 	},
 	owner:{
 		type: String,
-		label: 'the owner of the annonce'
+		label: 'AnnonceAll - the owner of the annonce'
 	},
 	publication:{
 		type: Date,
 		defaultValue: new Date(),
-		label: 'The date of the publication of the annonce'
+		label: 'AnnonceAll - The date of the publication of the annonce'
 	},
 	photos: {
 		type: [ String ],
-		label: 'The photos of the annonce',
+		label: 'AnnonceAll - The photos of the annonce',
 		maxCount: 6
 	},
 	countComments: {
 		type: Number,
-		label: 'The number of the comments',
+		label: 'AnnonceAll - The number of the comments',
 		optional: true,
 		defaultValue:0 
 	},
 	category:{
 		type: Categories.Schema,
-		label: 'the category of the annonce'
+		label: 'AnnonceAll - the category of the annonce'
 	}
 });
 
 Annonces.CarSchema = new SimpleSchema({
 	title:{
 		type: String,
-		label: "The title of the annonce"
+		label: "Annonce-Car - The title of the annonce"
 	},
 	description:{
 		type: String,
-		label: 'The description of the annonce'
+		label: 'Annonce-Car - The description of the annonce'
 	},
 	typeAnnonce:{
 		type: String,
 		allowedValues:[ 'offre', 'demande' ],
-		label: 'The type of this opportunitie'
+		label: 'Annonce-Car - The type of this opportunitie'
 	},
 	city:{
 		type: Cities.Schema,
-		label: 'the city of the annonce'
+		label: 'Annonce-Car - the city of the annonce'
 	},
 	price: { 
 		type: Number,
-		label: 'The price of the annonce'
+		label: 'Annonce-Car - The price of the annonce'
 	},
 	owner:{
 		type: String,
-		label: 'the owner of the annonce'
+		label: 'Annonce-Car - the owner of the annonce'
 	},
 	publication:{
 		type: Date,
 		defaultValue: new Date(),
-		label: 'The date of the publication of the annonce'
+		label: 'Annonce-Car The date of the publication of the annonce'
 	},
 	photos: {
 		type: [ String ],
-		label: 'The photos of the annonce',
+		label: 'Annonce-Car The photos of the annonce',
 		maxCount: 6
 	},
 	countComments: {
 		type: Number,
-		label: 'The number of the comments',
+		label: 'Annonce-Car The number of the comments',
 		optional: true
 	},
 	category:{
 		type: Categories.Schema,
-		label: 'the category of the annonce'
+		label: 'Annonce-Car the category of the annonce'
 	},
 	brand: {
 		type: Brands.Schema,
-		label: 'the brand of car'
+		label: 'Annonce-Car the brand of car'
 	},
 	model:{
 		type: Brands.ModelsSchema,
-		label: 'the model of the car'
+		label: 'Annonce-Car the model of the car'
 	},
 	carbs:{
 		type: String,
-		label: 'the carburant of car'
+		label: 'Annonce-Car the carburant of car'
 	},
 	yearOfModel:{
 		type: Number,
-		label: 'the year of the car\'s model'
+		label: 'Annonce-Car the year of the car\'s model'
 	},
 	km:{
 		type: Number,
-		label: 'the km of the car'
+		label: 'Annonce-Car the km of the car'
 	}
 });
 
 Annonces.MotorSchema = new SimpleSchema({
 	title:{
 		type: String,
-		label: "The title of the annonce"
+		label: "Annonce-Motor - The title of the annonce"
 	},
 	description:{
 		type: String,
-		label: 'The description of the annonce'
+		label: 'Annonce-Motor - The description of the annonce'
 	},
 	typeAnnonce:{
 		type: String,
 		allowedValues:[ 'offre', 'demande' ],
-		label: 'The type of this opportunitie'
+		label: 'Annonce-Motor - The type of this opportunitie'
 	},
 	city:{
 		type: Cities.Schema,
-		label: 'the city of the annonce'
+		label: 'Annonce-Motor - the city of the annonce'
 	},
 	price: { 
 		type: Number,
-		label: 'The price of the annonce'
+		label: 'Annonce-Motor - The price of the annonce'
 	},
 	owner:{
 		type: String,
-		label: 'the owner of the annonce'
+		label: 'Annonce-Motor - the owner of the annonce'
 	},
 	publication:{
 		type: Date,
 		defaultValue: new Date(),
-		label: 'The date of the publication of the annonce'
+		label: 'Annonce-Motor - The date of the publication of the annonce'
 	},
 	photos: {
 		type: [ String ],
-		label: 'The photos of the annonce',
+		label: 'Annonce-Motor - The photos of the annonce',
 		maxCount: 6
 	},
 	countComments: {
 		type: Number,
-		label: 'The number of the comments',
+		label: 'Annonce-Motor - The number of the comments',
 		optional: true
 	},
 	category:{
 		type: Categories.Schema,
-		label: 'the category of the annonce'
+		label: 'Annonce-Motor - the category of the annonce'
 	},
 	yearOfModel:{
 		type: Number,
-		label: 'the year of the moto\'s model'
+		label: 'Annonce-Motor - the year of the moto\'s model'
 	},
 	km:{
 		type: Number,
-		label: 'the km of the car'
+		label: 'Annonce-Motor - the km of the car'
 	}
 });
 
