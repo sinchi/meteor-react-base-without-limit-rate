@@ -51,4 +51,10 @@ describe('Users collection', function(){
 		assert.equal(getUser, undefined);
 	});
 
+
+	it('follow user', function(){
+		const _id = Meteor.users.insert({  username: 'lamda', createdAt: new Date() });
+		
+	})
+
 });

@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { UserProfile } from './users.js';
+import { Accounts } from 'meteor/accounts-base';
 
 export const insertUser = new ValidatedMethod({
 	name: 'users.insert',
@@ -12,7 +13,9 @@ export const insertUser = new ValidatedMethod({
 		createdAt: { type: Date }
 	}).validator(),
 	run(user){
-		Meteor.users.insert(user);
+
+	      Accounts.createUser(user);
+		//	Meteor.users.insert(user);
 	}
 });
 
@@ -40,3 +43,17 @@ export const removeUser = new ValidatedMethod({
 		Meteor.users.remove(_id);
 	}
 });	
+
+
+export const followUser = new ValidatedMethod({
+	name: "users.followUser",
+	validate: new SimpleSchema({
+		userId: { type: String },
+		followerId: { type: String }
+	}).validator(),
+	run({ userId, followerId }){
+		const user = Meteor.users.findOne(userId);
+		if(user)
+			Meteor.users.update(userId, { $addToSet: { profile: { followers: followerId } } });
+	}
+})

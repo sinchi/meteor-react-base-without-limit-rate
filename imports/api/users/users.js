@@ -47,6 +47,12 @@ Schema.UserProfile = new SimpleSchema({
     country: {
         type: Schema.UserCountry,
         optional: true
+    },
+    followers:{
+        type: [ String ],
+        label: "The ids followers ",
+        optional: true
+
     }
 });
 

@@ -11,3 +11,27 @@ export const insertCity = new ValidatedMethod({
 		Cities.insert(city)
 	},
 });
+
+
+export const updateCity = new ValidatedMethod({
+	name: "city.update",
+	validate: new SimpleSchema({
+		_id: { type: String },
+		"update.name": { type: String }
+	}).validator(),
+	run({ _id, update }){
+		Cities.update(_id, { $set: update });
+	}
+});
+
+
+
+export const removeCity = new ValidatedMethod({
+	name: "city.remove",
+	validate: new SimpleSchema({
+		_id: { type: String }
+	}).validator(),
+	run({ _id }){
+		Cities.remove(_id);
+	}
+});
