@@ -15,27 +15,31 @@ export const insertComment = new ValidatedMethod({
 		body: { type: String }
 	}).validator(),
 	run(comment){
-		const commentId = Comments.insert(comment);
+		
+		//const comment = Comments.findOne(commentId);
 		const annonce = Annonces.findOne(comment.annonce_id);
 
-		const getAllCommentsByAnnonceId = Comments.find({ annonce_id: comment.annonce_id });
-		getAllCommentsByAnnonceId.map((com) => {
-			if(com){
-				const owner = com.owner;
-			
-				const notification = {
-					owner: owner,
-					annonce_id: annonce._id,
-					commentId: commentId,
-					read: false,
-					publication: new Date()
-				};
-				if(owner !== annonce.owner){
-					insertNotification.call(notification);
-				}
-			}
-						
-		});		
+		if(annonce){
+			const commentId = Comments.insert(comment);
+			const getAllCommentsByAnnonceId = Comments.find({ annonce_id: comment.annonce_id });
+			getAllCommentsByAnnonceId.map((com) => {
+				
+					const owner = com.owner;
+				
+					const notification = {
+						owner: owner,
+						annonce_id: annonce._id,
+						commentId: commentId,
+						read: false,
+						publication: new Date()
+					};
+					if(owner !== annonce.owner){
+						insertNotification.call(notification);
+					}
+			});	
+		}else{
+			throw new Meteor.Error(404, 'this annonce not exist');
+		}
 	}
 });
 

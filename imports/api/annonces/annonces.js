@@ -67,6 +67,11 @@ Annonces.AllSchema = new SimpleSchema({
 	category:{
 		type: Categories.Schema,
 		label: 'AnnonceAll - the category of the annonce'
+	},
+	readers:{
+		type: [String],
+		label: 'The ids of the readers they have seen the annonce',
+		optional: true
 	}
 });
 
@@ -134,6 +139,11 @@ Annonces.CarSchema = new SimpleSchema({
 	km:{
 		type: Number,
 		label: 'Annonce-Car the km of the car'
+	},
+	readers:{
+		type: [String],
+		label: 'The ids of the readers they have seen the annonce',
+		optional: true
 	}
 });
 
@@ -189,6 +199,11 @@ Annonces.MotorSchema = new SimpleSchema({
 	km:{
 		type: Number,
 		label: 'Annonce-Motor - the km of the car'
+	},
+	readers:{
+		type: [String],
+		label: 'The ids of the readers they have seen the annonce',
+		optional: true
 	}
 });
 

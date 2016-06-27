@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor' ;
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Annonces } from './annonces.js';
-import { insertAnnonce, updateAnnonce, removeAnnonce } from './methods.js';
+import { insertAnnonce, updateAnnonce, removeAnnonce, updateReaders } from './methods.js';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Factory } from 'meteor/dburles:factory';
 import { assert } from 'meteor/practicalmeteor:chai';
@@ -79,6 +79,27 @@ describe('Annonces collection', function(){
 		assert.equal(getAnnonce, undefined);
 	});
 
+	it('updateReaders test', function(){
+		const  annonce  = {
+			  title: 'ayoub',
+			  description: 'ayoub sinchi',
+			  typeAnnonce:'offre',
+			  price: 100 ,
+			  owner: '900',
+			  publication: new Date(),
+			  photos: ['tof.jpg'],
+			  city: { name: 'Casablanca' },
+			  category: { name: 'Téléphone' },
+			  readers:["20"]
+		};
+		const _id = Annonces.insert(annonce, { selector: { type: 'all' } });
+		updateReaders.call({
+			_id,
+			userId: "abc"
+		});
+		const getAnnonce = Annonces.findOne(_id);
+		assert.equal(_.contains(getAnnonce.readers,"abc"), true);
+	});
 
 });
 

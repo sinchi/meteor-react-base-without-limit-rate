@@ -64,3 +64,20 @@ export const removeAnnonce = new ValidatedMethod({
 	}
 });
 
+export const updateReaders = new ValidatedMethod({
+	name: 'annonce.updateReaders',
+	validate: new SimpleSchema({
+		_id: { type: String },
+		userId: { type: String }
+	}).validator(),
+	run({ _id, userId }){
+		const annonce = Annonces.findOne(_id);
+		if(annonce && !annonce.readers){
+			annonce.readers = [];
+		}
+		if(!_.contains(annonce.readers, userId)){
+			Annonces.update(_id, { $addToSet: { readers: userId } }, { selector: { type: 'all' } });
+		}
+				
+	}
+});

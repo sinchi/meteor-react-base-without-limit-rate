@@ -36,7 +36,7 @@ describe('Comments Methods', function(){
 			 publication: new Date(), 
 			 body: 'wow cool'
 		};
-		
+
 		insertComment.call(comment);
 
 		const getComment = Comments.findOne({ owner: '10' });
