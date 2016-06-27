@@ -3,16 +3,16 @@ import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Meteor } from 'meteor/meteor';
 import { Factory } from 'meteor/dburles:factory';
 import { insertNotification, updateNotification, removeNotification } from './methods.js';
-import { Notifications } from './notifications';
+import { NotificationComment } from './notifications-comment.js';
 
-describe('Notifications methods ', function(){
+describe('Notifications Comments methods ', function(){
 	beforeEach(function(){
 		if(Meteor.isServer){
 			resetDatabase();
 		}
 	});
 
-	it('insert Notification', function(){
+	it('insert Notification Comment', function(){
 		const notification = {
 			annonce_id: "1" ,				
 			commentId: '1',
@@ -22,13 +22,13 @@ describe('Notifications methods ', function(){
 		};
 
 		insertNotification.call(notification);
-		const findNotification = Notifications.findOne({ annonce_id: notification.annonce_id });
+		const findNotification = NotificationComment.findOne({ annonce_id: notification.annonce_id });
 		assert.equal(findNotification.owner, "1");
 
 	});
 
-	it('update Notification', function(){
-		const { _id, owner } = Factory.create('notification');
+	it('update Notification Comment', function(){
+		const { _id, owner } = Factory.create('notification-comment');
 		updateNotification.call({
 			_id,
 			owner: owner,
@@ -36,18 +36,18 @@ describe('Notifications methods ', function(){
 				read: true
 			}
 		});
-		const getNotif = Notifications.findOne(_id);
+		const getNotif = NotificationComment.findOne(_id);
 		assert.equal(getNotif.read, true);
 	});
 
 
-	it('remove Notification', function(){
-		const { _id, owner } = Factory.create('notification');
+	it('remove Notification Comment', function(){
+		const { _id, owner } = Factory.create('notification-comment');
 		removeNotification.call({
 			_id,
 			owner: owner
 		});
-		const getNotif = Notifications.findOne(_id);
+		const getNotif = NotificationComment.findOne(_id);
 		assert.equal(getNotif, undefined);
 	});
 

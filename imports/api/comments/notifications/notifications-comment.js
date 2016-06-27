@@ -3,21 +3,21 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import faker from 'faker';
 import { Factory } from 'meteor/dburles:factory';
 
-export const Notifications = new Mongo.Collection('notifications');
+export const NotificationComment = new Mongo.Collection('notifications-comment');
 
-Notifications.allow({
+NotificationComment.allow({
 	insert: () => false,
 	update: () => false,
 	remove: () => false
 });
 
-Notifications.deny({
+NotificationComment.deny({
 	insert: () => true,
 	update: () => true,
 	remove: () => true
 });
 
-Notifications.Schema = new SimpleSchema({
+NotificationComment.Schema = new SimpleSchema({
 	annonce_id: { 
 		type: String , 
 		label:'Notification - the annonce id' 
@@ -40,9 +40,9 @@ Notifications.Schema = new SimpleSchema({
 	}
 });
 
-Notifications.attachSchema(Notifications.Schema);
+NotificationComment.attachSchema(NotificationComment.Schema);
 
-Factory.define('notification', Notifications, {
+Factory.define('notification-comment', NotificationComment, {
 	annonce_id: () => faker.hacker.phrase(),
 	commentId: () => faker.hacker.phrase(),
 	owner: () => faker.hacker.phrase(),

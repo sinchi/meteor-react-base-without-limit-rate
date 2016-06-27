@@ -2,7 +2,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Comments } from './comments.js';
 import { Meteor } from 'meteor/meteor';
-import { insertNotification } from '../notifications/methods.js';
+import { insertNotification } from './notifications/methods.js';
 import { Annonces } from '../annonces/annonces.js';
 
 
