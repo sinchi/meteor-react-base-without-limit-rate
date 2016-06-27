@@ -3,6 +3,8 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Categories } from '../categories/categories.js';
 import { Cities } from '../cities/cities.js';
+import { AbonnementCategory } from './abonnements/abonnement-category.js';
+import { insertNotificationNewAnnonce } from './notifications/methods.js';
 
 
 export const insertAnnonce = new ValidatedMethod({
@@ -19,7 +21,20 @@ export const insertAnnonce = new ValidatedMethod({
 		city: { type:  Cities.Schema }
 	}).validator(),
 	run(annonce){
-		 Annonces.insert(annonce, { selector: { type: 'all' } });
+		const { _id } =  Annonces.insert(annonce, { selector: { type: 'all' } });
+		const categoryId = Categories.findOne({ name: annonce.category.name });
+		const getAbonnes = AbonnementCategory.find({ categoryId: categoryId });
+		getAbonnes.map((abonnement) => {
+			const notificationAnnonce = {
+				userId: abonnement.userId,
+				annonceId: _id,
+				publication: new Date(),
+				read: false
+			};
+
+			insertNotificationNewAnnonce.call(notificationAnnonce);
+		});
+		 
 	}
 });
 
