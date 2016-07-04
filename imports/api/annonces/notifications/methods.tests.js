@@ -27,7 +27,7 @@ describe('Notification Annonce Methods', function(){
 
 
 	it('remove notification annonce', function(){
-		const { _id, userId} = Factory.create('notification-annonce');
+		const { _id, userId } = Factory.create('notification-annonce');
 		removeNotificationNewAnnonce.call({ _id, userId});
 		const getNotificationAnnonce = NotificationAnnonce.findOne(_id);
 		assert.equal(getNotificationAnnonce, undefined);

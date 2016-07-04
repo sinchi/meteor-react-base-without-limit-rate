@@ -3,6 +3,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { UserProfile } from './users.js';
 import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 
 export const insertUser = new ValidatedMethod({
 	name: 'users.insert',
@@ -55,5 +56,7 @@ export const followUser = new ValidatedMethod({
 		const user = Meteor.users.findOne(userId);
 		if(user)
 			Meteor.users.update(userId, { $addToSet: { profile: { followers: followerId } } });
+		else
+			throw new Meteor.Error(404, "This user don't exist")
 	}
 })

@@ -5,6 +5,7 @@ import { Categories } from '../categories/categories.js';
 import { Cities } from '../cities/cities.js';
 import { AbonnementCategory } from './abonnements/abonnement-category.js';
 import { insertNotificationNewAnnonce } from './notifications/methods.js';
+import { Meteor } from 'meteor/meteor';
 
 
 export const insertAnnonce = new ValidatedMethod({
@@ -87,11 +88,13 @@ export const updateReaders = new ValidatedMethod({
 	}).validator(),
 	run({ _id, userId }){
 		const annonce = Annonces.findOne(_id);
-		if(annonce && !annonce.readers){
+		/*if(annonce && !annonce.readers){
 			annonce.readers = [];
-		}
-		if(!_.contains(annonce.readers, userId)){
+		}*/
+		if(annonce &&  !_.contains(annonce.readers, userId)){
 			Annonces.update(_id, { $addToSet: { readers: userId } }, { selector: { type: 'all' } });
+		}else{
+			throw new Meteor.Error(403, "This user have already see this annonce");
 		}
 				
 	}

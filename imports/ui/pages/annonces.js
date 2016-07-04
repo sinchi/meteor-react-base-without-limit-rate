@@ -23,7 +23,7 @@ export class Annonces extends React.Component{
 
 	handleSearch(event){
 		let val = event.target.value.trim();
-		this.setState({ text: val });		
+		this.setState({ text: val });
 	}
 
 	onCityChange(event){
@@ -31,8 +31,8 @@ export class Annonces extends React.Component{
 	}
 
 	onCategoryChange(event){
-		this.setState({ category: event.target.value });		
-		
+		this.setState({ category: event.target.value });
+
 	}
 
 	getValidationState() {
@@ -50,7 +50,7 @@ export class Annonces extends React.Component{
 		return (
 			<Row>
 				<h4 className="page-header">Annonces</h4>
-			    <Col xs={ 12 } md={ 3 }>			      
+			    <Col xs={ 12 } md={ 3 }>
 			      <CitiesList onCityChange={ this.onCityChange }/>
 			      <CategoriesList onCategoryChange={ this.onCategoryChange.bind(this) }/>
 			      <TypeAnnonce />
@@ -63,19 +63,18 @@ export class Annonces extends React.Component{
 				      <FormControl type="text" placeholder="Enter Prix Max" />
 				   </FormGroup>
 				  { this.state.category === "Voitures" ?  <BrandsList /> : '' }
-				  
+
 			      <Search text={ this.state.text } handleSearch={ this.handleSearch.bind(this) } />
 
-			      
-			      {/* <AddAnnonce /> */}
+
+			      { <AddAnnonce /> }
 			      {/* <AnnoncesList text={ this.state.text } /> */}
-			    </Col>	
+			    </Col>
 			    <Col md={ 9 }>
 			    	<AnnoncesList text={ this.state.text } />
-			    </Col>		    
+			    </Col>
 			  </Row>
 
 			  );
 	}
 }
-

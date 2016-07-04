@@ -1,6 +1,7 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { NotificationAnnonce } from './notification-annonce.js';
+import { Meteor } from 'meteor/meteor';
 
 export const insertNotificationNewAnnonce = new ValidatedMethod({
 	name: 'notificationAnnonce.insert',
@@ -37,7 +38,9 @@ export const removeNotificationNewAnnonce = new ValidatedMethod({
 	}).validator(),
 	run({ _id, userId }){
 		const notificationAnnonce = NotificationAnnonce.findOne(_id);
-		if(notificationAnnonce.userId === userId)
+		if(notificationAnnonce && notificationAnnonce.userId === userId)
 			NotificationAnnonce.remove(_id);
+		else
+			throw new Meteor.Error(404, "You don't have the permission to remove this notfication annonce");
 	}
 });
