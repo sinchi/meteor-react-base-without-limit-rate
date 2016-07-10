@@ -39,10 +39,11 @@ export class BrandsList extends React.Component {
 				      <FormControl componentClass="select" placeholder="select" onChange={ this.onBrandChange.bind(this) }>
 				        { brands }
 				      </FormControl>
+							{this.state.models !== undefined  ? <ModelsList models={ this.state.models } /> : ''}
+							<Carburant />
+							<AnneeModelMin />
 				    </FormGroup>
-				   {this.state.models !== undefined  ? <ModelsList models={ this.state.models } /> : ''}
-				   <Carburant />
-				   <AnneeModelMin />
+
 				 )
 	}
 }
