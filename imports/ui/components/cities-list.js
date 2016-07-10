@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 	
+import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 export class CitiesList extends Component{
 
@@ -11,8 +11,8 @@ export class CitiesList extends Component{
 			return <option key={ city._id } value={ city.name }>{ city.name }</option>
 		});
 		return 	<FormGroup controlId="formControlsSelect">
-			      <ControlLabel>Villes</ControlLabel>
-			      <FormControl componentClass="select" placeholder="select" onChange={ this.props.onCityChange }>
+			      <ControlLabel>Ville:</ControlLabel>
+			      <FormControl name="city" ref="city" componentClass="select" placeholder="select" onChange={ this.props.onCityChange }>
 			        { cities }
 			      </FormControl>
 			    </FormGroup>

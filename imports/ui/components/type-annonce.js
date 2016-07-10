@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import { FormGroup, Radio } from 'react-bootstrap';
+import { FormGroup, Radio, ControlLabel } from 'react-bootstrap';
 
 export class TypeAnnonce extends React.Component{
 
 	render(){
 		return  <FormGroup>
-					      <Radio name="typeAnnonce" id="offre" >
+								<ControlLabel>Type Annonce </ControlLabel>
+					      <Radio name="typeAnnonce" ref="typeAnnonce"  value="offre">
 					        Offre
-					      </Radio>					      
-					      <Radio name="typeAnnonce" id="demande">
+					      </Radio>
+					      <Radio name="typeAnnonce" ref="typeAnnonce" value="demande">
 					        Demande
-					      </Radio>					     
-					 </FormGroup>				
+					      </Radio>
+					 </FormGroup>
 	}
 }

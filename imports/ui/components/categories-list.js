@@ -13,17 +13,17 @@ export class CategoriesList extends Component{
 		let categories = parents.map((parent) => {
 			return <optgroup key={ parent._id } label={ parent.name }>
 						{ children.map((child) => {
-							return child.parent === parent.name ? 
+							return child.parent === parent.name ?
 							<option key={ child._id } value={ child.name }>{ child.name }</option>
 							: "";
 						}) }
 					</optgroup>
 		})
 		return 	<FormGroup controlId="formControlsSelect">
-			      <ControlLabel>Catégories</ControlLabel>
-			      <FormControl componentClass="select" placeholder="select" onChange={ this.props.onCategoryChange }>
-			        { categories }
-			      </FormControl>
-			    </FormGroup>
+				      <ControlLabel>Catégorie: </ControlLabel>
+				      <FormControl name="category" ref="category" componentClass="select" placeholder="select" onChange={ this.props.onCategoryChange }>
+				        { categories }
+				      </FormControl>
+				    </FormGroup>
 	}
 }

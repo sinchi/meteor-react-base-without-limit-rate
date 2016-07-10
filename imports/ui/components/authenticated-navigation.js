@@ -27,10 +27,13 @@ export const AuthenticatedNavigation = () => (
       <LinkContainer to="/annonces">
         <NavItem eventKey={ 3 } href="/annonces">Annonces</NavItem>
       </LinkContainer>
+      <LinkContainer to="/add-annonce">
+        <NavItem eventKey = { 4 } href="/add-annonce">Publier une annonce</NavItem>
+      </LinkContainer>
     </Nav>
     <Nav pullRight>
-      <NavDropdown eventKey={ 4 } title={ userName() } id="basic-nav-dropdown">
-        <MenuItem eventKey={ 4.1 } onClick={ handleLogout }>Logout</MenuItem>
+      <NavDropdown eventKey={ 5 } title={ userName() } id="basic-nav-dropdown">
+        <MenuItem eventKey={ 5.1 } onClick={ handleLogout }>Logout</MenuItem>
       </NavDropdown>
     </Nav>
   </div>

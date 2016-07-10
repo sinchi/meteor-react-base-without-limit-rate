@@ -4,7 +4,7 @@ import AnnoncesList from '../containers/annonces-list.js';
 import CitiesList from '../containers/cities-list.js';
 import CategoriesList from '../containers/categories-list.js';
 import BrandsList from '../containers/brands-list.js';
-import { AddAnnonce } from '../components/add-annonce.js';
+
 import { Search } from '../components/search.js';
 import { TypeAnnonce  } from '../components/type-annonce.js';
 
@@ -65,9 +65,7 @@ export class Annonces extends React.Component{
 				  { this.state.category === "Voitures" ?  <BrandsList /> : '' }
 
 			      <Search text={ this.state.text } handleSearch={ this.handleSearch.bind(this) } />
-
-
-			      { <AddAnnonce /> }
+			    
 			      {/* <AnnoncesList text={ this.state.text } /> */}
 			    </Col>
 			    <Col md={ 9 }>
