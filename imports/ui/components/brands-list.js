@@ -14,26 +14,26 @@ export class BrandsList extends React.Component {
 	}
 
 	componentDidMount(){
-		this.setState({ models: this.props.brands[0].models });		
+		this.setState({ models: this.props.brands[0].models });
 	}
 
-	onBrandChange(event){	
-		
+	onBrandChange(event){
+
 		let brand = this.props.brands.filter((brand) => {
 			return brand.name == event.target.value;
 		});
 
 		this.setState({ models: brand[0].models });
-		
+
 	}
 
 	render(){
 		let brands = this.props.brands.map((brand) => {
 			return <option key={ brand._id } value={brand.name}> { brand.name } </option>;
 		});
-		
-		
-		return 	<Row>
+
+
+		return (
 					<FormGroup controlId="formControlsSelect">
 				      <ControlLabel>Marques</ControlLabel>
 				      <FormControl componentClass="select" placeholder="select" onChange={ this.onBrandChange.bind(this) }>
@@ -43,7 +43,6 @@ export class BrandsList extends React.Component {
 				   {this.state.models !== undefined  ? <ModelsList models={ this.state.models } /> : ''}
 				   <Carburant />
 				   <AnneeModelMin />
-			    </Row>
+				 )
 	}
 }
-
