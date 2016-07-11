@@ -36,7 +36,7 @@ export class BrandsList extends React.Component {
 		return (
 					<FormGroup controlId="formControlsSelect">
 				      <ControlLabel>Marques</ControlLabel>
-				      <FormControl componentClass="select" placeholder="select" onChange={ this.onBrandChange.bind(this) }>
+				      <FormControl ref="brand" name="brand" componentClass="select" placeholder="select" onChange={ this.onBrandChange.bind(this) }>
 				        { brands }
 				      </FormControl>
 							{this.state.models !== undefined  ? <ModelsList models={ this.state.models } /> : ''}

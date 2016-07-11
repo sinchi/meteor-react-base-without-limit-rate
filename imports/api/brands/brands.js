@@ -12,10 +12,10 @@ Brands.ModelsSchema = new SimpleSchema({
 });
 
 
-Brands.Schema = new SimpleSchema({	
+Brands.Schema = new SimpleSchema({
 	name:{
 		type: String,
-		label: "The title of the brand"		
+		label: "The title of the brand"
 	},
 	models:{
 		type: [Brands.ModelsSchema],

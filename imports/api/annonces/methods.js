@@ -19,10 +19,48 @@ export const insertAnnonce = new ValidatedMethod({
 		publication: { type: Date },
 		photos: { type: [ String ] , maxCount: 6},
 		category: { type: Categories.Schema },
-		city: { type:  Cities.Schema }
+		city: { type:  Cities.Schema },
+		brand: {
+			type: String,
+			label: 'Annonce-Car the brand of car',
+			optional: true
+		},
+		model:{
+			type: String,
+			label: 'Annonce-Car the model of the car',
+			optional: true
+		},
+		carbs:{
+			type: String,
+			label: 'Annonce-Car the carburant of car',
+			optional: true
+		},
+		yearOfModel:{
+			type: Number,
+			label: 'Annonce-Car the year of the car\'s model',
+			optional: true
+		},
+		km:{
+			type: Number,
+			label: 'Annonce-Car the km of the car',
+			optional: true
+		},
 	}).validator(),
 	run(annonce){
-		const { _id } =  Annonces.insert(annonce, { selector: { type: 'all' } });
+		let _id;
+
+		switch (annonce.category.name) {
+			case 'Voitures':
+				_id =  Annonces.insert(annonce, { selector: { type: 'car' } });
+				break;
+			case 'Motos':
+				_id =  Annonces.insert(annonce, { selector: { type: 'moto' } });
+			break;
+
+			default:
+				_id =  Annonces.insert(annonce, { selector: { type: 'all' } });
+		}
+
 		const categoryId = Categories.findOne({ name: annonce.category.name });
 		const getAbonnes = AbonnementCategory.find({ categoryId: categoryId });
 		getAbonnes.map((abonnement) => {
@@ -35,7 +73,7 @@ export const insertAnnonce = new ValidatedMethod({
 
 			insertNotificationNewAnnonce.call(notificationAnnonce);
 		});
-		 
+
 	}
 });
 
@@ -55,13 +93,13 @@ export const updateAnnonce = new ValidatedMethod({
 		'update.city' : { type: Cities.Schema, optional: true }
 
 	}).validator(),
-	run({ _id, owner, update }){	
+	run({ _id, owner, update }){
 		const annonce = Annonces.findOne(_id);
 		if(annonce && annonce.owner === owner)
 			Annonces.update(_id, { $set: update }, { selector: { type: 'all' } });
 		else
 			throw new Meteor.Error(403, 'you don\'t have the permission to update this annonce');
-		
+
 	}
 });
 
@@ -96,6 +134,6 @@ export const updateReaders = new ValidatedMethod({
 		}else{
 			throw new Meteor.Error(403, "This user have already see this annonce");
 		}
-				
+
 	}
 });

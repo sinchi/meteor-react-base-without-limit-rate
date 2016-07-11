@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 	
+import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 export class AnneeModelMin extends Component{
 
@@ -14,11 +14,11 @@ export class AnneeModelMin extends Component{
 					options[i] =  <option key={ i } value={ 1980+i }>{ 1980 + i }</option>;
 				}
 		};
-		
+
 		return 	<FormGroup controlId="formControlsSelect">
 			      <ControlLabel>Année Model Min</ControlLabel>
-			      <FormControl componentClass="select" placeholder="select" onChange={ this.props.onCityChange }>
-			        
+			      <FormControl name="yearOfModel" ref="yearOfModel" componentClass="select" placeholder="select" onChange={ this.props.onCityChange }>
+
 			      </FormControl>
 			    </FormGroup>
 	}

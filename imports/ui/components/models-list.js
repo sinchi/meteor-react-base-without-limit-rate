@@ -14,11 +14,10 @@ export class ModelsList extends React.Component {
 
 		return 	  <FormGroup controlId="formControlsSelect">
 				      <ControlLabel>Models</ControlLabel>
-				      <FormControl componentClass="select" placeholder="select">
+				      <FormControl name="model" ref="model" componentClass="select" placeholder="select">
 				        { models }
 				      </FormControl>
 				    </FormGroup>;
-			    
+
 	}
 }
-

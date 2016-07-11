@@ -11,31 +11,68 @@ let component;
 _getFileFromInput = (component) => getInputValue(component);
 
 const addAnnonce = () => {
-    let file = _getFileFromInput(component.refs.addAnnonce.image);
-    let category = getInputValue(component.refs.addAnnonce.category);
-   let title = getInputValue(component.refs.addAnnonce.title);
-   let description = getInputValue(component.refs.addAnnonce.description);
-   let price = getInputValue(component.refs.addAnnonce.price);
-   let city = getInputValue(component.refs.addAnnonce.city);
+     let file = _getFileFromInput(component.refs.addAnnonce.image);
+     let category = getInputValue(component.refs.addAnnonce.category);
+     let title = getInputValue(component.refs.addAnnonce.title);
+     let description = getInputValue(component.refs.addAnnonce.description);
+     let price = getInputValue(component.refs.addAnnonce.price);
+     let city = getInputValue(component.refs.addAnnonce.city);
+
+
+     let brand ;
+     let model;
+     let carbs;
+     let annonce ;
+     switch(category){
+       case "Voitures":
+         brand  = getInputValue(component.refs.addAnnonce.brand);
+         model = getInputValue(component.refs.addAnnonce.model);
+         carbs = getInputValue(component.refs.addAnnonce.carbs);
+         annonce = {
+           category: { name: category },
+           title: title,
+           description: description,
+           price: parseInt(price),
+           typeAnnonce: "offre",
+           owner: Meteor.userId(),
+           city: { name: city },
+           photos: [
+             file
+           ],
+           publication: new Date(),
+           brand:  brand ,
+            model: model ,
+           carbs: carbs,
+           yearOfModel: 2000,
+           km: 30000
+         };
+         break;
+         default:
+         annonce = {
+           category: { name: category },
+           title: title,
+           description: description,
+           price: parseInt(price),
+           typeAnnonce: "offre",
+           owner: Meteor.userId(),
+           city: { name: city },
+           photos: [
+             file
+           ],
+           publication: new Date()
+         };
+     }
+
+    // let years = getInputValue(component.refs.addAnnonce.years);
+    //  let km = getInputValue(component.refs.addAnnonce.km);
+
 //   let typeAnnonce = getInputValue(component.refs.addAnnonce.typeAnnonce);
 
-    let annonce = {
-      category: { name: category },
-      title: title,
-      description: description,
-      price: parseInt(price),
-      typeAnnonce: "offre",
-      owner: Meteor.userId(),
-      city: { name: city },
-      photos: [
-        file
-      ],
-      publication: new Date()
-    };
+     
 
-    // console.log(annonce);
+    //  console.log(annonce);
 
-    // console.log(annonce);
+     console.log(annonce);
     insertAnnonce.call(annonce, (error) => {
       if(error){
         Bert.alert(error.reason, 'warning');

@@ -22,7 +22,7 @@ Annonces.deny({
 	remove: () => true
 });
 
-Annonces.AllSchema = new SimpleSchema({	
+Annonces.AllSchema = new SimpleSchema({
 	title:{
 		type: String,
 		label: "AnnonceAll - The title of the annonce"
@@ -40,7 +40,7 @@ Annonces.AllSchema = new SimpleSchema({
 		type: Cities.Schema,
 		label: 'AnnonceAll - the city of the annonce'
 	},
-	price: { 
+	price: {
 		type: Number,
 		label: 'AnnonceAll - The price of the annonce'
 	},
@@ -62,7 +62,7 @@ Annonces.AllSchema = new SimpleSchema({
 		type: Number,
 		label: 'AnnonceAll - The number of the comments',
 		optional: true,
-		defaultValue:0 
+		defaultValue:0
 	},
 	category:{
 		type: Categories.Schema,
@@ -93,7 +93,7 @@ Annonces.CarSchema = new SimpleSchema({
 		type: Cities.Schema,
 		label: 'Annonce-Car - the city of the annonce'
 	},
-	price: { 
+	price: {
 		type: Number,
 		label: 'Annonce-Car - The price of the annonce'
 	},
@@ -121,11 +121,11 @@ Annonces.CarSchema = new SimpleSchema({
 		label: 'Annonce-Car the category of the annonce'
 	},
 	brand: {
-		type: Brands.Schema,
+		type: String,
 		label: 'Annonce-Car the brand of car'
 	},
 	model:{
-		type: Brands.ModelsSchema,
+		type: String,
 		label: 'Annonce-Car the model of the car'
 	},
 	carbs:{
@@ -165,7 +165,7 @@ Annonces.MotorSchema = new SimpleSchema({
 		type: Cities.Schema,
 		label: 'Annonce-Motor - the city of the annonce'
 	},
-	price: { 
+	price: {
 		type: Number,
 		label: 'Annonce-Motor - The price of the annonce'
 	},
@@ -209,7 +209,7 @@ Annonces.MotorSchema = new SimpleSchema({
 
 Annonces.attachSchema(Annonces.AllSchema, { selector: { type: 'all' } });
 Annonces.attachSchema(Annonces.CarSchema, { selector: { type: 'car' } });
-Annonces.attachSchema(Annonces.MotorSchema, { selector: { type: 'motor' } });
+Annonces.attachSchema(Annonces.MotorSchema, { selector: { type: 'moto' } });
 
 Factory.define('annonceAll', Annonces, {
 	title: () => faker.hacker.phrase(),
