@@ -72,6 +72,19 @@ Annonces.AllSchema = new SimpleSchema({
 		type: [String],
 		label: 'The ids of the readers they have seen the annonce',
 		optional: true
+	},
+	public:{
+		type: Boolean,
+		defaultValue: false,
+		optional: true
+	},
+	moderator:{
+		type: String,
+		optional: true
+	},
+	dateModeration:{
+		type: Date,
+		optional: true
 	}
 });
 
@@ -144,6 +157,19 @@ Annonces.CarSchema = new SimpleSchema({
 		type: [String],
 		label: 'The ids of the readers they have seen the annonce',
 		optional: true
+	},
+	public:{
+		type: Boolean,
+		defaultValue: false,
+		optional: true
+	},
+	moderator:{
+		type: String,
+		optional: true
+	},
+	dateModeration:{
+		type: Date,
+		optional: true
 	}
 });
 
@@ -203,6 +229,19 @@ Annonces.MotorSchema = new SimpleSchema({
 	readers:{
 		type: [String],
 		label: 'The ids of the readers they have seen the annonce',
+		optional: true
+	},
+	public:{
+		type: Boolean,
+		defaultValue: false,
+		optional: true
+	},
+	moderator:{
+		type: String,
+		optional: true
+	},
+	dateModeration:{
+		type: Date,		
 		optional: true
 	}
 });

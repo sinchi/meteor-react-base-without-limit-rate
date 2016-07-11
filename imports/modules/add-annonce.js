@@ -11,7 +11,7 @@ let component;
 _getFileFromInput = (component) => getInputValue(component);
 
 const addAnnonce = () => {
-     let file = _getFileFromInput(component.refs.addAnnonce.image);
+     let file = component.refs.addAnnonce.image.files[0].name; //_getFileFromInput(component.refs.addAnnonce.image);
      let category = getInputValue(component.refs.addAnnonce.category);
      let title = getInputValue(component.refs.addAnnonce.title);
      let description = getInputValue(component.refs.addAnnonce.description);
@@ -47,7 +47,9 @@ const addAnnonce = () => {
            km: 30000
          };
          break;
-         default:
+      case "Motos":
+      break;
+      default:
          annonce = {
            category: { name: category },
            title: title,
@@ -61,6 +63,7 @@ const addAnnonce = () => {
            ],
            publication: new Date()
          };
+         break;
      }
 
     // let years = getInputValue(component.refs.addAnnonce.years);
@@ -68,18 +71,18 @@ const addAnnonce = () => {
 
 //   let typeAnnonce = getInputValue(component.refs.addAnnonce.typeAnnonce);
 
-     
+
 
     //  console.log(annonce);
 
      console.log(annonce);
-    insertAnnonce.call(annonce, (error) => {
-      if(error){
-        Bert.alert(error.reason, 'warning');
-      }else{
-        Bert.alert("Votre Annonce est ajouté et sera publier dans quelque instant après la modération nMerci");
-      }
-    });
+    // insertAnnonce.call(annonce, (error) => {
+    //   if(error){
+    //     Bert.alert(error.reason, 'warning');
+    //   }else{
+    //     Bert.alert("Votre Annonce est ajouté et sera publier dans quelque instant après la modération Merci", "success");
+    //   }
+    // });
 };
 
 const validate = () => {

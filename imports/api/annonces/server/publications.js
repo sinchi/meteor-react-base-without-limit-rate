@@ -5,7 +5,7 @@ Meteor.publish('annonces', function(search){
 
 	check( search, Match.OneOf( String, null, undefined ) );
 
-	  let query      = {},
+	  let query      = {public: true},
 	      projection = { limit: 10, sort: { title: 1 } };
 
 	  if ( search ) {
