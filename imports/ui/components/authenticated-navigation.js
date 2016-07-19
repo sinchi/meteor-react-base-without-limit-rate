@@ -35,17 +35,10 @@ export const AuthenticatedNavigation = () => (
         eventKey={ 2 }
         title={  <span><i className="fa fa-bullhorn fa-lg"></i> Mes abonnements <Badge pullRight> 18</Badge></span> }
         id="basic-nav-dropdown">
-        <MenuItem eventKey={ 2.1 }><Icon name="mobile-phone" size="lg" /> Téléphone <Badge pullRight> 15</Badge></MenuItem>
+        <MenuItem eventKey={ 2.1 }><Icon name="mobile-phone" size="lg" /> Téléphones <Badge pullRight> 15</Badge></MenuItem>
         <MenuItem divider />
-       <MenuItem eventKey={ 2.2 } >Samsung <Badge pullRight>3</Badge></MenuItem>
-       <MenuItem eventKey={ 2.3 } >Iphone <Badge pullRight>4</Badge></MenuItem>
-       <MenuItem eventKey={ 2.4 } >HTC <Badge pullRight>7</Badge></MenuItem>
-       <MenuItem eventKey={ 2.5 } >Sony <Badge pullRight>1</Badge></MenuItem>
-      <MenuItem divider />
-      <MenuItem eventKey={ 2.6 }><Icon name="car" size="lg" /> Voitures <Badge pullRight> 3</Badge></MenuItem>
-      <MenuItem divider />
-      <MenuItem eventKey={ 2.7 }>Renault <Badge pullRight> 2</Badge></MenuItem>
-      <MenuItem eventKey={ 2.8 }>Fiat <Badge pullRight> 1</Badge></MenuItem>
+      <MenuItem eventKey={ 2.2 }><Icon name="car" size="lg" /> Véhicules <Badge pullRight> 3</Badge></MenuItem>
+    
      </NavDropdown>
     </Nav>
     <Nav pullRight>

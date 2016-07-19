@@ -14,14 +14,12 @@ Meteor.publish('annonces', function(search){
 	    query = {
 	      $or: [
 	        { title: regex },
-	        // { artist: regex },
-	        // { year: regex }
 	      ]
 	    };
 
-	    projection.limit = 100;
+			return Annonces.find( query, projection );
 	  }
 
-	  return Annonces.find( query, projection );
+	  return Annonces.find({public: true});
 
 });

@@ -3,7 +3,8 @@ import 'jquery-validation';
 import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { getInputValue } from './get-input-value';
-import { insertAnnonce } from '../api/annonces/methods.js';
+
+import { _uploadFileToAmazon } from './upload-to-amazon-s3.js';
 
 
 let component;
@@ -11,7 +12,7 @@ let component;
 _getFileFromInput = (component) => getInputValue(component);
 
 const addAnnonce = () => {
-     let file = component.refs.addAnnonce.image.files[0].name; //_getFileFromInput(component.refs.addAnnonce.image);
+     let file = component.refs.addAnnonce.image.files[0]; //_getFileFromInput(component.refs.addAnnonce.image);
      let category = getInputValue(component.refs.addAnnonce.category);
      let title = getInputValue(component.refs.addAnnonce.title);
      let description = getInputValue(component.refs.addAnnonce.description);
@@ -76,6 +77,8 @@ const addAnnonce = () => {
     //  console.log(annonce);
 
      console.log(annonce);
+    _uploadFileToAmazon(annonce.photos[0], annonce);
+
     // insertAnnonce.call(annonce, (error) => {
     //   if(error){
     //     Bert.alert(error.reason, 'warning');
