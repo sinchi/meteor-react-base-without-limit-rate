@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-
+import { Icon } from 'react-fa';
 export class CategoriesList extends Component{
 
 	constructor(){
@@ -20,7 +20,7 @@ export class CategoriesList extends Component{
 					</optgroup>
 		})
 		return 	<FormGroup controlId="formControlsSelect">
-				      <ControlLabel>Catégorie: </ControlLabel>
+				      <ControlLabel><Icon name="shopping-basket" size="lg" /> Catégorie: </ControlLabel>
 				      <FormControl name="category" ref="category" componentClass="select" placeholder="select" onChange={ this.props.onCategoryChange }>
 				        { categories }
 				      </FormControl>

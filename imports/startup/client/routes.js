@@ -26,8 +26,9 @@ Meteor.startup(() => {
   render(
     <Router history={ browserHistory }>
       <Route path="/" component={ App }>
-        <IndexRoute name="index" component={ Index } onEnter={ requireAuth } />
-        <Route name="documents" path="/documents" component={ Documents } onEnter={ requireAuth } />
+        <IndexRoute name="annonces" component={ Annonces } onEnter={ requireAuth } />
+        {/*<IndexRoute name="index" component={ Index } onEnter={ requireAuth } />*/}
+        {/* <Route name="documents" path="/documents" component={ Documents } onEnter={ requireAuth } /> */}
         <Route name="annonces" path="/annonces" component={ Annonces } onEnter={ requireAuth } />
         <Route name="add-annonce" path="/add-annonce" component={ AddAnnonce } onEnter={ requireAuth } />
         <Route name="login" path="/login" component={ Login } />

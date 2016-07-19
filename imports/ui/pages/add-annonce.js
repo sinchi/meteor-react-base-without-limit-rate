@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap';
+import { FormGroup, FormControl, Col, ControlLabel, Feedback } from 'react-bootstrap';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { insertAnnonce } from '../../api/annonces/methods.js';
 import { TypeAnnonce } from '../components/type-annonce.js';
@@ -8,6 +8,7 @@ import  CategoriesList  from '../containers/categories-list.js';
 import  CitiesList  from '../containers/cities-list.js';
 import { handleAddAnnonce } from '../../modules/add-annonce.js';
 import { AddFile } from '../components/add-file.js';
+import { Icon } from 'react-fa';
 
 export class AddAnnonce extends React.Component{
 
@@ -17,7 +18,6 @@ export class AddAnnonce extends React.Component{
       category : ""
     }
   }
-
 
   componentDidMount(){
     handleAddAnnonce({ component: this });
@@ -37,7 +37,7 @@ export class AddAnnonce extends React.Component{
       <form ref="addAnnonce" name="addAnnonce" onSubmit={ this.handleSubmitForm.bind(this) }>
         <CategoriesList onCategoryChange={ this.onCategoryChange.bind(this) }/>
         <CitiesList />
-        <FormGroup>
+        <FormGroup controlId="formValidationSuccess1">
          <ControlLabel>Titre</ControlLabel>
           <FormControl
             type="text"
@@ -45,6 +45,7 @@ export class AddAnnonce extends React.Component{
             ref="title"
             name="title"
           />
+          <FormControl.Feedback />
         </FormGroup>
           <FormGroup controlId="formControlsTextarea">
            <ControlLabel>Description</ControlLabel>
@@ -53,19 +54,25 @@ export class AddAnnonce extends React.Component{
               placeholder="Description"
               ref="description"
               name="description" />
+              <FormControl.Feedback />
             </FormGroup>
+
             <FormGroup>
-             <ControlLabel>Prix:</ControlLabel>
+             <ControlLabel><Icon name="money" size="lg"/> Prix:</ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Prix d'annonce"
                 ref="price"
                 name="price"
+                min="0"
+                max="100000"
               />
+              <FormControl.Feedback />
             </FormGroup>
+
           <TypeAnnonce />
         { this.state.category === "Voitures" ?  <BrandsList /> : '' }
-         <AddFile /> 
+         <AddFile />
 
         <input type="submit" value="add annonce" />
       </form>

@@ -129,6 +129,45 @@ const validate = () => {
       }
     },
     submitHandler() { addAnnonce(); },
+    invalidHandler(event, validator) {
+      // 'this' refers to the form
+      var errors = validator.numberOfInvalids();
+      if (errors) {
+        var message = errors == 1
+          ? 'You missed 1 field. It has been highlighted'
+          : 'You missed ' + errors + ' fields. They have been highlighted';
+      //  $("div.error span").html(message);
+        //$("div.error").show();
+        console.log(message);
+      } else {
+        $("div.error").hide();
+      }
+    },
+
+    // success: function(label) {
+    //   console.log(label);
+    //   label.addClass("valid").text("Ok!")
+    // },
+
+    highlight: function(element, errorClass) {
+      console.log($(element).parent());
+      $(element).parent().removeClass('has-success');
+      $(element).parent().addClass('has-error');
+          $(element).parent().removeClass('has-feedback');
+          $(element).parent().addClass('has-feedback');
+     },
+
+     unhighlight: function(element, errorClass) {
+       console.log($(element).parent());
+      $(element).parent().removeClass('has-error');
+
+      $(element).parent().addClass('has-success');
+      $(element).parent().removeClass('has-feedback');
+      $(element).parent().addClass('has-feedback');
+      console.log('success');
+      //console.log(element);
+    }
+
   });
 };
 

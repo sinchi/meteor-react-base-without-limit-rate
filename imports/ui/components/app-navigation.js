@@ -3,6 +3,7 @@ import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { PublicNavigation } from './public-navigation';
 import { AuthenticatedNavigation } from './authenticated-navigation';
+import { Icon } from 'react-fa';
 
 export class AppNavigation extends React.Component {
   renderNavigation(hasUser) {
@@ -10,10 +11,10 @@ export class AppNavigation extends React.Component {
   }
 
   render() {
-    return <Navbar>
+    return <Navbar inverse>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/">Application Name</Link>
+          <Link to="/"><Icon name="star-o" size="lg" /> Annoncio</Link>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
@@ -27,6 +28,3 @@ export class AppNavigation extends React.Component {
 AppNavigation.propTypes = {
   hasUser: React.PropTypes.object,
 };
-
-
-
