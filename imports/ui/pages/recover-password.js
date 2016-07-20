@@ -14,9 +14,10 @@ export class RecoverPassword extends React.Component {
   render() {
     return <Row>
       <Col xs={ 12 } sm={ 6 } md={ 4 }>
-        <h4 className="page-header">Recover Password</h4>
+        <h4 className="page-header">Mot de passe oublié</h4>
         <Alert bsStyle="info">
-          Enter your email address below to receive a link to reset your password.
+          Saisir votre email içi pour recevoir ton lien de redéfinition de votre mot de passe
+          {/* Enter your email address below to receive a link to reset your password. */}
         </Alert>
         <form ref="recoverPassword" className="recover-password" onSubmit={ this.handleSubmit }>
           <FormGroup>
@@ -27,7 +28,7 @@ export class RecoverPassword extends React.Component {
               placeholder="Email Address"
             />
           </FormGroup>
-          <Button type="submit" bsStyle="success">Recover Password</Button>
+          <Button type="submit" bsStyle="success">Envoyer Mot de passe</Button>
         </form>
       </Col>
     </Row>;

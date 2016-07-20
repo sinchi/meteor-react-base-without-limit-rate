@@ -1,4 +1,4 @@
-import $ from 'jquery';
+ import $ from 'jquery';
 import 'jquery-validation';
 import { browserHistory } from 'react-router';
 import { Meteor } from 'meteor/meteor';
@@ -15,7 +15,7 @@ const login = () => {
     if (error) {
       Bert.alert(error.reason, 'warning');
     } else {
-      Bert.alert('Logged in!', 'success');
+      Bert.alert('Nous sommes content de vous revoir ' + Meteor.user().profile.name.first + ' ' + Meteor.user().profile.name.last, 'success');
 
       const { location } = component.props;
       if (location.state && location.state.nextPathname) {
@@ -40,11 +40,11 @@ const validate = () => {
     },
     messages: {
       emailAddress: {
-        required: 'Need an email address here.',
-        email: 'Is this email address legit?',
+        required: 'L\'address email est obligatoire',
+        email: 'Cette adresse email n\'est pas correct',
       },
       password: {
-        required: 'Need a password here.',
+        required: 'Le mot de passe est obligatoire',
       },
     },
     submitHandler() { login(); },

@@ -35,12 +35,12 @@ const validate = () => {
     },
     messages: {
       newPassword: {
-        required: 'Enter a new password, please.',
-        minlength: 'Use at least six characters, please.',
+        required: 'Saisir un nouveau mot de passe s\'il vous plaît.',
+        minlength: 'Saisir 6 caractéres au minimum , s\'il vous plaît.',
       },
       repeatNewPassword: {
-        required: 'Repeat your new password, please.',
-        equalTo: 'Hmm, your passwords don\'t match. Try again?',
+        required: 'Resaisir votre nouveau mot de passe, s\'il vous plaît.',
+        equalTo: 'Hmm, votre mot de passe ne sont pas identiques! Ressayez s\'il vous plaît.',
       },
     },
     submitHandler() { handleReset(); },

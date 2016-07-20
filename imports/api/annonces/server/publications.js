@@ -5,7 +5,7 @@ Meteor.publish('annonces', function(search){
 
 	check( search, Match.OneOf( String, null, undefined ) );
 
-	  let query      = {public: true},
+	  let query      = {},
 	      projection = { limit: 10, sort: { title: 1 } };
 
 	  if ( search ) {
@@ -14,7 +14,8 @@ Meteor.publish('annonces', function(search){
 	    query = {
 	      $or: [
 	        { title: regex },
-	      ]
+	      ],
+				public: true
 	    };
 
 			return Annonces.find( query, projection );
@@ -22,4 +23,8 @@ Meteor.publish('annonces', function(search){
 
 	  return Annonces.find({public: true});
 
+});
+
+Meteor.publish('my-annonces', function(){
+		return Annonces.find({ owner: this.userId });
 });

@@ -29,7 +29,7 @@ const signUp = () => {
       Bert.alert(error.reason, 'danger');
     } else {
       browserHistory.push('/');
-      Bert.alert('Welcome!', 'success');
+      Bert.alert('Bienvenue avec nous sur Annoncio !', 'success');
     }
   });
 };
@@ -60,18 +60,18 @@ const validate = () => {
     },
     messages: {
       firstName: {
-        required: 'First name?',
+        required: 'Prénom ?',
       },
       lastName: {
-        required: 'Last name?',
+        required: 'Nom?',
       },
       emailAddress: {
-        required: 'Need an email address here.',
-        email: 'Is this email address legit?',
+        required: 'Email est obligatoire',
+        email: 'Email saisi n\'est pas correct',
       },
       password: {
-        required: 'Need a password here.',
-        minlength: 'Use at least six characters, please.',
+        required: 'Mot de passe est obligatoire.',
+        minlength: 'Saisir 6 caractéres au minimum, s\'il vous plaît.',
       },
     },
     submitHandler() { signUp(); },

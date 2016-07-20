@@ -28,8 +28,8 @@ const validate = () => {
     },
     messages: {
       emailAddress: {
-        required: 'Need an email address here.',
-        email: 'Is this email address legit?',
+        required: 'Email est obligatoire',
+        email: 'Email saisi n\'est pas correct !',
       },
     },
     submitHandler() { handleRecovery(); },

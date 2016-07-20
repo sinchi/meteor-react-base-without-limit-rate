@@ -17,14 +17,15 @@ export class ResetPassword extends React.Component {
   render() {
     return <Row>
       <Col xs={ 12 } sm={ 6 } md={ 4 }>
-        <h4 className="page-header">Reset Password</h4>
+        <h4 className="page-header">Changer Mot de passe</h4>
         <Alert bsStyle="info">
-          To reset your password, enter a new one below. You will be logged in
-with your new password.
+          {/*To reset your password, enter a new one below. You will be logged in
+with your new password. */}
+  Saisir votre nouveau mot de passe
         </Alert>
         <form ref="resetPassword" className="reset-password" onSubmit={ this.handleSubmit }>
           <FormGroup>
-            <ControlLabel>New Password</ControlLabel>
+            <ControlLabel>Nouveau mot de passe</ControlLabel>
             <FormControl
               type="password"
               ref="newPassword"
@@ -33,7 +34,7 @@ with your new password.
             />
           </FormGroup>
           <FormGroup>
-            <ControlLabel>Repeat New Password</ControlLabel>
+            <ControlLabel>resaisir votre nouveau mot de passe</ControlLabel>
             <FormControl
               type="password"
               ref="repeatNewPassword"
@@ -41,7 +42,7 @@ with your new password.
               placeholder="Repeat New Password"
             />
           </FormGroup>
-          <Button type="submit" bsStyle="success">Reset Password &amp; Login</Button>
+          <Button type="submit" bsStyle="success">Changer mot de passe &amp; Login</Button>
         </form>
       </Col>
     </Row>;

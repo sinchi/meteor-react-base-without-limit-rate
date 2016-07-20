@@ -33,20 +33,25 @@ export const AuthenticatedNavigation = () => (
       </LinkContainer>
       <NavDropdown
         eventKey={ 2 }
-        title={  <span><i className="fa fa-bullhorn fa-lg"></i> Mes abonnements <Badge pullRight> 18</Badge></span> }
+        title={  <span><i className="fa fa-bullhorn fa-lg"></i> Abonnement <Badge pullRight> 18</Badge></span> }
         id="basic-nav-dropdown">
-        <MenuItem eventKey={ 2.1 }><Icon name="mobile-phone" size="lg" /> Téléphones <Badge pullRight> 15</Badge></MenuItem>
+        <MenuItem eventKey={ 2.1 }><Icon name="plus-circle" size="lg" /> Abonner à une catégorie</MenuItem>
         <MenuItem divider />
-      <MenuItem eventKey={ 2.2 }><Icon name="car" size="lg" /> Véhicules <Badge pullRight> 3</Badge></MenuItem>
-    
+        <MenuItem eventKey={ 3.1 }><Icon name="mobile-phone" size="lg" /> Téléphones <Badge pullRight> 15</Badge></MenuItem>
+        <MenuItem divider />
+      <MenuItem eventKey={ 3.2 }><Icon name="car" size="lg" /> Véhicules <Badge pullRight> 3</Badge></MenuItem>
+
      </NavDropdown>
+     <LinkContainer to="/my-annonces">
+       <NavItem eventKey={ 3 } href="/annonces"><Icon size='lg' name="hand-grab-o"/> Mes annonces</NavItem>
+     </LinkContainer>
     </Nav>
     <Nav pullRight>
     <LinkContainer to="/add-annonce">
-      <NavItem eventKey = { 3 } href="/add-annonce"><Icon name="flash" size="lg" /> Publier une annonce</NavItem>
+      <NavItem eventKey = { 4 } href="/add-annonce"><Icon name="flash" size="lg" /> Publier une annonce</NavItem>
     </LinkContainer>
-       <NavDropdown eventKey={ 4 } title={ userName() } id="basic-nav-dropdown">
-        <MenuItem eventKey={ 4.1 } onClick={ handleLogout }>Logout</MenuItem>
+       <NavDropdown eventKey={ 5 } title={ userName() } id="basic-nav-dropdown">
+        <MenuItem eventKey={ 5.1 } onClick={ handleLogout }>Déconnexion</MenuItem>
       </NavDropdown>
     </Nav>
   </div>

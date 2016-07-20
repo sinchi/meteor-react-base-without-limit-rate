@@ -1,4 +1,5 @@
 import { Slingshot } from 'meteor/edgee:slingshot';
+import { browserHistory } from 'react-router';
 import { insertAnnonce } from '../api/annonces/methods.js';
 
 export const _uploadFileToAmazon = ( file, annonce ) => {
@@ -16,6 +17,7 @@ export const _uploadFileToAmazon = ( file, annonce ) => {
           Bert.alert(error.reason, 'warning');
         }else{
           Bert.alert("Votre Annonce est ajouté et sera publier dans quelque instant après la modération Merci", "success");
+          browserHistory.push('/');
         }
       });
     }
