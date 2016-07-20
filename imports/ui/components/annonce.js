@@ -10,8 +10,8 @@ function getPhoto(annonce){
 }
 
 function getUser(annonce){
-	//return Meteor.users.findOne(annonce.owner);
-	return Meteor.user().profile.name.first;
+	return Meteor.users.findOne(annonce.owner);
+	//return Meteor.user().profile.name.first;
 }
 
 export const Annonce = ({ annonce }) => (
@@ -21,7 +21,7 @@ export const Annonce = ({ annonce }) => (
 			<Icon name="user" size="lg" /> { Meteor.user().profile.name.first }
 		</Col>*/}
 		<Col xs={6} md={8} xsOffset={2}>
-			<Icon name="user" size="lg" /> { Meteor.user().profile.name.first}
+			<Icon name="user" size="lg" /> { getUser(annonce).profile.name.first}
 
 		 <Thumbnail src={ getPhoto(annonce) } alt={ annonce.title }>
 			 <h3>{ annonce.title }</h3>
