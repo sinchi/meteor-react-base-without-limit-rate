@@ -27,24 +27,27 @@ export class AuthenticatedNavigation extends React.Component{
   }
 
   abonner(event){
-    let category = event.target.target;
-    let categoryData = Categories.findOne({ name: category });
-    console.log(categoryData);
-    let abonnementCategory = {
-      userId: Meteor.userId(),
-      categoryId: categoryData._id._str
-    };
+    // let category = event.target.target;
+    // let categoryData = Categories.findOne({ name: category });
+    // console.log(categoryData);
+    // let abonnementCategory = {
+    //   userId: Meteor.userId(),
+    //   categoryId: categoryData._id._str
+    // };
+    //
+    // insertAbonnementCategory.call({
+    //    userId: Meteor.userId(),
+    //    categoryId: categoryData._id._str
+    // }, (error) => {
+    //   if(error){
+    //     console.log(error);
+    //     Bert.alert(error.reason, 'danger');
+    //   }else{
+    //       Bert.alert('Vous êtes abonné à la catégorie: ' + categoryData.name, "success");
+    //     }
+    // });
 
-    insertAbonnementCategory.call(abonnementCategory, function(error){
-      if(error){
-        console.log(error);
-        Bert.alert(error.reason, 'danger');
-      }
-      else{
-          Bert.alert('Vous êtes abonné à la catégorie: ' + categoryData.name, "success");
-        }
-    });
-
+    console.log(event.target.target);
   }
 
   render(){

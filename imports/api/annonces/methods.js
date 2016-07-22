@@ -61,8 +61,11 @@ export const insertAnnonce = new ValidatedMethod({
 				_id =  Annonces.insert(annonce, { selector: { type: 'all' } });
 		}
 
-		const categoryId = Categories.findOne({ name: annonce.category.name });
-		const getAbonnes = AbonnementCategory.find({ categoryId: categoryId });
+		const category = Categories.findOne({ name: annonce.category.name });
+		const parent = Categories.findOne({ name:category.parent });
+		const getAbonnes = AbonnementCategory.find({ categoryId: parent._id._str }).fetch();
+		console.log(category);
+		console.log("nombre des abonnes en categorie  " + parent.name + " = "  + getAbonnes.length);
 		getAbonnes.map((abonnement) => {
 			const notificationAnnonce = {
 				userId: abonnement.userId,
@@ -70,7 +73,8 @@ export const insertAnnonce = new ValidatedMethod({
 				publication: new Date(),
 				read: false
 			};
-
+			console.log(JSON.stringify(abonnement));
+			console.log(JSON.stringify(notificationAnnonce));
 			insertNotificationNewAnnonce.call(notificationAnnonce);
 		});
 

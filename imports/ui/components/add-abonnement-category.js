@@ -1,11 +1,51 @@
 import React from 'react';
 import { Popover, Tooltip, Button, Modal, OverlayTrigger, Thumbnail, Col, Row } from 'react-bootstrap';
+import  SelectCategoryForSubscription   from '../containers/select-category-for-subscription-container.js';
+import { Categories } from '../../api/categories/categories.js';
 import { Icon } from 'react-fa';
 
 export class AddAbonnementCategory extends React.Component{
 
   constructor(){
     super(...arguments);
+    this.state={
+      electronique: "",
+      vehicule:"",
+      immobilier:"",
+      maison:"",
+      habillement:"",
+      loisir:""
+    }
+  }
+
+  componentDidMount(){
+    console.log(this.state.electronique);
+  }
+
+  selectedCategory(event){
+    let category = Categories.findOne({ name: event.target.value });
+
+    switch (category.parent) {
+      case "Electronique et Multimédia":
+        this.setState({ electronique: event.target.value });
+        break;
+      case "Véhicules":
+          this.setState({ vehicule: event.target.value });
+          break;
+      case "Immobilier":
+          this.setState({ immobilier: event.target.value });
+        break;
+      case "Pour la maison et Jardin":
+            this.setState({ maison: event.target.value });
+        break;
+      case "Habillement et bien etre":
+          this.setState({ habillement: event.target.value });
+        break;
+      case "Loisirs et Divertissement":
+          this.setState({ loisir: event.target.value });
+        break;
+    }
+    //console.log(this.state.electronique);
   }
 
   render() {
@@ -22,28 +62,25 @@ export class AddAbonnementCategory extends React.Component{
           <Row>
               <Col md={4}>
                   <Thumbnail src={ "informatique-et-multimedia.jpg" } alt={"ok"}>
-                   <h3>Informatique et multimédia</h3>
-                   <p>Informatique</p>
+                   <SelectCategoryForSubscription parent="Electronique et Multimédia" selectedCategory={this.selectedCategory.bind(this)}/>
                    <p>
-                    <Button target={ "Electronique et Multimédia" } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                    <Button target={ this.state.electronique } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
                    </p>
                  </Thumbnail>
               </Col>
               <Col md={4}>
                  <Thumbnail src={"vehicules.jpg"} alt={ "ok" }>
-                   <h3>Véhicules</h3>
-                   <p>Voiture, Motos ...</p>
+                 <SelectCategoryForSubscription parent="Véhicules" selectedCategory={this.selectedCategory.bind(this)}/>
                    <p>
-                     <Button target={ "Véhicules" }  bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                     <Button target={ this.state.vehicule }  bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
                    </p>
                  </Thumbnail>
               </Col>
               <Col md={4}>
                  <Thumbnail src={ "immobilier.jpg" } alt={ "ok" }>
-                   <h3>Immobilier</h3>
-                   <p>Immobilier</p>
+                 <SelectCategoryForSubscription parent="Immobilier" selectedCategory={this.selectedCategory.bind(this)}/>
                    <p>
-                     <Button target={ "Immobilier" } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                     <Button target={ this.state.immobilier } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
                    </p>
                  </Thumbnail>
               </Col>
@@ -51,28 +88,25 @@ export class AddAbonnementCategory extends React.Component{
             <Row>
               <Col md={4}>
                  <Thumbnail src={ "maison-et-jardin.jpg" } alt={ "ok" }>
-                   <h3>Pour la maison et jardin</h3>
-                   <p>Pour la maison et jardin</p>
                    <p>
-                     <Button target={ "Pour la maison et Jardin" } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                   <SelectCategoryForSubscription parent="Pour la maison et Jardin" selectedCategory={this.selectedCategory.bind(this)}/>
+                     <Button target={ this.state.maison } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
                    </p>
                  </Thumbnail>
                </Col>
               <Col md={4}>
                <Thumbnail src={ "habillement-et-bien-etre.jpg" } alt={ "ok" }>
-                 <h3>Habillement et bien être</h3>
-                 <p>Habillement et bien être</p>
+                  <SelectCategoryForSubscription parent="Habillement et bien etre" selectedCategory={this.selectedCategory.bind(this)}/>
                  <p>
-                   <Button target={ "Habillement et bien etre" } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                   <Button target={ this.state.habillement } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
                  </p>
                </Thumbnail>
             </Col>
             <Col md={4}>
                <Thumbnail src={ "loisirs.jpg" } alt={ "ok" }>
-                 <h3>Loisirs et divertissement</h3>
-                 <p>Loisirs et divertissement</p>
+                 <SelectCategoryForSubscription parent="Loisirs et Divertissement" selectedCategory={this.selectedCategory.bind(this)}/>
                  <p>
-                   <Button target={ "Loisirs et Divertissement" } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                   <Button target={ this.state.loisir } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
                  </p>
                </Thumbnail>
              </Col>
