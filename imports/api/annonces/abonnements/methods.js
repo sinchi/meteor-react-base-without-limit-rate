@@ -3,18 +3,18 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { AbonnementCategory } from './abonnement-category.js';
 
 export const insertAbonnementCategory = new ValidatedMethod({
-	name: 'abonnementCategory.insert',
+	name: "abonnementCategoyInsert",
 	validate: new SimpleSchema({
 		userId: { type: String },
 		categoryId: { type: String }
 	}).validator(),
-	run(abonnementCategory){		
+	run(abonnementCategory){
 		AbonnementCategory.insert(abonnementCategory);
 	}
 });
 
 export const removeAbonnementCategory = new ValidatedMethod({
-	name: 'abonnementCategory.remove',
+	name: "abonnementCategory.remove",
 	validate: new SimpleSchema({
 		_id: { type: String },
 		userId: { type: String }

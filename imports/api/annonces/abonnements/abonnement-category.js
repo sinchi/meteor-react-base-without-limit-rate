@@ -3,7 +3,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/dburles:factory';
 import faker from 'faker';
 
-export const AbonnementCategory = new Mongo.Collection('abonnement-category');
+export const AbonnementCategory = new Mongo.Collection('abonnementcategory');
 
 AbonnementCategory.allow({
 	insert: () => false,
@@ -20,7 +20,6 @@ AbonnementCategory.deny({
 AbonnementCategory.Schema = new SimpleSchema({
 	userId: {
 		type: String,
-		unique: true,
 		label: 'the user id '
 	},
 	categoryId: {

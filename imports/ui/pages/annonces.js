@@ -65,7 +65,7 @@ export class Annonces extends React.Component{
 				  { this.state.category === "Voitures" ?  <BrandsList /> : '' }
 
 			      <Search text={ this.state.text } handleSearch={ this.handleSearch.bind(this) } />
-			    
+
 			      {/* <AnnoncesList text={ this.state.text } /> */}
 			    </Col>
 			    <Col md={ 9 }>
