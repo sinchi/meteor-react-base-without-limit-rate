@@ -8,6 +8,7 @@ import { AddAbonnementCategory } from './add-abonnement-category.js';
 import { Categories } from '../../api/categories/categories.js';
 import { insertAbonnementCategory } from '../../api/annonces/abonnements/methods.js';
 import { Bert } from 'meteor/themeteorchef:bert';
+import DropDownAbonnement from '../containers/drop-down-abonnement-container.js';
 
 export class AuthenticatedNavigation extends React.Component{
 
@@ -27,27 +28,26 @@ export class AuthenticatedNavigation extends React.Component{
   }
 
   abonner(event){
-    // let category = event.target.target;
-    // let categoryData = Categories.findOne({ name: category });
-    // console.log(categoryData);
-    // let abonnementCategory = {
-    //   userId: Meteor.userId(),
-    //   categoryId: categoryData._id._str
-    // };
-    //
-    // insertAbonnementCategory.call({
-    //    userId: Meteor.userId(),
-    //    categoryId: categoryData._id._str
-    // }, (error) => {
-    //   if(error){
-    //     console.log(error);
-    //     Bert.alert(error.reason, 'danger');
-    //   }else{
-    //       Bert.alert('Vous êtes abonné à la catégorie: ' + categoryData.name, "success");
-    //     }
-    // });
+     let category = event.target.target;
+     let categoryData = Categories.findOne({ name: category });
+      console.log(category);
+     let abonnementCategory = {
+       userId: Meteor.userId(),
+       categoryId: categoryData._id
+     };
 
-    console.log(event.target.target);
+     insertAbonnementCategory.call({
+        userId: Meteor.userId(),
+        categoryId: categoryData._id
+    }, (error) => {
+      if(error){
+        console.log(error);
+        Bert.alert(error.reason, 'danger');
+      }else{
+          Bert.alert('Vous êtes abonné à la catégorie: ' + categoryData.name, "success");
+        }
+    });
+
   }
 
   render(){
@@ -75,17 +75,7 @@ export class AuthenticatedNavigation extends React.Component{
           <LinkContainer to="/annonces">
             <NavItem eventKey={ 1 } href="/annonces"><Icon size='lg' name="home"/> Accueil <Badge pullRight> 4</Badge></NavItem>
           </LinkContainer>
-          <NavDropdown
-            eventKey={ 2 }
-            title={  <span><i className="fa fa-bullhorn fa-lg"></i> Abonnement <Badge pullRight> 18</Badge></span> }
-            id="basic-nav-dropdown">
-            <MenuItem eventKey={ 2.1 } onClick={ this.open.bind(this) }><Icon name="plus-circle" size="lg" /> Abonner à une catégorie</MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey={ 3.1 }><Icon name="mobile-phone" size="lg" /> Téléphones <Badge pullRight> 15</Badge></MenuItem>
-            <MenuItem divider />
-          <MenuItem eventKey={ 3.2 }><Icon name="car" size="lg" /> Véhicules <Badge pullRight> 3</Badge></MenuItem>
-
-         </NavDropdown>
+          <DropDownAbonnement open={ this.open.bind(this) }/>
          <LinkContainer to="/my-annonces">
            <NavItem eventKey={ 3 } href="/annonces"><Icon size='lg' name="hand-grab-o"/> Mes annonces</NavItem>
          </LinkContainer>

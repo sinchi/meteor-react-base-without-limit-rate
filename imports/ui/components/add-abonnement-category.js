@@ -64,7 +64,7 @@ export class AddAbonnementCategory extends React.Component{
                   <Thumbnail src={ "informatique-et-multimedia.jpg" } alt={"ok"}>
                    <SelectCategoryForSubscription parent="Electronique et Multimédia" selectedCategory={this.selectedCategory.bind(this)}/>
                    <p>
-                    <Button target={ this.state.electronique } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                    <Button target={ this.state.electronique } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
                    </p>
                  </Thumbnail>
               </Col>
@@ -72,7 +72,7 @@ export class AddAbonnementCategory extends React.Component{
                  <Thumbnail src={"vehicules.jpg"} alt={ "ok" }>
                  <SelectCategoryForSubscription parent="Véhicules" selectedCategory={this.selectedCategory.bind(this)}/>
                    <p>
-                     <Button target={ this.state.vehicule }  bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                     <Button target={ this.state.vehicule }  bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
                    </p>
                  </Thumbnail>
               </Col>
@@ -80,7 +80,7 @@ export class AddAbonnementCategory extends React.Component{
                  <Thumbnail src={ "immobilier.jpg" } alt={ "ok" }>
                  <SelectCategoryForSubscription parent="Immobilier" selectedCategory={this.selectedCategory.bind(this)}/>
                    <p>
-                     <Button target={ this.state.immobilier } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                     <Button target={ this.state.immobilier } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
                    </p>
                  </Thumbnail>
               </Col>
@@ -90,7 +90,7 @@ export class AddAbonnementCategory extends React.Component{
                  <Thumbnail src={ "maison-et-jardin.jpg" } alt={ "ok" }>
                    <p>
                    <SelectCategoryForSubscription parent="Pour la maison et Jardin" selectedCategory={this.selectedCategory.bind(this)}/>
-                     <Button target={ this.state.maison } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                     <Button target={ this.state.maison } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
                    </p>
                  </Thumbnail>
                </Col>
@@ -98,7 +98,7 @@ export class AddAbonnementCategory extends React.Component{
                <Thumbnail src={ "habillement-et-bien-etre.jpg" } alt={ "ok" }>
                   <SelectCategoryForSubscription parent="Habillement et bien etre" selectedCategory={this.selectedCategory.bind(this)}/>
                  <p>
-                   <Button target={ this.state.habillement } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                   <Button target={ this.state.habillement } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
                  </p>
                </Thumbnail>
             </Col>
@@ -106,7 +106,7 @@ export class AddAbonnementCategory extends React.Component{
                <Thumbnail src={ "loisirs.jpg" } alt={ "ok" }>
                  <SelectCategoryForSubscription parent="Loisirs et Divertissement" selectedCategory={this.selectedCategory.bind(this)}/>
                  <p>
-                   <Button target={ this.state.loisir } bsStyle="primary" onClick={ this.props.abonner }> <Icon name="eye" size="lg" /> S abonner</Button>&nbsp;
+                   <Button target={ this.state.loisir } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
                  </p>
                </Thumbnail>
              </Col>

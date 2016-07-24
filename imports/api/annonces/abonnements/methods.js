@@ -9,7 +9,11 @@ export const insertAbonnementCategory = new ValidatedMethod({
 		categoryId: { type: String }
 	}).validator(),
 	run(abonnementCategory){
-		AbonnementCategory.insert(abonnementCategory);
+		let abonnement = AbonnementCategory.findOne({ userId: abonnementCategory.userId, categoryId: abonnementCategory.categoryId });
+		if(!abonnement)
+			AbonnementCategory.insert(abonnementCategory);
+		else
+			 throw new Meteor.Error(403, "Vous êtes déjà abonné à cette catégorie");
 	}
 });
 

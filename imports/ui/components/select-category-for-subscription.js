@@ -12,6 +12,7 @@ export class SelectCategoryForSubscription extends React.Component{
       <FormGroup controlId="formControlsSelect">
              <ControlLabel>{ this.props.parent }</ControlLabel>
              <FormControl onChange={this.props.selectedCategory} ref="category-abonnement" name="category-abonnement" componentClass="select" placeholder="select" >
+              <option  key={"autres"} name={ "autres" }>Choisir une catégore</option>
                { children }
              </FormControl>
            </FormGroup>

@@ -15,6 +15,7 @@ import '../../api/brands/server/publications.js';
 
 import '../../api/annonces/abonnements/abonnement-category.js';
 import '../../api/annonces/abonnements/methods.js';
+import '../../api/annonces/abonnements/server/publications.js';
 
 import '../../api/annonces/notifications/notification-annonce.js';
 import '../../api/annonces/abonnements/methods.js';
