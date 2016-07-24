@@ -9,15 +9,15 @@ const composer = (params, onData) => {
 	const subscriptions = Meteor.subscribe('abonnement-category');
 	if(subscriptions.ready()) {
 		const abonnements = AbonnementCategory.find();
-		console.log(abonnements.length);
+	//	console.log(abonnements.length);
   let categories =  abonnements.map((abonnement) => {
 		if(abonnement){
-      console.log(abonnement);
+    //  console.log(abonnement);
       return Categories.findOne( abonnement.categoryId );
     }
 
     });
-		 console.log(categories);
+	//	 console.log(categories);
 		onData(null, { categories });
 	}
 };

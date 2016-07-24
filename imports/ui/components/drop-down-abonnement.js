@@ -6,11 +6,13 @@ import { Icon } from 'react-fa';
 export class DropDownAbonnement extends React.Component{
 
   render(){
-
-    let menuItems = this.props.categories.map((category) => {
-        return <MenuItem eventKey={ category.name }><Icon name="bell" size="lg" pullLeft/> { category.name } </MenuItem>;
+    let eventKey = 2;
+    let items = this.props.categories.map((category) => {
+      eventKey++;      
+        return <MenuItem eventKey={ "2."+eventKey }><Icon name="bell" size="lg" pullLeft/> { category.name } </MenuItem>;
     });
 
+    let menuItems = (this.props.categories && this.props.categories.length > 0) ? items : (<MenuItem eventKey={ 2.2 } > Vous n êtes abonné à aucune catégorie !</MenuItem>);
 
     return (
       <NavDropdown

@@ -4,8 +4,7 @@ import { AnnoncesList } from "../components/annonces-list.js";
 import { Loading } from '../components/loading.js';
 import { Meteor } from 'meteor/meteor';
 
-const composer = (params, onData) => {
-	console.log(params.text);
+const composer = (params, onData) => {	
 	const subscriptions = Meteor.subscribe('my-annonces');
 	if(subscriptions.ready()) {
 		const annonces = Annonces.find().fetch();
