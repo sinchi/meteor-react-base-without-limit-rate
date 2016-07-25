@@ -63,7 +63,7 @@ export const insertAnnonce = new ValidatedMethod({
 
 		const category = Categories.findOne({ name: annonce.category.name });
 		const parent = Categories.findOne({ name:category.parent });
-		const getAbonnes = AbonnementCategory.find({ categoryId: category._id._str }).fetch();
+		const getAbonnes = AbonnementCategory.find({ categoryId: category._id }).fetch();
 	//	console.log(category);
 	//	console.log("nombre des abonnes en categorie  " + parent.name + " = "  + getAbonnes.length);
 		getAbonnes.map((abonnement) => {
@@ -71,13 +71,15 @@ export const insertAnnonce = new ValidatedMethod({
 				userId: abonnement.userId,
 				annonceId: _id,
 				publication: new Date(),
+				category: abonnement.categoryId,
 				read: false
 			};
 		//	console.log(abonnement);
 			let user = Meteor.users.findOne(abonnement.userId);
 		//	console.log(user.profile.name.first);
 			//console.log(notificationAnnonce);
-			insertNotificationNewAnnonce.call(notificationAnnonce);
+      if(abonnement.userId !== this.userId)
+			   insertNotificationNewAnnonce.call(notificationAnnonce);
 		});
 
 	}

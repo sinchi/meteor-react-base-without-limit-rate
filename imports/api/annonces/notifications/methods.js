@@ -19,12 +19,17 @@ export const insertNotificationNewAnnonce = new ValidatedMethod({
 			defaultValue: new Date(),
 			label: 'The date of the notification'
 		},
+		category:{
+			type: String,
+			label: 'The category of the annonce'
+		},
 		read:{
 			type: Boolean,
 			label: 'Read it ?'
 		}
 	}).validator(),
 	run(notificationAnnonce){
+		console.log(notificationAnnonce);
 		NotificationAnnonce.insert(notificationAnnonce);
 	}
 });

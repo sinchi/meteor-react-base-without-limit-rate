@@ -33,6 +33,10 @@ NotificationAnnonce.Schema = new SimpleSchema({
 		defaultValue: new Date(),
 		label: 'The date of the notification'
 	},
+	category:{
+		type: String,
+		label: "The Category of annonce"
+	},
 	read:{
 		type: Boolean,
 		label: 'Read it ?'
