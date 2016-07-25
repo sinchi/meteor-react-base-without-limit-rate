@@ -7,6 +7,7 @@ import {Icon} from 'react-fa';
 import { AddAbonnementCategory } from './add-abonnement-category.js';
 import { Categories } from '../../api/categories/categories.js';
 import { insertAbonnementCategory } from '../../api/annonces/abonnements/methods.js';
+import { updateToReadNotificationNewAnnonce } from '../../api/annonces/notifications/methods.js';
 import { Bert } from 'meteor/themeteorchef:bert';
 import DropDownAbonnement from '../containers/drop-down-abonnement-container.js';
 
@@ -27,10 +28,16 @@ export class AuthenticatedNavigation extends React.Component{
     this.setState({ showModal: false });
   }
 
+  makeRead(eventKey, event){
+    updateToReadNotificationNewAnnonce.call({categoryId:eventKey});
+    browserHistory.push('/');
+    //console.log(eventKey);
+  }
+
   abonner(event){
      let category = event.target.target;
      let categoryData = Categories.findOne({ name: category });
-      console.log(category);
+    //  console.log(category);
      let abonnementCategory = {
        userId: Meteor.userId(),
        categoryId: categoryData._id
@@ -41,7 +48,7 @@ export class AuthenticatedNavigation extends React.Component{
         categoryId: categoryData._id
     }, (error) => {
       if(error){
-        console.log(error);
+      //  console.log(error);
         Bert.alert(error.reason, 'danger');
       }else{
           Bert.alert('Vous êtes abonné à la catégorie: ' + categoryData.name, "success");
@@ -73,9 +80,9 @@ export class AuthenticatedNavigation extends React.Component{
              </LinkContainer>
           */}
           <LinkContainer to="/annonces">
-            <NavItem eventKey={ 1 } href="/annonces"><Icon size='lg' name="home"/> Accueil <Badge pullRight> 4</Badge></NavItem>
+            <NavItem eventKey={ 1 } href="/annonces"><Icon size='lg' name="home"/> Accueil </NavItem>
           </LinkContainer>
-          <DropDownAbonnement open={ this.open.bind(this) }/>
+          <DropDownAbonnement makeRead={ this.makeRead.bind(this) } open={ this.open.bind(this) }/>
          <LinkContainer to="/my-annonces">
            <NavItem eventKey={ 3 } href="/annonces"><Icon size='lg' name="hand-grab-o"/> Mes annonces</NavItem>
          </LinkContainer>

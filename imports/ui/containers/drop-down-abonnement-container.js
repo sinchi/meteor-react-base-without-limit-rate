@@ -31,8 +31,8 @@ const getCountCategoryGroup = (notifications) => {
 				k++;
 		}
 		if(!exist(group, notifications[i].name))
-			group.push({ name: notifications[i].name, count: k });
-			
+			group.push({_id: notifications[i]._id,  name: notifications[i].name, count: k });
+
 		k=0;
 	}
 
@@ -53,25 +53,28 @@ const composer = (params, onData) => {
 	const subscriptions = Meteor.subscribe('abonnement-category');
 	const notificationAnnonceSubscription = Meteor.subscribe('notification-annonce');
 	if(subscriptions.ready() && notificationAnnonceSubscription.ready()) {
-		const abonnements = AbonnementCategory.find();
-		const notifications = NotificationAnnonce.find().fetch();
+		const abonnements = AbonnementCategory.find({userId: Meteor.userId()});
+		const notifications = NotificationAnnonce.find({ userId: Meteor.userId() });
 	//	console.log(notifications);
 		let categoriesNotification = notifications.map((notification) => {
 			return 	Categories.findOne(notification.category);
 		});
 	//	console.log(categoriesNotification);
-	console.log(getCountCategoryGroup(categoriesNotification));
+	let notificationsGroupByCategory = getCountCategoryGroup(categoriesNotification);
+
+//	console.log(notificationsGroupByCategory);
 
   let categories =  abonnements.map((abonnement) => {
-	      return Categories.findOne( abonnement.categoryId );
+	      let category =  Categories.findOne( abonnement.categoryId );
+				for(let i=0; i<notificationsGroupByCategory.length; i++){
+					if(category._id === notificationsGroupByCategory[i]._id){
+						category.count = notificationsGroupByCategory[i].count;
+						category.active = true;
+					}
+				}
+				return category;
     });
-		let counts = categories.map((category) => {
-			let count =  Annonces.find({ "category.name":category.name }).count();
-			return {
-				count: count,
-				name: category.name
-			}
-		});
+
 	//	console.log(counts);
 	//	console.log(categories);
 		onData(null, { categories });

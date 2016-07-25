@@ -35,17 +35,12 @@ export const insertNotificationNewAnnonce = new ValidatedMethod({
 });
 
 
-export const removeNotificationNewAnnonce = new ValidatedMethod({
+export const updateToReadNotificationNewAnnonce = new ValidatedMethod({
 	name: 'notificationAnnonce.remove',
 	validate: new SimpleSchema({
-		_id: { type: String },
-		userId: { type: String }
+		categoryId: { type: String }
 	}).validator(),
-	run({ _id, userId }){
-		const notificationAnnonce = NotificationAnnonce.findOne(_id);
-		if(notificationAnnonce && notificationAnnonce.userId === userId)
-			NotificationAnnonce.remove(_id);
-		else
-			throw new Meteor.Error(404, "You don't have the permission to remove this notfication annonce");
+	run({ categoryId }){
+		NotificationAnnonce.update({ category: categoryId, userId: this.userId },{ $set: { read: true } } ,{multi:true});
 	}
 });
