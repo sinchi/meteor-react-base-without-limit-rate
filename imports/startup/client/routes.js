@@ -37,6 +37,7 @@ Meteor.startup(() => {
         <Route name="notification-categories" path="/annonces/categories/:categoryId" component={ NotificationsCategoriesPage } onEnter={requireAuth}/>
         <Route name="my-annonces" path="/my-annonces" component={ MyAnnonces } onEnter={ requireAuth }/>
         <Route name="add-annonce" path="/add-annonce" component={ AddAnnonce } onEnter={ requireAuth } />
+
         <Route name="login" path="/login" component={ Login } />
         <Route name="recover-password" path="/recover-password" component={ RecoverPassword } />
         <Route name="reset-password" path="/reset-password/:token" component={ ResetPassword } />

@@ -19,3 +19,24 @@ Meteor.publishComposite('notification-annonce', function(){
   }
 
 });
+
+
+Meteor.publishComposite('notification-annonce-by-category', function(categoryId){
+  check(categoryId, String);
+  return{
+    find: function(){
+      return NotificationAnnonce.find({userId: this.userId, category: categoryId});
+    },
+    children:[
+      {
+        find: function(notificationAnnonce){
+          return Annonces.find({ _id: notificationAnnonce.annonceId });
+        },
+        find: function(notificationAnnonce){
+          return Meteor.users.find({ _id: notificationAnnonce.userId })
+        }
+      }
+    ]
+  }
+
+});

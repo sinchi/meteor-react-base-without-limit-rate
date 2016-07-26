@@ -9,7 +9,7 @@ const composer = (params, onData) => {
   console.log("container param router id : " + params.params.annonceId);
 	const subscriptions = Meteor.subscribe('annonceItem', params.params.annonceId);
 	if(subscriptions.ready()) {
-		const annonces = Annonces.find().fetch();
+		const annonces = Annonces.find({}, {sort:{ publication: -1 }}).fetch();
 		onData(null, { annonces });
 	}
 };

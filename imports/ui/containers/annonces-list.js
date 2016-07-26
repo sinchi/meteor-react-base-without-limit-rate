@@ -7,7 +7,7 @@ import { Meteor } from 'meteor/meteor';
 const composer = (params, onData) => {
 	const subscriptions = Meteor.subscribe('annoncesWithRelation', params.text);
 	if(subscriptions.ready()) {
-		const annonces = Annonces.find().fetch();
+		const annonces = Annonces.find({}, {sort:{ publication: -1 }}).fetch();
 		onData(null, { annonces });
 	}
 };

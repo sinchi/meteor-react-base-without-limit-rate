@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Annonces } from '../annonces.js';
+import { Categories } from '../../categories/categories.js';
 
 
 Meteor.publish('annonces', function(search){
@@ -32,6 +33,23 @@ Meteor.publishComposite('annonceItem', function(annonceId){
 	return{
 		find: function(){
 			return Annonces.find({ _id: annonceId });
+		},
+		children:[
+			{
+				find: function(annonce){
+					return Meteor.users.find({ _id: annonce.owner });
+				}
+			}
+		]
+	}
+});
+
+Meteor.publishComposite('annoncesByCategory', function(categoryId){
+	check(categoryId, String);
+	const category = Categories.findOne(categoryId);
+	return{
+		find: function(){
+			return Annonces.find({ category: { name: category.name}});
 		},
 		children:[
 			{

@@ -75,7 +75,7 @@ Annonces.AllSchema = new SimpleSchema({
 	},
 	public:{
 		type: Boolean,
-		defaultValue: false,
+		defaultValue: true,
 		optional: true
 	},
 	moderator:{
@@ -241,7 +241,7 @@ Annonces.MotorSchema = new SimpleSchema({
 		optional: true
 	},
 	dateModeration:{
-		type: Date,		
+		type: Date,
 		optional: true
 	}
 });
