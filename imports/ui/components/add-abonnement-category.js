@@ -19,7 +19,7 @@ export class AddAbonnementCategory extends React.Component{
   }
 
   componentDidMount(){
-    console.log(this.state.electronique);
+    //console.log(this.state.electronique);
   }
 
   selectedCategory(event){

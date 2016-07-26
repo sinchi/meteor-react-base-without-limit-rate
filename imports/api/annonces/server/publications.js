@@ -26,6 +26,23 @@ Meteor.publish('annonces', function(search){
 
 });
 
+
+Meteor.publishComposite('annonceItem', function(annonceId){
+	check(annonceId, String);
+	return{
+		find: function(){
+			return Annonces.find({ _id: annonceId });
+		},
+		children:[
+			{
+				find: function(annonce){
+					return Meteor.users.find({ _id: annonce.owner });
+				}
+			}
+		]
+	}
+});
+
 Meteor.publish('my-annonces', function(){
 		return Annonces.find({ owner: this.userId });
 });

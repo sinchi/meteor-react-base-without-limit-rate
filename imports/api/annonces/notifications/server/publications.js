@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { NotificationAnnonce } from '../notification-annonce.js';
+import { Annonces } from '../../../annonces/annonces.js';
 import { Categories } from '../../../categories/categories.js';
 
 Meteor.publishComposite('notification-annonce', function(){

@@ -30,7 +30,7 @@ export class AuthenticatedNavigation extends React.Component{
 
   makeRead(eventKey, event){
     updateToReadNotificationNewAnnonce.call({categoryId:eventKey});
-    browserHistory.push('/');
+    browserHistory.push('/annonces/categories/' + eventKey);
     //console.log(eventKey);
   }
 
