@@ -61,7 +61,7 @@ export class AddAbonnementCategory extends React.Component{
           <Modal.Body>
           <Row>
               <Col md={4}>
-                  <Thumbnail src={ "informatique-et-multimedia.jpg" } alt={"ok"}>
+                  <Thumbnail src={ "informatique-et-multimedia.jpg" } alt={"Electronique et Multimédia"}>
                    <SelectCategoryForSubscription parent="Electronique et Multimédia" selectedCategory={this.selectedCategory.bind(this)}/>
                    <p>
                     <Button target={ this.state.electronique } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
@@ -69,7 +69,7 @@ export class AddAbonnementCategory extends React.Component{
                  </Thumbnail>
               </Col>
               <Col md={4}>
-                 <Thumbnail src={"vehicules.jpg"} alt={ "ok" }>
+                 <Thumbnail src={"vehicules.jpg"} alt={ "Véhicules" }>
                  <SelectCategoryForSubscription parent="Véhicules" selectedCategory={this.selectedCategory.bind(this)}/>
                    <p>
                      <Button target={ this.state.vehicule }  bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
@@ -77,7 +77,7 @@ export class AddAbonnementCategory extends React.Component{
                  </Thumbnail>
               </Col>
               <Col md={4}>
-                 <Thumbnail src={ "immobilier.jpg" } alt={ "ok" }>
+                 <Thumbnail src={ "immobilier.jpg" } alt={ "Immobilier" }>
                  <SelectCategoryForSubscription parent="Immobilier" selectedCategory={this.selectedCategory.bind(this)}/>
                    <p>
                      <Button target={ this.state.immobilier } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
@@ -87,7 +87,7 @@ export class AddAbonnementCategory extends React.Component{
             </Row>
             <Row>
               <Col md={4}>
-                 <Thumbnail src={ "maison-et-jardin.jpg" } alt={ "ok" }>
+                 <Thumbnail src={ "maison-et-jardin.jpg" } alt={ "Pour la maison et Jardin" }>
                    <p>
                    <SelectCategoryForSubscription parent="Pour la maison et Jardin" selectedCategory={this.selectedCategory.bind(this)}/>
                      <Button target={ this.state.maison } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
@@ -95,7 +95,7 @@ export class AddAbonnementCategory extends React.Component{
                  </Thumbnail>
                </Col>
               <Col md={4}>
-               <Thumbnail src={ "habillement-et-bien-etre.jpg" } alt={ "ok" }>
+               <Thumbnail src={ "habillement-et-bien-etre.jpg" } alt={ "Habillement et bien etre" }>
                   <SelectCategoryForSubscription parent="Habillement et bien etre" selectedCategory={this.selectedCategory.bind(this)}/>
                  <p>
                    <Button target={ this.state.habillement } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;
@@ -103,7 +103,7 @@ export class AddAbonnementCategory extends React.Component{
                </Thumbnail>
             </Col>
             <Col md={4}>
-               <Thumbnail src={ "loisirs.jpg" } alt={ "ok" }>
+               <Thumbnail src={ "loisirs.jpg" } alt={ "Loisirs et Divertissement" }>
                  <SelectCategoryForSubscription parent="Loisirs et Divertissement" selectedCategory={this.selectedCategory.bind(this)}/>
                  <p>
                    <Button target={ this.state.loisir } bsStyle="primary" onClick={ this.props.abonner }> S abonner</Button>&nbsp;

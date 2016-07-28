@@ -49,7 +49,7 @@ export class Annonces extends React.Component{
 	render(){
 		return (
 			<Row>
-				<h4 className="page-header">Annonces</h4>
+
 			    <Col xs={ 12 } md={ 3 }>
 			      <CitiesList onCityChange={ this.onCityChange }/>
 			      <CategoriesList onCategoryChange={ this.onCategoryChange.bind(this) }/>
@@ -68,7 +68,7 @@ export class Annonces extends React.Component{
 
 			      {/* <AnnoncesList text={ this.state.text } /> */}
 			    </Col>
-			    <Col md={ 9 }>
+			    <Col md={ 9 }>					
 			    	<AnnoncesList text={ this.state.text } />
 			    </Col>
 			  </Row>

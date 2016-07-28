@@ -1,8 +1,26 @@
 import React from 'react';
-import { ListGroupItem, Row, Col, FormControl, Thumbnail, Button, Link} from 'react-bootstrap';
+import { ListGroupItem, Row, Col, FormControl, Thumbnail, Button, Link, ButtonToolbar,OverlayTrigger, DropdownButton, MenuItem, Tooltip} from 'react-bootstrap';
+import { browserHistory } from 'react-router';
 import { Icon } from 'react-fa';
+import { Message } from './message';
+import { Bert } from 'meteor/themeteorchef:bert';
 
 export class Annonce extends React.Component{
+
+	constructor(){
+    super(...arguments);
+    this.state = {
+      showModal: false
+    }
+  }
+
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
+  }
 
 	 getPhoto(annonce){
 		if(this.props.annonce.photos && this.props.annonce.photos.length > 0){
@@ -12,37 +30,88 @@ export class Annonce extends React.Component{
 	}
 
 	 getUser(annonce){
-		return Meteor.users.findOne(annonce.owner);
+		 const user = Meteor.users.findOne(annonce.owner);
+		return user.profile.name.first + ' ' + user.profile.name.last;
 		//return Meteor.user().profile.name.first;
 	}
 
-	 voir(){
-		console.log("Voir");
-	}
+	voir(){
+	 	browserHistory.push('/annonces/'+this.props.annonce._id);
+	 //console.log('voir' + this.props.annonce._id);
+ }
+
+ getUserIcon(){
+	 return <span><Icon name="user" size="lg" /> { this.getUser(this.props.annonce)}</span>
+ }
+
+ jaime(){
+	 console.log('jaime');
+ }
+ message(){
+	  this.open();
+ }
+ comment(){
+	 console.log('comment');
+ }
+ envoyer(event){
+	 console.log(event.target.parent);
+	 console.log("envoyer");
+	 Bert.alert('Votre message a été envoyé à ' + this.getUser(this.props.annonce) + ' avec succée','success');
+	 this.close();
+ }
 
 	render(){
+		const tooltipHeart = (
+		  <Tooltip id="tooltip"><strong>Jaime!</strong>.</Tooltip>
+		);
+		const tooltipEye = (
+			<Tooltip id="tooltip"><strong>Consulter cette annonce!</strong></Tooltip>
+		);
+		const tooltipEnvelope = (
+			<Tooltip id="tooltip"><strong>Envoyer un message au annonceur!</strong></Tooltip>
+		);
+		const tooltipComment = (
+			<Tooltip id="tooltip"><strong>Laisser un commentaire</strong></Tooltip>
+		);
 		return (
-			<ListGroupItem key={ this.props.annonce._id }>
+
 				<Row>
-				{/*<Col md={ 1 } xsOffset={ 1 }>
-					<Icon name="user" size="lg" /> { Meteor.user().profile.name.first }
-				</Col>*/}
-				<Col xs={6} md={8} xsOffset={2}>
-					<Icon name="user" size="lg" /> { this.getUser(this.props.annonce).profile.name.first}
+					<Col md={2} xsOffset={1}>
+						<ButtonToolbar>
+							<DropdownButton title={ this.getUserIcon() } id="dropdown-size-medium">
+								<MenuItem eventKey="1"><Icon name="users" size="lg" /> Suivre</MenuItem>
+								<MenuItem eventKey="2"><Icon name="envelope" size="lg" /> Message</MenuItem>
+								<MenuItem eventKey="3"><Icon name="phone" size="lg" /> Appeler</MenuItem>
+							</DropdownButton>
+						</ButtonToolbar>
+					</Col>
+					<Col xs={6} md={6}>
+								<Thumbnail src={ this.getPhoto(this.props.annonce) } alt={ this.props.annonce.title }>
+									<h3>{ this.props.annonce.title }</h3>
+									<p>{this.props.annonce.description}</p>
 
-				 <Thumbnail src={ this.getPhoto(this.props.annonce) } alt={ this.props.annonce.title }>
-					 <h3>{ this.props.annonce.title }</h3>
-					 <p>{this.props.annonce.description}</p>
-					 <p>
-						 <Button href= {`/annonces/${this.props.annonce._id}`}  bsStyle="primary"> <Icon name="eye" size="lg" /> Voir</Button>&nbsp;
-						 <Button bsStyle="info"><Icon name="comments" size="lg" /> Commenter</Button>&nbsp;
-						 <Button bsStyle="warning"><Icon name="send" size="lg" /> Tchater</Button>
-					 </p>
+										<ButtonToolbar>
+									    <OverlayTrigger placement="left" overlay={tooltipHeart}>
+												<Button onClick={this.jaime.bind(this)}  bsStyle="default" bsSize="large"> <Icon name="heart-o" size="lg" /> </Button>
+									    </OverlayTrigger>
+											<OverlayTrigger placement="top" overlay={tooltipEye}>
+												<Button bsSize="large" onClick={this.voir.bind(this)} bsSize="large"  bsStyle="default"> <Icon name="eye" size="lg" /> </Button>
+									    </OverlayTrigger>
+											<OverlayTrigger placement="bottom" overlay={tooltipEnvelope}>
+												<Button onClick={this.message.bind(this)} bsSize="large" bsStyle="default"><Icon name="envelope-o" size="lg" /> </Button>
+											</OverlayTrigger>
+											<OverlayTrigger placement="right" overlay={tooltipComment}>
+												<Button onClick={this.comment.bind(this)} bsSize="large" bsStyle="default"><Icon name="comment-o" size="lg" /> </Button>
+											</OverlayTrigger>
+										</ButtonToolbar>
 
-				 </Thumbnail>
-			 </Col>
+
+								</Thumbnail>
+
+			 			</Col>
+						<Message showModal={ this.state.showModal } close={ this.close } envoyer={ this.envoyer.bind(this) }/>
 				</Row>
-			</ListGroupItem>
+
 
 		)
 	}

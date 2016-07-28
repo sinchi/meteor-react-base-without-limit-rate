@@ -5,6 +5,8 @@ import { Icon } from 'react-fa';
 
 export class DropDownAbonnement extends React.Component{
 
+
+
   getCategoryNotification(category){
     if(category && category.count && category.count > 0)
       if(category.count > 23)
@@ -12,6 +14,14 @@ export class DropDownAbonnement extends React.Component{
       else
         return <Badge pullRight>{category.count}</Badge>
   }
+
+  getFlagIcon(){
+    if(this.getTotalCategoriesCount() > 0)
+      return <i className="fa fa-bell fa-lg"></i>
+
+    return <i className="fa fa-bell-o fa-lg"></i>
+  }
+
   getIconNotification(category){
     if(category && category.count && category.count > 0)
         return "bell";
@@ -20,6 +30,16 @@ export class DropDownAbonnement extends React.Component{
   }
 
   getTotalCategoriesCount(){
+    let count = 0;
+    if(this.props.categories)
+      for(let i=0; i<this.props.categories.length; i++)
+        if(this.props.categories[i] && this.props.categories[i].count)
+          count += this.props.categories[i].count
+
+      return count;
+  }
+
+  getTotalCategoriesCountBadge(){
     let count = 0;
     if(this.props.categories)
       for(let i=0; i<this.props.categories.length; i++)
@@ -54,7 +74,7 @@ export class DropDownAbonnement extends React.Component{
     return (
       <NavDropdown
         eventKey={ 2 }
-        title={  <span><i className="fa fa-bullhorn fa-lg"></i> Abonnement { this.getTotalCategoriesCount() }</span> }
+        title={<span> { this.getFlagIcon() }  Abonnement { this.getTotalCategoriesCountBadge() }</span> }
         id="basic-nav-dropdown">
         <MenuItem eventKey={ 2.1 } onClick={ this.props.open }><Icon name="plus-circle" size="lg" /> Abonner à une catégorie </MenuItem>
         <MenuItem divider />

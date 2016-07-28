@@ -84,7 +84,13 @@ export class AuthenticatedNavigation extends React.Component{
           </LinkContainer>
           <DropDownAbonnement makeRead={ this.makeRead.bind(this) } open={ this.open.bind(this) }/>
          <LinkContainer to="/my-annonces">
-           <NavItem eventKey={ 3 } href="/annonces"><Icon size='lg' name="hand-grab-o"/> Mes annonces</NavItem>
+           <NavItem eventKey={ 3 } href="/annonces"><Icon size='lg' name="bullhorn"/> Mes annonces</NavItem>
+         </LinkContainer>
+         <LinkContainer to="/messages">
+           <NavItem eventKey={ 4 } href="/messages"><Icon size='lg' name="envelope-o"/> Messages</NavItem>
+         </LinkContainer>
+         <LinkContainer to="/discussion">
+           <NavItem eventKey={ 4 } href="/discussion"><Icon size='lg' name="comments-o"/> Discussions</NavItem>
          </LinkContainer>
         </Nav>
         <Nav pullRight>
