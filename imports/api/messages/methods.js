@@ -31,3 +31,14 @@ export const  insertMessage = new ValidatedMethod({
 		Messages.insert(message);
 	}
 });
+
+
+export const messageReceived = new ValidatedMethod({
+	name: "message.update",
+	validate: new SimpleSchema({
+		sender: {type: String}
+	}).validator(),
+	run({ sender }){
+		Messages.update({ "sender": sender, "receiver": Meteor.userId() }, { $set:{ "read": true } } , { multi: true });
+	}
+});

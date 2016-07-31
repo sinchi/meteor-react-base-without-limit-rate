@@ -1,39 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { insertMessage } from "../../api/messages/methods";
+import { insertMessage, messageReceived } from "../../api/messages/methods";
 import { Bert } from 'meteor/themeteorchef:bert';
+import { browserHistory } from 'react-router';
+
 
 
 export class MessagesComponent extends React.Component{
 
   constructor(){
     super(...arguments);
-
-    this.state = {
-      messages: [],
-      friends:[],
-    }
-  }
-
-  componentDidMount(){
-    this.setState({ messages: this.props.messagesDetail });
-   //  console.log(this.props.messagesData);
-  let friends =  _.map(this.props.messagesData, (message) => {
-      return {
-
-    				_id: message._id,
-    				avatar: "http://bootdey.com/img/Content/user_1.jpg",
-    				name: message.sender ? (message.sender.profile.name.first + ' ' + message.sender.profile.name.last) : (message.receiver.profile.name.first + ' ' + message.receiver.profile.name.last),
-    				lastMessage: message.content,
-    				date:"2 min ago",
-    				count:1,
-    				active: message.read ? "" : "active bounceInDown"
-
-      }
-    });
-
-    this.setState({ friends: friends });
-  }
+}
 
 getUser(userId){
   return Meteor.users.findOne(userId, { fields: { profile: 1 } });
@@ -45,30 +22,18 @@ getUser(userId){
             event.target.value = "";
              var msg = {
                sender: Meteor.userId(),
-               receiver: "123",
+               receiver: this.props.userId,
                publication: new Date(),
                read: false,
                content: content
              };
-             console.log(msg);
-            //  insertMessage.call(msg, function(error){
-            //    if(error)
-            //     Bert.alert(error.reason,"warning");
-            //  });
+
+             insertMessage.call(msg, function(error){
+               if(error)
+                Bert.alert(error.reason,"warning");
+             });
 
 
-            this.state.messages.push({
-              position: "right",
-              image:{
-                src: "http://bootdey.com/img/Content/user_2.jpg",
-                alt: "",
-              },
-              username: "Samah Courtane",
-              date:"12 mins ago",
-              content: content
-            });
-
-            this.setState({ messages: this.state.messages });
           }
         }
 
@@ -108,13 +73,23 @@ getUser(userId){
       });
 
       var FriendsListItem = React.createClass({
+
+        getConversation(event){
+          event.preventDefault();
+          messageReceived.call({ sender: this.props.friend.user._id }, (error)=>{
+            if(error)
+              Bert.alert(error.reason, 'warning');
+          });
+          browserHistory.push('/messages/conversation/' + this.props.friend.user._id);
+        },
+
         render(){
           const sended = this.props.friend.sended && !this.props.friend.read ? (<small className="chat-alert text-muted"><i className="fa fa-reply"></i></small>) : '';
           const receive = (!this.props.friend.sended && this.props.friend.count > 0) ? (<small className="chat-alert label label-danger">{ this.props.friend.count }</small>) : '';
           const readed  = (this.props.friend.sended && this.props.friend.read ) ? (<small className="chat-alert text-muted"><i className="fa fa-check"></i></small>) : '';
           return (
             <li className={ this.props.friend.active }>
-              <a href={ "messages/" + this.props.friend.user._id } className="clearfix">
+              <a onClick={ this.getConversation } href="#" className="clearfix">
                 <img src={ this.props.friend.avatar } alt="" className="img-circle" />
                 <div className="friend-name">
                   <strong>{ this.props.friend.name }</strong>
@@ -209,7 +184,7 @@ getUser(userId){
         }
       });
 
-      let friends =  _.map(this.props.users, (message) => {
+      let friends =  _.map(this.props.friends, (message) => {
           let user = message[0].sender._id === Meteor.userId() ? message[0].receiver : message[0].sender;
           return {
         				_id: message[0]._id,
@@ -224,6 +199,8 @@ getUser(userId){
                 user: user
           }
         });
+
+
     return (
       <div className="container bootstrap snippet">
         <div className="row">

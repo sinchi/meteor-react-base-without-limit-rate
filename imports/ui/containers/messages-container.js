@@ -16,7 +16,7 @@ const composer = (params, onData) => {
 			if(msg.receiver !== Meteor.userId() && !_.contains(conversations, msg.receiver))
 				conversations.push(msg.receiver);
 		});
-	let users =	_.map(conversations, (userId) => {
+	let friends =	_.map(conversations, (userId) => {
 			let msg =  Messages.find({
 				$or:[
 					{
@@ -34,7 +34,6 @@ const composer = (params, onData) => {
 			return msg;
 		});
 
-		console.log(users);
 
 		const messagesData = _.map(msgs, (msg) => {
 			msg.sender = Meteor.users.findOne(msg.sender, { fields:{ profile: 1 } });
@@ -47,84 +46,42 @@ const composer = (params, onData) => {
 				return message.sender._id;
 		});
 
-			const messagesDetail =  [
-					 {
-						 _id: "190",
-						 position: "left",
-						 image:{
-							 src: "http://bootdey.com/img/Content/user_1.jpg",
-							 alt: "User Avatar",
-						 },
-						 username: "Ayoub Sinchi",
-						 date:"12 mins ago",
-						 content: "salut"
-					 },
-					 {
-						 _id:"191",
-						 position: "right",
-						 image:{
-							 src: "http://bootdey.com/img/Content/user_2.jpg",
-							 alt: "",
-						 },
-						 username: "Samah Courtane",
-						 date:"12 mins ago",
-						 content: "salam"
-					 },
-					 {
-						 _id: "1912",
-						 position: "left",
-						 image:{
-							 src: "http://bootdey.com/img/Content/user_1.jpg",
-							 alt: "User Avatar",
-						 },
-						 username: "Ayoub Sinchi",
-						 date:"12 mins ago",
-						 content: "cava?."
-					 },
-					 {
-						 _id:"12398",
-						 position: "right",
-						 image:{
-							 src: "http://bootdey.com/img/Content/user_2.jpg",
-							 alt: "",
-						 },
-						 username: "Samah Courtane",
-						 date:"12 mins ago",
-						 content: "oui cava et toi ?"
-					 }
-				 ];
-			const friends = [
-          {
-            _id: "112",
-            avatar: "http://bootdey.com/img/Content/user_1.jpg",
-            name: "Ayoub Sinchi",
-            lastMessage: "salut",
-            date: "Just now",
-            count: 23,
-            active: "active bounceInDown"
-        },
-        {
-          _id: "8373",
-          avatar: "http://bootdey.com/img/Content/user_3.jpg",
-          name: "Rachid Jomjom",
-          lastMessage: "hola",
-          date: "Just now",
-          count: 2,
-          active: "active bounceInDown"
-        },
-        {
-          _id: "740",
-          avatar: "http://bootdey.com/img/Content/user_5.jpg",
-          name: "Amina Farid",
-          lastMessage: "Salam",
-          date: "Just now"
-          //count: 2,
-          //active: "active bounceInDown"
-        }
-      ];
+		let details = null;
+		if(params.userId){
+			 details =  Messages.find({
+				$or:[
+					{
+						sender: params.userId,
+						receiver: Meteor.userId()
+					},
+					{
+						sender: Meteor.userId(),
+						receiver: params.userId
+					}
+			]}, {sort:{ publication: 1 } }).fetch();
+		}
+
+			const messagesDetail = _.map(details, (msg) => {
+				let user = null;
+				if(msg.sender === Meteor.userId())
+					user = Meteor.user();
+				else if(msg.receiver === Meteor.userId())
+					user = Meteor.users.findOne({ _id: msg.sender }, { fields: { profile: 1 } });
+				return {
+					_id: msg._id,
+					position: msg.sender !== Meteor.userId() ? 'left' : 'right',
+					image:{
+						src: "http://bootdey.com/img/Content/user_1.jpg",
+						alt: "User Avatar",
+					},
+					username: user.profile.name.first + ' ' + user.profile.name.last,
+					date: "12 min ago",
+					content: msg.content
+				}
+			});
 
 
-		onData(null, {users, groupBySenders, messagesData , messagesDetail, friends });
+		onData(null, {friends, messagesDetail });
 	}
 };
 
