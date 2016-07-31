@@ -8,6 +8,7 @@ const composer = (params, onData) => {
 	const subscriptions = Meteor.subscribe('messages');
 	if(subscriptions.ready()) {
 		const msgs = Messages.find({}, {sort:{ publication: -1 }}).fetch();
+
 		const conversations = [];
 		_.each(msgs, (msg) => {
 			if(msg.sender !== Meteor.userId() && !_.contains(conversations, msg.sender))
@@ -29,17 +30,11 @@ const composer = (params, onData) => {
 			]}, { limit: 1, sort:{ publication: -1 } }).fetch();
 			msg[0].sender = Meteor.users.findOne({_id: msg[0].sender}, { fields: { profile: 1 } });
 			msg[0].receiver = Meteor.users.findOne({_id: msg[0].receiver}, { fields: { profile: 1 } });
+			msg[0].count = Messages.find({sender: userId, read: false}).count();
 			return msg;
 		});
-		console.log(users);
-	// var allMsg =	_.map(conversations, (userId) => {
-	// 		return _.filter(msgs, (msg) => {
-	// 			return (msg.sender === userId && msg.receiver === Meteor.userId) || (msg.sender === Meteor.userId() && msg.receiver === userId);
-	// 		});
-	// 	});
-	// 	console.log(allMsg);
-	//	console.log(msgs);
 
+		console.log(users);
 
 		const messagesData = _.map(msgs, (msg) => {
 			msg.sender = Meteor.users.findOne(msg.sender, { fields:{ profile: 1 } });
@@ -52,26 +47,6 @@ const composer = (params, onData) => {
 				return message.sender._id;
 		});
 
-		// const friends = _.map(messagesData, (message) => {
-		// 	return {
-		// 		_id: message._id,
-		// 		avatar: "http://bootdey.com/img/Content/user_1.jpg",
-		// 		name: message.sender.profile.name.first + ' ' + message.sender.profile.name.last,
-		// 		lastMessage: message.content,
-		// 		date:message.publication,
-		// 		count:1,
-		// 		active: message.read ? "" : "active bounceInDown"
-		// 	}
-		// });
-	//	console.log(friends);
-		// let conversations = [];
-	  //  _.each(messages, function(message){
-	  // if( message.sender._id !== Meteor.userId() && !_.contains(conversations, message.sender._id))
-	  // 		conversations.push({user: message.sender._id, msg: message.content, me: "receiver"})
-	  // if( message.receiver._id !== Meteor.userId() && !_.contains(conversations, message.receiver._id))
-	  // 		conversations.push({user: message.receiver._id, msg: message.content, me: "sender"})
-	  // });
-		// console.log(conversations);
 			const messagesDetail =  [
 					 {
 						 _id: "190",
@@ -147,7 +122,6 @@ const composer = (params, onData) => {
           //active: "active bounceInDown"
         }
       ];
-
 
 
 		onData(null, {users, groupBySenders, messagesData , messagesDetail, friends });

@@ -39,6 +39,7 @@ Meteor.startup(() => {
         <Route name="my-annonces" path="/my-annonces" component={ MyAnnonces } onEnter={ requireAuth }/>
         <Route name="add-annonce" path="/add-annonce" component={ AddAnnonce } onEnter={ requireAuth } />
         <Route name="messages" path="/messages" component={ Messages } onEnter={requireAuth} />
+        <Route name="conversation" path="/messages/conversation/:userId" component={ Messages } onEnter={ requireAuth } />
         <Route name="login" path="/login" component={ Login } />
         <Route name="recover-password" path="/recover-password" component={ RecoverPassword } />
         <Route name="reset-password" path="/reset-password/:token" component={ ResetPassword } />

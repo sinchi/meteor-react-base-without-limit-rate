@@ -109,10 +109,12 @@ getUser(userId){
 
       var FriendsListItem = React.createClass({
         render(){
-          const sended = this.props.friend.sended ? (<small className="chat-alert text-muted"><i className="fa fa-reply"></i></small>) : (<small className="chat-alert label label-danger">{ this.props.friend.count }</small>);
+          const sended = this.props.friend.sended && !this.props.friend.read ? (<small className="chat-alert text-muted"><i className="fa fa-reply"></i></small>) : '';
+          const receive = (!this.props.friend.sended && this.props.friend.count > 0) ? (<small className="chat-alert label label-danger">{ this.props.friend.count }</small>) : '';
+          const readed  = (this.props.friend.sended && this.props.friend.read ) ? (<small className="chat-alert text-muted"><i className="fa fa-check"></i></small>) : '';
           return (
             <li className={ this.props.friend.active }>
-              <a href="#" className="clearfix">
+              <a href={ "messages/" + this.props.friend.user._id } className="clearfix">
                 <img src={ this.props.friend.avatar } alt="" className="img-circle" />
                 <div className="friend-name">
                   <strong>{ this.props.friend.name }</strong>
@@ -120,6 +122,8 @@ getUser(userId){
                 <div className="last-message text-muted">{ this.props.friend.lastMessage }</div>
                 <small className="time text-muted">{ this.props.friend.date }</small>
                 {sended}
+                { receive }
+                { readed }
               </a>
             </li>
           )
@@ -205,19 +209,19 @@ getUser(userId){
         }
       });
 
-
-
       let friends =  _.map(this.props.users, (message) => {
           let user = message[0].sender._id === Meteor.userId() ? message[0].receiver : message[0].sender;
           return {
-        				_id: message._id,
+        				_id: message[0]._id,
         				avatar: "http://bootdey.com/img/Content/user_1.jpg",
         				name: user.profile.name.first + ' ' + user.profile.name.last,
         				lastMessage: message[0].content,
         				date:"2 min ago",
-        				count:1,
-        				active: message.read || message[0].sender._id === Meteor.userId() ? "" : "active bounceInDown",
-                sended: message[0].sender._id === Meteor.userId()
+        				count:message[0].count,
+        				active: !message[0].read && (message[0].sender._id !== Meteor.userId()) ? "active bounceInDown" : "",
+                sended: message[0].sender._id === Meteor.userId(),
+                read: message[0].read,
+                user: user
           }
         });
     return (
