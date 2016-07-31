@@ -20,18 +20,14 @@ export const  insertMessage = new ValidatedMethod({
 		read: {
 			type: Boolean,
 			label: 'the status of the message'
+		},
+		content:{
+			type: String,
+			label: "the content of the message"
 		}
 	}).validator(),
 	run( message ){
-		
+
 		Messages.insert(message);
 	}
 });
-
-
-export const updateMessage = new ValidatedMethod({
-	name: 'messages.update',
-	validate: new SimpleSchema({
-
-	})
-})

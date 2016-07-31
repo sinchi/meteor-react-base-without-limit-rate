@@ -20,3 +20,9 @@ import '../../api/annonces/abonnements/server/publications.js';
 import '../../api/annonces/notifications/notification-annonce.js';
 import '../../api/annonces/notifications/methods.js';
 import '../../api/annonces/notifications/server/publications.js';
+
+import '../../api/messages/messages.js';
+import '../../api/messages/methods.js';
+import '../../api/messages/server/publications.js';
+
+import '../../api/users/server/publications.js';

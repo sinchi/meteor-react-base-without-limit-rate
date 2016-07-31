@@ -15,6 +15,7 @@ import { AddAnnonce } from '../../ui/pages/add-annonce';
 import  AnnonceItem  from '../../ui/containers/annonce-item-container';
 import { MyAnnonces } from '../../ui/pages/my-annonces';
 import  NotificationsCategoriesPage  from '../../ui/containers/notifications-categories-page-container';
+import { Messages } from '../../ui/pages/messages-page';
 
 const requireAuth = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
@@ -37,7 +38,7 @@ Meteor.startup(() => {
         <Route name="notification-categories" path="/annonces/categories/:categoryId" component={ NotificationsCategoriesPage } onEnter={requireAuth}/>
         <Route name="my-annonces" path="/my-annonces" component={ MyAnnonces } onEnter={ requireAuth }/>
         <Route name="add-annonce" path="/add-annonce" component={ AddAnnonce } onEnter={ requireAuth } />
-
+        <Route name="messages" path="/messages" component={ Messages } onEnter={requireAuth} />
         <Route name="login" path="/login" component={ Login } />
         <Route name="recover-password" path="/recover-password" component={ RecoverPassword } />
         <Route name="reset-password" path="/reset-password/:token" component={ ResetPassword } />

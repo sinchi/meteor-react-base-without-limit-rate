@@ -2,12 +2,10 @@
 @import "base/animations";
 @import "base/forms";
 
+@import "module/chat";
 @import "module/loading";
 @import "module/login";
 @import "module/signup";
-@import "module/accueil";
+
 
 @import "state/navbar";
-body{
-  background-color: #f9f9f9;
-}

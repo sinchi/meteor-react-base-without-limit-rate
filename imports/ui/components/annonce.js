@@ -1,18 +1,28 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { ListGroupItem, Row, Col, FormControl, Thumbnail, Button, Link, ButtonToolbar,OverlayTrigger, DropdownButton, MenuItem, Tooltip} from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { Icon } from 'react-fa';
 import { Message } from './message';
 import { Bert } from 'meteor/themeteorchef:bert';
+import { insertMessage } from '../../api/messages/methods';
+
 
 export class Annonce extends React.Component{
 
 	constructor(){
     super(...arguments);
     this.state = {
-      showModal: false
+      showModal: false,
+			disabled: false,
+			messageContent: ''
     }
   }
+
+	componentDidMount(){
+		if(this.props.annonce.owner === Meteor.userId())
+				this.setState({ disabled: true });
+	}
 
   close() {
     this.setState({ showModal: false });
@@ -53,11 +63,27 @@ export class Annonce extends React.Component{
  comment(){
 	 console.log('comment');
  }
+
+messageText(event){
+	this.setState({ messageContent: event.target.value });
+}
+
  envoyer(event){
-	 console.log(event.target.parent);
-	 console.log("envoyer");
-	 Bert.alert('Votre message a été envoyé à ' + this.getUser(this.props.annonce) + ' avec succée','success');
-	 this.close();
+	 event.preventDefault();
+	 const msg = {
+		 sender: Meteor.userId(),
+		 receiver: this.props.annonce.owner,
+		 publication: new Date(),
+		 read: false,
+     content: this.state.messageContent
+	 };
+
+	 if(this.props.annonce.owner !== Meteor.userId())
+	 		insertMessage.call(msg, (error) => {
+			Bert.alert('Votre message a été envoyé à ' + this.getUser(this.props.annonce) + ' avec succée','success');
+		 	this.close();
+	 });
+
  }
 
 	render(){
@@ -80,7 +106,7 @@ export class Annonce extends React.Component{
 						<ButtonToolbar>
 							<DropdownButton title={ this.getUserIcon() } id="dropdown-size-medium">
 								<MenuItem eventKey="1"><Icon name="users" size="lg" /> Suivre</MenuItem>
-								<MenuItem eventKey="2"><Icon name="envelope" size="lg" /> Message</MenuItem>
+								<MenuItem eventKey="2" ><Icon name="envelope" size="lg" /> Message</MenuItem>
 								<MenuItem eventKey="3"><Icon name="phone" size="lg" /> Appeler</MenuItem>
 							</DropdownButton>
 						</ButtonToolbar>
@@ -98,7 +124,7 @@ export class Annonce extends React.Component{
 												<Button bsSize="large" onClick={this.voir.bind(this)} bsSize="large"  bsStyle="default"> <Icon name="eye" size="lg" /> </Button>
 									    </OverlayTrigger>
 											<OverlayTrigger placement="bottom" overlay={tooltipEnvelope}>
-												<Button onClick={this.message.bind(this)} bsSize="large" bsStyle="default"><Icon name="envelope-o" size="lg" /> </Button>
+												<Button disabled={ this.state.disabled } onClick={this.message.bind(this)} bsSize="large" bsStyle="default"><Icon name="envelope-o" size="lg" /> </Button>
 											</OverlayTrigger>
 											<OverlayTrigger placement="right" overlay={tooltipComment}>
 												<Button onClick={this.comment.bind(this)} bsSize="large" bsStyle="default"><Icon name="comment-o" size="lg" /> </Button>
@@ -109,7 +135,7 @@ export class Annonce extends React.Component{
 								</Thumbnail>
 
 			 			</Col>
-						<Message showModal={ this.state.showModal } close={ this.close } envoyer={ this.envoyer.bind(this) }/>
+						<Message messageText={ this.messageText.bind(this) } showModal={ this.state.showModal } close={ this.close.bind(this) } envoyer={ this.envoyer.bind(this) }/>
 				</Row>
 
 

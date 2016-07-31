@@ -11,14 +11,14 @@ export class Message extends React.Component{
             <Modal.Title>Envoyer un message</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form>
-              <FormGroup controlId="formControlsTextarea">
+            <form ref="messageForm">
+              <FormGroup controlId="messageContent">
                <ControlLabel>Message:</ControlLabel>
-               <FormControl componentClass="textarea" placeholder="Tapez votre message içi ..." />
+               <FormControl onKeyUp={ this.props.messageText } componentClass="textarea" ref="messageContent" placeholder="Tapez votre message içi ..." />
              </FormGroup>
-             <Button onClick={ this.props.envoyer }  bsStyle="success"><Icon name="send" size="lg" /> Envoyer</Button>
+             <Button type="submit" onClick={ this.props.envoyer }  bsStyle="success"><Icon name="send" size="lg" /> Envoyer</Button>
             </form>
-          </Modal.Body>        
+          </Modal.Body>
         </Modal>
       </div>
     )

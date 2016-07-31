@@ -33,6 +33,10 @@ Messages.Schema = new SimpleSchema({
 	read: {
 		type: Boolean,
 		label: 'the status of the message'
+	},
+	content:{
+		type: String,
+		label: "the content of the message"
 	}
 });
 
