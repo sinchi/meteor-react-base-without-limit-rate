@@ -71,7 +71,7 @@ const composer = (params, onData) => {
 					_id: msg._id,
 					position: msg.sender !== Meteor.userId() ? 'left' : 'right',
 					image:{
-						src: "http://bootdey.com/img/Content/user_1.jpg",
+						src: user.profile.avatar,
 						alt: "User Avatar",
 					},
 					username: user.profile.name.first + ' ' + user.profile.name.last,

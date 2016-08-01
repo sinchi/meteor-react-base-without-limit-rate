@@ -33,7 +33,6 @@ getUser(userId){
                 Bert.alert(error.reason,"warning");
              });
 
-
           }
         }
 
@@ -170,11 +169,20 @@ getUser(userId){
 
       var ChatBoxMessage = React.createClass({
 
+        focus(event){
+          event.preventDefault();
+          if(this.props.userId)
+            messageReceived.call({ sender: this.props.userId }, (error)=>{
+              if(error)
+                Bert.alert(error.reason, 'warning');
+            });
+        },
+
         render(){
           return (
             <div className="chat-box bg-white">
             	<div className="input-group">
-            		<input autoFocus ref="msgContent" onKeyPress={ this.props.envoyer } className="form-control border no-shadow no-rounded" placeholder="Tapper votre message ici ..." />
+            		<input onFocus={ this.focus } autoFocus ref="msgContent" onKeyPress={ this.props.envoyer } className="form-control border no-shadow no-rounded" placeholder="Tapper votre message ici ..." />
             		<span className="input-group-btn">
             			<button className="btn btn-success no-rounded" type="button">Envoyer</button>
             		</span>
@@ -186,14 +194,19 @@ getUser(userId){
 
       let friends =  _.map(this.props.friends, (message) => {
           let user = message[0].sender._id === Meteor.userId() ? message[0].receiver : message[0].sender;
+          let active = "";
+          if(!message[0].read && (message[0].sender._id !== Meteor.userId()))
+            active = "active bounceInDown";
+          else if(this.props.userId === user._id)
+            active = "active";
           return {
         				_id: message[0]._id,
-        				avatar: "http://bootdey.com/img/Content/user_1.jpg",
+        				avatar: user.profile.avatar,
         				name: user.profile.name.first + ' ' + user.profile.name.last,
         				lastMessage: message[0].content,
         				date:"2 min ago",
         				count:message[0].count,
-        				active: !message[0].read && (message[0].sender._id !== Meteor.userId()) ? "active bounceInDown" : "",
+        				active: active,
                 sended: message[0].sender._id === Meteor.userId(),
                 read: message[0].read,
                 user: user
@@ -212,7 +225,7 @@ getUser(userId){
               <ChatMessagesContent>
                 <ChatMessageList messages={ this.props.messagesDetail }/>
               </ChatMessagesContent>
-              <ChatBoxMessage envoyer={ this.envoyer.bind(this) } />
+              <ChatBoxMessage userId={ this.props.userId } envoyer={ this.envoyer.bind(this) } />
             </DetailFriendMessageContent>
           </div>
         </div>
