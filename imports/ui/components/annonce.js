@@ -102,7 +102,7 @@ messageText(event){
 		return (
 
 				<Row>
-					<Col md={2} xsOffset={1}>
+					<Col md={2}  mdOffset={1}>
 						<ButtonToolbar>
 							<DropdownButton title={ this.getUserIcon() } id="dropdown-size-medium">
 								<MenuItem eventKey="1"><Icon name="users" size="lg" /> Suivre</MenuItem>
@@ -111,23 +111,23 @@ messageText(event){
 							</DropdownButton>
 						</ButtonToolbar>
 					</Col>
-					<Col xs={6} md={6}>
+					<Col xs={12} md={6}>
 								<Thumbnail src={ this.getPhoto(this.props.annonce) } alt={ this.props.annonce.title }>
 									<h3>{ this.props.annonce.title }</h3>
 									<p>{this.props.annonce.description}</p>
 
 										<ButtonToolbar>
 									    <OverlayTrigger placement="left" overlay={tooltipHeart}>
-												<Button onClick={this.jaime.bind(this)}  bsStyle="default" bsSize="large"> <Icon name="heart-o" size="lg" /> </Button>
+												<Button onClick={this.jaime.bind(this)}  bsStyle="default" bsSize="large"> <Icon name="heart-o" /> </Button>
 									    </OverlayTrigger>
 											<OverlayTrigger placement="top" overlay={tooltipEye}>
-												<Button bsSize="large" onClick={this.voir.bind(this)} bsSize="large"  bsStyle="default"> <Icon name="eye" size="lg" /> </Button>
+												<Button bsSize="large" onClick={this.voir.bind(this)} bsSize="large"  bsStyle="default"> <Icon name="eye" /> </Button>
 									    </OverlayTrigger>
 											<OverlayTrigger placement="bottom" overlay={tooltipEnvelope}>
-												<Button disabled={ this.state.disabled } onClick={this.message.bind(this)} bsSize="large" bsStyle="default"><Icon name="envelope-o" size="lg" /> </Button>
+												<Button disabled={ this.state.disabled } onClick={this.message.bind(this)} bsSize="large" bsStyle="default"><Icon name="envelope-o" /> </Button>
 											</OverlayTrigger>
 											<OverlayTrigger placement="right" overlay={tooltipComment}>
-												<Button onClick={this.comment.bind(this)} bsSize="large" bsStyle="default"><Icon name="comment-o" size="lg" /> </Button>
+												<Button onClick={this.comment.bind(this)} bsSize="large" bsStyle="default"><Icon name="comment-o" /> </Button>
 											</OverlayTrigger>
 										</ButtonToolbar>
 

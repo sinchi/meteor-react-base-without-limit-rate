@@ -14,6 +14,7 @@ const getUserData = () => ({
     name: {
       first: getInputValue(component.refs.firstName),
       last: getInputValue(component.refs.lastName),
+      avatar : "https://s3.eu-central-1.amazonaws.com/annoncio-photos/avatar.png",
       // type: professionnel | particulier,
       // telephone: numero de son téléphone,
       // adresse: adresse d'annonceur

@@ -12,11 +12,7 @@ export const  insertMessage = new ValidatedMethod({
 		receiver:{
 			type: String,
 			label: 'the receiver of the message'
-		},
-		publication:{
-			type: Date,
-			label: 'the date of the publication'
-		},
+		},		
 		read: {
 			type: Boolean,
 			label: 'the status of the message'

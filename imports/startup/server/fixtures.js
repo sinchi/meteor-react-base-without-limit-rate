@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Accounts } from 'meteor/accounts-base';
+import { Cities } from  '../../api/cities/cities.js';
+
 
 const users = [{
   email: 'admin@admin.com',
@@ -19,3 +21,34 @@ users.forEach(({ email, password, profile, roles }) => {
     Roles.addUsersToRoles(userId, roles);
   }
 });
+
+Meteor.startup(() => {
+  if(Cities.find().count() === 0){
+	Cities.insert({
+  	name: 'Casablanca'
+  });
+  Cities.insert({
+  	name: 'Tanger'
+  });
+  Cities.insert({
+  	name: 'Agadir'
+  });
+
+  Cities.insert({ 
+  	name: 'Fes'
+  });
+
+  Cities.insert({
+  	name: 'Marrakech'
+  });
+
+  Cities.insert({
+  	name: 'El jadida'
+  });
+
+  Cities.insert({
+  	name: 'Rabat'
+  });
+}
+
+})

@@ -172,9 +172,9 @@ img {
 }
 
 .chat-box {
-  position: fixed;
+  position: relative;
   bottom: 0;
-  left: 444px;
+  left: 0;
   right: 0;
   padding: 15px;
   border-top: 1px solid #eee;
@@ -184,7 +184,6 @@ img {
   -ms-transition: all .5s ease;
   -o-transition: all .5s ease;
 }
-
 .primary-font {
   color: #3c8dbc;
 }
@@ -192,4 +191,19 @@ img {
 a:hover, a:active, a:focus {
   text-decoration: none;
   outline: 0;
+}
+
+
+#messagesContent {
+  height: 530px;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  @media screen and (min-width: 768px) {
+    height: 550px;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
 }

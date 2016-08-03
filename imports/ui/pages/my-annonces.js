@@ -17,7 +17,7 @@ export class MyAnnonces extends React.Component{
 
   render(){
     return (
-          <Col md={ 9 }>
+          <Col md={ 9 } mdOffset={3}>
           <AnnoncesList />
         </Col>
       )

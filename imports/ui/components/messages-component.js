@@ -19,11 +19,10 @@ getUser(userId){
   envoyer(event){
           if(event.key === 'Enter' && event.target.value !== ""){
             var content = event.target.value;
-            event.target.value = "";
+            //event.target.value = "";
              var msg = {
                sender: Meteor.userId(),
                receiver: this.props.userId,
-               publication: new Date(),
                read: false,
                content: content
              };
@@ -107,7 +106,7 @@ getUser(userId){
       var DetailFriendMessageContent = React.createClass({
         render(){
           return (
-            	<div className="col-md-8 bg-white ">
+            	<div id="messagesContent" className="col-md-8 bg-white ">
                   { this.props.children }
               </div>
           )
@@ -115,9 +114,11 @@ getUser(userId){
       });
 
       var ChatMessagesContent = React.createClass({
+
+
         render(){
           return (
-            <div className="chat-message">
+            <div id="chatMessagesContent" className="chat-message col-md-12" >
                 { this.props.children }
             </div>
           )
@@ -126,9 +127,7 @@ getUser(userId){
 
       var ChatMessageList = React.createClass({
 
-        componentDidMount(){
-          $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
-        },
+
 
         render(){
 
@@ -137,7 +136,7 @@ getUser(userId){
           });
 
           return (
-            <ul className="chat" ref="chatBox" id="chatBox" style={ {height:"550px", width:"700px" , overflow:"scroll", overflowX:"hidden" ,overflowY:"scroll"}}>
+            <ul className="chat col-md-12 col-sm-3" ref="chatBox" id="chatBox">
               { chatMessages }
             </ul>
           )
@@ -218,7 +217,7 @@ getUser(userId){
       <div className="container bootstrap snippet">
         <div className="row">
             <FriendsListContent>
-              <Entete title="Membre" />
+              <Entete title="Ma boite de récéption" />
               <FriendsList friends={ friends }/>
             </FriendsListContent>
             <DetailFriendMessageContent>

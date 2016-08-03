@@ -28,7 +28,8 @@ Messages.Schema = new SimpleSchema({
 	},
 	publication:{
 		type: Date,
-		label: 'the date of the publication'
+		label: 'the date of the publication',
+		defaultValue: new Date()
 	},
 	read: {
 		type: Boolean,

@@ -74,7 +74,7 @@ export class AddAnnonce extends React.Component{
         { this.state.category === "Voitures" ?  <BrandsList /> : '' }
          <AddFile />
 
-        <input type="submit" value="add annonce" />
+        <input className={ "btn btn-success" } type="submit" value="Publier" />
       </form>
       </Col>
     );
