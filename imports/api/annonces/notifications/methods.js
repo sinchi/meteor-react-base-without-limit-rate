@@ -28,8 +28,7 @@ export const insertNotificationNewAnnonce = new ValidatedMethod({
 			label: 'Read it ?'
 		}
 	}).validator(),
-	run(notificationAnnonce){
-		console.log(notificationAnnonce);
+	run(notificationAnnonce){		
 		NotificationAnnonce.insert(notificationAnnonce);
 	}
 });

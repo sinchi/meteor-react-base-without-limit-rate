@@ -34,7 +34,7 @@ export class Annonce extends React.Component{
 
 	 getPhoto(annonce){
 		if(this.props.annonce.photos && this.props.annonce.photos.length > 0){
-			console.log(this.props.annonce.photos[0]);
+		//	console.log(this.props.annonce.photos[0]);
 			return this.props.annonce.photos[0];
 		}
 	}
@@ -55,13 +55,13 @@ export class Annonce extends React.Component{
  }
 
  jaime(){
-	 console.log('jaime');
+//	 console.log('jaime');
  }
  message(){
 	  this.open();
  }
  comment(){
-	 console.log('comment');
+	// console.log('comment');
  }
 
 messageText(event){

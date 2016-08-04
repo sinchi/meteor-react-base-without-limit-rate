@@ -34,18 +34,6 @@ const composer = (params, onData) => {
 			return msg;
 		});
 
-
-		const messagesData = _.map(msgs, (msg) => {
-			msg.sender = Meteor.users.findOne(msg.sender, { fields:{ profile: 1 } });
-			msg.receiver = Meteor.users.findOne(msg.receiver, { fields:{ profile: 1 } });
-			return msg;
-		});
-
-		const groupBySenders = _.groupBy(messagesData, (message) => {
-			if(message.sender._id !== Meteor.userId())
-				return message.sender._id;
-		});
-
 		let details = null;
 		if(params.userId){
 			 details =  Messages.find({

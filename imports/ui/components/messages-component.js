@@ -127,7 +127,9 @@ getUser(userId){
 
       var ChatMessageList = React.createClass({
 
-
+        componentDidMount(){
+          $("#messagesContent").scrollTop($("#messagesContent")[0].scrollHeight);
+        }
 
         render(){
 
@@ -181,7 +183,7 @@ getUser(userId){
           return (
             <div className="chat-box bg-white">
             	<div className="input-group">
-            		<input onFocus={ this.focus } autoFocus ref="msgContent" onKeyPress={ this.props.envoyer } className="form-control border no-shadow no-rounded" placeholder="Tapper votre message ici ..." />
+            		<input onFocus={ this.focus } ref="msgContent" onKeyPress={ this.props.envoyer } className="form-control border no-shadow no-rounded" placeholder="Tapper votre message ici ..." />
             		<span className="input-group-btn">
             			<button className="btn btn-success no-rounded" type="button">Envoyer</button>
             		</span>

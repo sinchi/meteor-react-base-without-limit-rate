@@ -8,7 +8,7 @@ export const _uploadFileToAmazon = ( file, annonce ) => {
   uploader.send( file, ( error, url ) => {
     if ( error ) {
       Bert.alert( error.message, "warning" );
-    console.log('error');
+    //console.log('error');
     } else {
       annonce.photos[0] = url;
       //annonce.public = true;

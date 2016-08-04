@@ -76,7 +76,7 @@ const addAnnonce = () => {
 
     //  console.log(annonce);
 
-     console.log(annonce);
+    // console.log(annonce);
     _uploadFileToAmazon(annonce.photos[0], annonce);
 
     // insertAnnonce.call(annonce, (error) => {
@@ -141,7 +141,7 @@ const validate = () => {
           : 'You missed ' + errors + ' fields. They have been highlighted';
       //  $("div.error span").html(message);
         //$("div.error").show();
-        console.log(message);
+      //  console.log(message);
       } else {
         $("div.error").hide();
       }
@@ -153,7 +153,7 @@ const validate = () => {
     // },
 
     highlight: function(element, errorClass) {
-      console.log($(element).parent());
+    //  console.log($(element).parent());
       $(element).parent().removeClass('has-success');
       $(element).parent().addClass('has-error');
           $(element).parent().removeClass('has-feedback');
@@ -161,13 +161,13 @@ const validate = () => {
      },
 
      unhighlight: function(element, errorClass) {
-       console.log($(element).parent());
+      // console.log($(element).parent());
       $(element).parent().removeClass('has-error');
 
       $(element).parent().addClass('has-success');
       $(element).parent().removeClass('has-feedback');
       $(element).parent().addClass('has-feedback');
-      console.log('success');
+    //  console.log('success');
       //console.log(element);
     }
 
