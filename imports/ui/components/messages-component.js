@@ -129,7 +129,7 @@ getUser(userId){
 
         componentDidMount(){
           $("#messagesContent").scrollTop($("#messagesContent")[0].scrollHeight);
-        }
+        },
 
         render(){
 
