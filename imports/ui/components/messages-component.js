@@ -4,8 +4,6 @@ import { insertMessage, messageReceived } from "../../api/messages/methods";
 import { Bert } from 'meteor/themeteorchef:bert';
 import { browserHistory } from 'react-router';
 
-
-
 export class MessagesComponent extends React.Component{
 
   constructor(){
@@ -23,6 +21,7 @@ getUser(userId){
              var msg = {
                sender: Meteor.userId(),
                receiver: this.props.userId,
+               publication: new Date(),
                read: false,
                content: content
              };

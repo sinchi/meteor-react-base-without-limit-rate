@@ -2,8 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Accounts } from 'meteor/accounts-base';
 import { Cities } from  '../../api/cities/cities.js';
-
-
+import { Sequence } from "../../api/sequences/sequence.js";
 const users = [{
   email: 'admin@admin.com',
   password: 'password',
@@ -23,6 +22,9 @@ users.forEach(({ email, password, profile, roles }) => {
 });
 
 Meteor.startup(() => {
+  if(Sequence.find().count() === 0){
+    Sequence.insert({ _id: "messages", seq:1 });
+  }
   if(Cities.find().count() === 0){
 	Cities.insert({
   	name: 'Casablanca'
@@ -34,7 +36,7 @@ Meteor.startup(() => {
   	name: 'Agadir'
   });
 
-  Cities.insert({ 
+  Cities.insert({
   	name: 'Fes'
   });
 

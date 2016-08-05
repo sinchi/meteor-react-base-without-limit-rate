@@ -7,6 +7,7 @@ import { DropDownAbonnement } from "../components/drop-down-abonnement.js";
 import { Loading } from '../components/loading.js';
 import { Meteor } from 'meteor/meteor';
 //import { underscore } from 'meteor/underscore';
+import { Sequence } from '../../api/sequences/sequence.js';
 
 const getCategory = (annonceId) => {
 	let annonce = Annonces.findOne(annonceId);
@@ -50,9 +51,11 @@ const getCountCategory = (categories, id) => {
 }
 
 const composer = (params, onData) => {
+	const subSequence = Meteor.subscribe('sequences', 'messages');
 	const subscriptions = Meteor.subscribe('abonnement-category');
 	const notificationAnnonceSubscription = Meteor.subscribe('notification-annonce');
 	if(subscriptions.ready() && notificationAnnonceSubscription.ready()) {
+		console.log(Sequence.findOne());
 		const abonnements = AbonnementCategory.find({userId: Meteor.userId()});
 		const notifications = NotificationAnnonce.find({ userId: Meteor.userId() });
 	//	console.log(notifications);

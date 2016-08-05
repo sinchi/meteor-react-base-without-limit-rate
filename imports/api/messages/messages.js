@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/dburles:factory';
 import faker from 'faker';
+import { Sequence } from '../sequences/sequence.js';
 
 export const Messages = new Mongo.Collection('messages');
 
@@ -26,11 +27,6 @@ Messages.Schema = new SimpleSchema({
 		type: String,
 		label: 'the receiver of the message'
 	},
-	publication:{
-		type: Date,
-		label: 'the date of the publication',
-		defaultValue: new Date()
-	},
 	read: {
 		type: Boolean,
 		label: 'the status of the message'
@@ -38,6 +34,10 @@ Messages.Schema = new SimpleSchema({
 	content:{
 		type: String,
 		label: "the content of the message"
+	},
+	publication:{
+		type: Date,
+		label: "The date of the message"
 	}
 });
 

@@ -1,6 +1,7 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method.js';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Messages } from './messages.js';
+import { Sequence } from '../sequences/sequence.js';
 
 export const  insertMessage = new ValidatedMethod({
 	name: 'messages.insert',
@@ -12,7 +13,11 @@ export const  insertMessage = new ValidatedMethod({
 		receiver:{
 			type: String,
 			label: 'the receiver of the message'
-		},		
+		},
+		publication:{
+			type: Date,
+			label:"The date of the message"
+		},
 		read: {
 			type: Boolean,
 			label: 'the status of the message'
@@ -23,7 +28,6 @@ export const  insertMessage = new ValidatedMethod({
 		}
 	}).validator(),
 	run( message ){
-
 		Messages.insert(message);
 	}
 });
