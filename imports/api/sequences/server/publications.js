@@ -3,5 +3,5 @@ import { Sequence } from '../sequence.js';
 
 Meteor.publish('sequences', function(name){
   check(name, String);
-	return Sequence.findOne({ _id: name });
+	return Sequence.find({_id: name});
 });

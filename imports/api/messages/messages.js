@@ -38,6 +38,10 @@ Messages.Schema = new SimpleSchema({
 	publication:{
 		type: Date,
 		label: "The date of the message"
+	},
+	order:{
+		type:Number,
+		label:"Order of the message"
 	}
 });
 

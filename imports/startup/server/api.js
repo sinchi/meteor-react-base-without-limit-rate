@@ -25,4 +25,8 @@ import '../../api/messages/messages.js';
 import '../../api/messages/methods.js';
 import '../../api/messages/server/publications.js';
 
+import '../../api/sequences/sequence.js';
+import '../../api/sequences/methods.js';
+import '../../api/sequences/server/publications.js';
+
 import '../../api/users/server/publications.js';

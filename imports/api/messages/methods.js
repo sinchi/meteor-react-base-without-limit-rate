@@ -25,6 +25,10 @@ export const  insertMessage = new ValidatedMethod({
 		content:{
 			type: String,
 			label: "the content of the message"
+		},
+		order:{
+			type:Number,
+			label: "the order of the message"
 		}
 	}).validator(),
 	run( message ){

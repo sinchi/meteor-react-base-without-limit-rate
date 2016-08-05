@@ -6,8 +6,8 @@ import { Icon } from 'react-fa';
 import { Message } from './message';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { insertMessage } from '../../api/messages/methods';
-import { getNextSequence } from '../../modules/get-next-sequence.js';
-import { Sequence } from '../../api/sequences/sequence.js';
+import { Sequence } from '../../api/sequences/sequence';
+import { sequenceInc } from '../../api/sequences/methods';
 
 
 export class Annonce extends React.Component{
@@ -72,15 +72,16 @@ messageText(event){
 
  envoyer(event){
 	 event.preventDefault();
-	 console.log(Sequence.findOne());
+	 sequenceInc.call({ name: 'messages' });
+
 	 const msg = {
 		 sender: Meteor.userId(),
 		 receiver: this.props.annonce.owner,
 		 publication: new Date(),
 		 read: false,
-     content: this.state.messageContent
+     content: this.state.messageContent,
+		 order: Sequence.findOne().seq
 	 };
-	 console.log(getNextSequence('messages'));
 
 	 if(this.props.annonce.owner !== Meteor.userId())
 	 		insertMessage.call(msg, (error) => {

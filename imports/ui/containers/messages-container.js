@@ -7,7 +7,7 @@ import { Meteor } from 'meteor/meteor';
 const composer = (params, onData) => {
 	const subscriptions = Meteor.subscribe('messages');
 	if(subscriptions.ready()) {
-		const msgs = Messages.find({}, {sort:{ publication: -1 }}).fetch();
+		const msgs = Messages.find({}, {sort:{ order: -1 }}).fetch();
 
 		const conversations = [];
 		_.each(msgs, (msg) => {
@@ -27,7 +27,7 @@ const composer = (params, onData) => {
 						sender: Meteor.userId(),
 						receiver: userId
 					}
-			]}, { limit: 1, sort:{ publication: -1 } }).fetch();
+			]}, { limit: 1, sort:{ order: -1 } }).fetch();
 			msg[0].sender = Meteor.users.findOne({_id: msg[0].sender}, { fields: { profile: 1 } });
 			msg[0].receiver = Meteor.users.findOne({_id: msg[0].receiver}, { fields: { profile: 1 } });
 			msg[0].count = Messages.find({sender: userId, read: false}).count();
@@ -46,7 +46,7 @@ const composer = (params, onData) => {
 						sender: Meteor.userId(),
 						receiver: params.userId
 					}
-			]}, {sort:{ publication: 1 } }).fetch();
+			]}, {sort:{ order: 1 } }).fetch();
 		}
 
 			const messagesDetail = _.map(details, (msg) => {

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { insertMessage, messageReceived } from "../../api/messages/methods";
 import { Bert } from 'meteor/themeteorchef:bert';
 import { browserHistory } from 'react-router';
+import { Sequence } from '../../api/sequences/sequence';
+import { sequenceInc } from '../../api/sequences/methods';
 
 export class MessagesComponent extends React.Component{
 
@@ -16,6 +18,7 @@ getUser(userId){
 
   envoyer(event){
           if(event.key === 'Enter' && event.target.value !== ""){
+            sequenceInc.call({ name: 'messages' });
             var content = event.target.value;
             //event.target.value = "";
              var msg = {
@@ -23,7 +26,8 @@ getUser(userId){
                receiver: this.props.userId,
                publication: new Date(),
                read: false,
-               content: content
+               content: content,
+               order: Sequence.findOne().seq
              };
 
              insertMessage.call(msg, function(error){
