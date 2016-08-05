@@ -5,11 +5,11 @@ export class ChatMessageListComponent extends React.Component{
 
   componentDidMount(){
     $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
-  },
+  }
 
   render(){
 
-    var chatMessages = _.map(this.props.messages, function(message){
+    var chatMessages = _.map(this.props.messagesDetail, function(message){
       return <ChatMessageListItemComponent key={ message._id } message={ message } />
     });
 

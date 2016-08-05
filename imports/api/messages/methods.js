@@ -2,6 +2,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method.js';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Messages } from './messages.js';
 import { Sequence } from '../sequences/sequence.js';
+import { rateLimit } from '../../modules/rate-limit.js';
 
 export const  insertMessage = new ValidatedMethod({
 	name: 'messages.insert',
@@ -46,3 +47,12 @@ export const messageReceived = new ValidatedMethod({
 		Messages.update({ "sender": sender, "receiver": Meteor.userId() }, { $set:{ "read": true } } , { multi: true });
 	}
 });
+
+// rateLimit({
+//   methods: [
+//     messageReceived,
+//     insertMessage,
+//   ],
+//   limit: 5,
+//   timeRange: 1000,
+// });

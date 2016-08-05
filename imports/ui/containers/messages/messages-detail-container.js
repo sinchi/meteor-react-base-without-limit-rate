@@ -1,7 +1,7 @@
 import { composeWithTracker } from 'react-komposer';
-import { Messages } from '../../api/messages/messages.js';
-import { ChatMessageListComponent } from "../components/messages/chat-message-list-component.js";
-import { Loading } from '../components/loading.js';
+import { Messages } from '../../../api/messages/messages.js';
+import { ChatMessageListComponent } from "../../components/messages/chat-message-list-component.js";
+import { Loading } from '../../components/loading.js';
 import { Meteor } from 'meteor/meteor';
 
 const composer = (params, onData) => {
@@ -41,7 +41,7 @@ const composer = (params, onData) => {
 					}
 				});
 
-			onData(null, {friends, messagesDetail });
+			onData(null, {messagesDetail });
     }
 };
 export default composeWithTracker(composer, Loading)(ChatMessageListComponent);

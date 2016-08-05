@@ -1,7 +1,7 @@
 import { composeWithTracker } from 'react-komposer';
-import { Messages } from '../../api/messages/messages.js';
-import { FriendsListComponent } from "../components/messages/friends-list-component.js";
-import { Loading } from '../components/loading.js';
+import { Messages } from '../../../api/messages/messages.js';
+import { FriendsListComponent } from "../../components/messages/friends-list-component.js";
+import { Loading } from '../../components/loading.js';
 import { Meteor } from 'meteor/meteor';
 
 const composer = (params, onData) => {

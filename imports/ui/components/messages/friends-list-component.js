@@ -25,7 +25,7 @@ export class FriendsListComponent extends React.Component {
       });
 
     var list = _.map(friends, function(friend){
-      return <FriendsListItem key={ friend._id } friend={ friend } />
+      return <FriendsListItemComponent key={ friend._id } friend={ friend } />
     });
     return(
       <ul className="friend-list">

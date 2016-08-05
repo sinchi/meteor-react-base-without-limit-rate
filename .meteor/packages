@@ -36,3 +36,5 @@ edgee:slingshot
 reywood:publish-composite
 underscore
 meteorhacks:aggregate
+ddp-rate-limiter
+react-meteor-data

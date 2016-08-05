@@ -5,13 +5,11 @@ import { browserHistory } from 'react-router';
 export class FriendsListItemComponent extends React.Component {
 
   getConversation(event){
-            
     event.preventDefault();
     messageReceived.call({ sender: this.props.friend.user._id }, (error)=>{
       if(error)
         Bert.alert(error.reason, 'warning');
     });
-
     browserHistory.push('/messages/conversation/' + this.props.friend.user._id);
   }
 
@@ -21,7 +19,7 @@ export class FriendsListItemComponent extends React.Component {
     const readed  = (this.props.friend.sended && this.props.friend.read ) ? (<small className="chat-alert text-muted"><i className="fa fa-check"></i></small>) : '';
     return (
       <li className={ this.props.friend.active }>
-        <a onClick={ this.getConversation } href="#" className="clearfix">
+        <a onClick={ this.getConversation.bind(this) } href="#" className="clearfix">
           <img src={ this.props.friend.avatar } alt="" className="img-circle" />
           <div className="friend-name">
             <strong>{ this.props.friend.name }</strong>
