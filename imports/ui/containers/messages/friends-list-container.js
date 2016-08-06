@@ -17,8 +17,8 @@ const composer = (params, onData) => {
 	// if( subSendedMessages.ready()){
 	// 	console.log(Messages.find().fetch());
 	// }
-	let result = receivedMessagesBySender.call();
-	console.log(result);
+//	let result = receivedMessagesBySender.call();
+//	console.log(result);
 	const subscriptions = Meteor.subscribe('messages', 23);
   	if(subscriptions.ready()) {
   		const msgs = Messages.find({}, {sort:{ order: -1 }}).fetch();
