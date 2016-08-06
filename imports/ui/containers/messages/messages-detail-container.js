@@ -5,7 +5,7 @@ import { Loading } from '../../components/loading.js';
 import { Meteor } from 'meteor/meteor';
 
 const composer = (params, onData) => {
-	const subscriptions = Meteor.subscribe('messages');
+	const subscriptions = Meteor.subscribe('messages', 5);
   	if(subscriptions.ready()) {
 			let details = null;
 			if(params.userId){
@@ -19,7 +19,7 @@ const composer = (params, onData) => {
 							sender: Meteor.userId(),
 							receiver: params.userId
 						}
-				]}, {sort:{ publication: 1 } }).fetch();
+				]}, {sort:{ order: 1 } }).fetch();
 			}
 
 				const messagesDetail = _.map(details, (msg) => {

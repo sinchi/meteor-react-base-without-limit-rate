@@ -35,6 +35,7 @@ dburles:factory
 edgee:slingshot
 reywood:publish-composite
 underscore
-meteorhacks:aggregate
 ddp-rate-limiter
 react-meteor-data
+jcbernack:reactive-aggregate
+meteorhacks:aggregate

@@ -3,6 +3,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/dburles:factory';
 import faker from 'faker';
 import { Sequence } from '../sequences/sequence.js';
+import { aggregate } from 'meteor/meteorhacks:aggregate';
 
 export const Messages = new Mongo.Collection('messages');
 

@@ -1,6 +1,11 @@
 import React from 'react';
 
 export class ChatMessageListItemComponent extends React.Component{
+
+  componentDidMount(){
+    $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
+  }
+
   render(){
     return (
       <li className={ this.props.message.position + " clearfix" }>

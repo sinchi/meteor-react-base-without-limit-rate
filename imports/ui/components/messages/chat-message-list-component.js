@@ -3,9 +3,6 @@ import { ChatMessageListItemComponent } from './chat-message-list-item-component
 
 export class ChatMessageListComponent extends React.Component{
 
-  componentDidMount(){
-    $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
-  }
 
   render(){
 

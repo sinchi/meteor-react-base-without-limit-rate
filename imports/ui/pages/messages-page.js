@@ -25,7 +25,7 @@ getUser(userId){
           if(event.key === 'Enter' && event.target.value !== ""){
             sequenceInc.call({ name: 'messages' });
             var content = event.target.value;
-            //event.target.value = "";
+            event.target.value = "";
              var msg = {
                sender: Meteor.userId(),
                receiver: this.props.params.userId,
