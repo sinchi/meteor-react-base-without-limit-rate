@@ -57,11 +57,33 @@ export class ChatBoxMessage extends React.Component{
 
   }
 
+  onEnterPress(event){
+    if(event.key === 'Enter' && event.target.value !== ""){
+      sequenceInc.call({ name: 'messages' });
+       var msg = {
+         sender: Meteor.userId(),
+         receiver: this.props.userId,
+         publication: new Date(),
+         read: false,
+         content: this.state.content,
+         order: Sequence.findOne().seq
+       };
+       let that = this;
+       insertMessage.call(msg, function(error){
+         if(error)
+          Bert.alert(error.reason,"warning");
+
+          that.setState({ content: "" });
+          ReactDOM.findDOMNode(that.refs.msgContent).value = "";
+       });
+    }
+  }
+
   render(){
     return (
       <div className="chat-box bg-white">
         <div className="input-group">
-          <input onFocus={ this.focus.bind(this) } autoFocus ref="msgContent" onKeyUp={ this.onWriting.bind(this) } onKeyPress={ this.props.onEnterPress } className="form-control border no-shadow no-rounded" placeholder="Tapper votre message ici ..." />
+          <input onFocus={ this.focus.bind(this) } autoFocus ref="msgContent" onKeyUp={ this.onWriting.bind(this) } onKeyPress={ this.onEnterPress.bind(this) } className="form-control border no-shadow no-rounded" placeholder="Tapper votre message ici ..." />
           <span className="input-group-btn">
             <button onClick={ this.sendMessage.bind(this) } className="btn btn-success no-rounded" type="button">Envoyer</button>
           </span>

@@ -111,7 +111,7 @@ messageText(event){
 						<ButtonToolbar>
 							<DropdownButton title={ this.getUserIcon() } id="dropdown-size-medium">
 								<MenuItem eventKey="1"><Icon name="users" size="lg" /> Suivre</MenuItem>
-								<MenuItem eventKey="2" ><Icon name="envelope" size="lg" /> Message</MenuItem>
+								<MenuItem eventKey="2" onClick={this.message.bind(this)}><Icon name="envelope" size="lg" /> Message</MenuItem>
 								<MenuItem eventKey="3"><Icon name="phone" size="lg" /> Appeler</MenuItem>
 							</DropdownButton>
 						</ButtonToolbar>

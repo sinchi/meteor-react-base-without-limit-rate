@@ -24,30 +24,9 @@ getUser(userId){
   return Meteor.users.findOne(userId, { fields: { profile: 1 } });
 }
 
-  onEnterPress(event){
-    if(event.key === 'Enter' && event.target.value !== ""){
-      sequenceInc.call({ name: 'messages' });
-      var content = event.target.value;
-      event.target.value = "";
-       var msg = {
-         sender: Meteor.userId(),
-         receiver: this.props.params.userId,
-         publication: new Date(),
-         read: false,
-         content: content,
-         order: Sequence.findOne().seq
-       };
-
-       insertMessage.call(msg, function(error){
-         if(error)
-          Bert.alert(error.reason,"warning");
-       });
-
-    }
-  }
 
   render(){
-    let chatBox = (this.props.params.userId) ?  <ChatBoxMessage userId={ this.props.params.userId } onEnterPress={ this.onEnterPress.bind(this) } /> : '';
+    let chatBox = (this.props.params.userId) ?  <ChatBoxMessage userId={ this.props.params.userId }  /> : '';
     return (
       <div className="container bootstrap snippet">
         <div className="row">

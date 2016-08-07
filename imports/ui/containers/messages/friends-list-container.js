@@ -3,22 +3,58 @@ import { Messages } from '../../../api/messages/messages.js';
 import { FriendsListComponent } from "../../components/messages/friends-list-component.js";
 import { Loading } from '../../components/loading.js';
 import { Meteor } from 'meteor/meteor';
-import { receivedMessagesBySender } from '../../../api/messages/methods';
+import { CountReceivedMessagesByUser } from '../../../startup/client/count-received-messages-by-user';
+import { CountSendedMessagesByUser } from '../../../startup/client/count-sended-messages-by-user';
 
-// les messages que j'ai recu regroupé par l'envoyeur
-//db.getCollection('messages').aggregate(  [ {$match:{ receiver:"bWPdq4r6LuJdqLuaK" }} ,{ $group: { _id:"$sender", count:{$sum:1} } } , {$sort:{"count": -1}}])
+_mergeSendedAndReceivedData = (sended, received, all) => {
+	if(sended.length > received.length){
+		_.each(sended, (s) => {
+			all.push(s)
+		});
+		let exist = false;
+		for(let i=0; i<received.length; i++){
+			for(let j=0; j<all.length; j++){
+				if(all[j].user._id === received[i].user._id){
+					exist = true;
+				}
+			}
+			if(!exist){
+				all.push(received[i])
+			}
+		}
+	}else
+	 if(received.length > sended.length){
+		_.each(received, (r) => {
+			all.push(r)
+		});
+		let exist = false;
+		for(let i=0; i<sended.length; i++){
+			for(let j=0; j<all.length; j++){
+				if(all[j].user._id === sended[i].user._id){
+					exist = true;
+				}
+			}
+			if(!exist){
+				all.push(sended[i])
+			}
+		}
+	}
+	return all;
+}
 
-// les mesages que j'ai envoyé regroupé par le récepteur
-//db.getCollection('messages').aggregate(  [ {$match:{ sender:"bWPdq4r6LuJdqLuaK" }} ,{ $group: { _id:"$receiver", count:{$sum:1} } } , {$sort:{"count": -1}}])
+
 
 const composer = (params, onData) => {
-	// const subSendedMessages  = Meteor.subscribe('sendedMessagesByReceiver');
-	// //const subReceivedMessages = Meteor.subscribe('receivedMessagesBySender');
-	// if( subSendedMessages.ready()){
-	// 	console.log(Messages.find().fetch());
-	// }
-//	let result = receivedMessagesBySender.call();
-//	console.log(result);
+	const sended = Meteor.subscribe('countSendedMessagesByUser');
+	const received = Meteor.subscribe('countReceivedMessagesByUser');
+	if(sended.ready() && received.ready()){
+		const sended = CountSendedMessagesByUser.find().fetch();
+		const received = CountReceivedMessagesByUser.find().fetch();
+		let all = [];
+		all = _mergeSendedAndReceivedData(sended, received, all);
+		console.log(all);
+
+	}
 	const subscriptions = Meteor.subscribe('messages', 23);
   	if(subscriptions.ready()) {
   		const msgs = Messages.find({}, {sort:{ order: -1 }}).fetch();

@@ -11,7 +11,7 @@ export class ChatMessageListComponent extends React.Component{
     });
 
     return (
-      <ul className="chat" ref="chatBox" id="chatBox" style={ {height:"550px", width:"700px" , overflow:"scroll", overflowX:"hidden" ,overflowY:"scroll"}}>
+      <ul className="chat" ref="chatBox" id="chatBox">
         { chatMessages }
       </ul>
     )
