@@ -58,38 +58,62 @@ Meteor.publish('countReceivedMessagesByUser', function(){
 		pipeline,
 		Meteor.bindEnvironment(
 			function(err, result){
-				//console.log('result', result);
+				console.log('result countReceivedMessagesByUser', result);
 				_.each(result, function(r){
 					users[r._id] = r.count;
 					subscription.added('countReceivedMessagesByUser', r._id, {
 						count: r.count,
-						user: Meteor.users.findOne({_id: r._id}, { fields: { profile: 1 } })						
-					})
-				})
-			}
-		)
-	)
+						user: Meteor.users.findOne({_id: r._id}, { fields: { profile: 1 } }),
+						sender: Meteor.users.findOne({_id: r._id}, { fields: { profile: 1 } }),
+						receiver: Meteor.users.findOne({_id: userId}, { fields: { profile: 1 } }),
+						total: Messages.find({sender: r._id, read: false}).count()
+					});// added subscription
+				}); // _.each
+			}// bindEnvironment function
+		)// bindEnvironment
+	)// aggregate
 
 	var messageHandle = Messages.find({
 		receiver: userId
 	}).observeChanges({
 		added: function(id, fields){
 			if(!initiated) return ;
-			//console.log(users);
+			console.log("users from countReceivedMessagesByUser",users);
 
 			if(_.isEmpty(users) || _.isUndefined(users[fields.sender])){
 				users[fields.sender] = 1;
+				lastMessage = fields.content;
 				subscription.added('countReceivedMessagesByUser', fields.sender, {
 					count: users[fields.sender],
-					user: Meteor.users.findOne({_id: fields.sender}, { fields: { profile: 1 } })
+					user: Meteor.users.findOne({_id: fields.sender}, { fields: { profile: 1 } }),
+					sender : Meteor.users.findOne({_id: fields.sender}, { fields: { profile: 1 } }),
+					receiver: Meteor.users.findOne({_id: userId}, { fields: { profile: 1 } }),
+					//lastMessage: fields.content,
+					total: Messages.find({sender: fields.sender, read: false}).count()
 				})
 			}else{
+				lastMessage = fields.content;
 				users[fields.sender] += 1;
 				subscription.changed('countReceivedMessagesByUser', fields.sender, {
 					count: users[fields.sender],
-					user: Meteor.users.findOne({_id: fields.sender}, { fields: { profile: 1 } })
+					user: Meteor.users.findOne({_id: fields.sender}, { fields: { profile: 1 } }),
+					sender : Meteor.users.findOne({_id: fields.sender}, { fields: { profile: 1 } }),
+					receiver: Meteor.users.findOne({_id: userId}, { fields: { profile: 1 } }),
+				//	lastMessage: fields.content,
+					total: Messages.find({sender: fields.sender, read: false}).count()
 				});
 			}
+		}, // added
+		changed: function(id, fields){
+			if(!initiated) return ;
+			var message = Messages.findOne({ _id: id });
+			subscription.changed('countReceivedMessagesByUser', message.sender, {
+				count: users[message.sender],
+				user: Meteor.users.findOne({_id: message.sender}, { fields: { profile: 1 } }),
+				sender : Meteor.users.findOne({_id: message.sender}, { fields: { profile: 1 } }),
+				receiver: Meteor.users.findOne({_id: message.receiver}, { fields: { profile: 1 } }),
+				total: Messages.find({sender: message.sender, read: false}).count()
+			})
 		}
 	});
 	initiated = true;
@@ -125,12 +149,15 @@ Meteor.publish('countSendedMessagesByUser', function(){
 		pipeline,
 		Meteor.bindEnvironment(
 			function(err, result){
-				console.log('result', result);
+				console.log('result countSendedMessagesByUser', result);
 				_.each(result, function(r){
 					users[r._id] = r.count;
 					subscription.added('countSendedMessagesByUser', r._id, {
 						count: r.count,
-						user: Meteor.users.findOne({_id: r._id}, { fields: { profile: 1 } })
+						user: Meteor.users.findOne({_id: r._id}, { fields: { profile: 1 } }),
+						sender: Meteor.users.findOne({_id: userId}, { fields: { profile: 1 } }),
+						receiver: Meteor.users.findOne({_id: r._id}, { fields: { profile: 1 } }),
+						total: Messages.find({sender: userId, read: false}).count()
 					})
 				})
 			}
@@ -142,19 +169,30 @@ Meteor.publish('countSendedMessagesByUser', function(){
 	}).observeChanges({
 		added: function(id, fields){
 			if(!initiated) return ;
-			console.log(users);
-
+				console.log('users', users);
+				console.log('fields', fields);
+			lastMessage = fields.content;
 			if(_.isEmpty(users) || _.isUndefined(users[fields.receiver])){
+
 				users[fields.receiver] = 1;
 				subscription.added('countSendedMessagesByUser', fields.receiver, {
 					count: users[fields.receiver],
-					user: Meteor.users.findOne({_id: fields.receiver}, { fields: { profile: 1 } })
+					user: Meteor.users.findOne({_id: fields.receiver}, { fields: { profile: 1 } }),
+					sender: Meteor.users.findOne({_id: userId}, { fields: { profile: 1 } }),
+					receiver: Meteor.users.findOne({_id: fields.receiver}, { fields: { profile: 1 } }),
+					//lastMessage: fields.content,
+					total: Messages.find({sender: userId, read: false}).count()
+
 				})
 			}else{
 				users[fields.receiver] += 1;
 				subscription.changed('countSendedMessagesByUser', fields.receiver, {
 					count: users[fields.receiver],
-					user: Meteor.users.findOne({_id: fields.receiver}, { fields: { profile: 1 } })
+					user: Meteor.users.findOne({_id: fields.receiver}, { fields: { profile: 1 } }),
+					sender: Meteor.users.findOne({_id: userId}, { fields: { profile: 1 } }),
+					receiver: Meteor.users.findOne({_id: fields.receiver}, { fields: { profile: 1 } }),
+				//	lastMessage: fields.content,
+					total: Messages.find({sender: userId, read: false}).count()
 				});
 			}
 		}

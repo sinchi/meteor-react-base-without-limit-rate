@@ -29,4 +29,12 @@ import '../../api/sequences/sequence.js';
 import '../../api/sequences/methods.js';
 import '../../api/sequences/server/publications.js';
 
+import '../../api/messagerie/conversations/conversations.js';
+import '../../api/messagerie/conversations/methods.js';
+import '../../api/messagerie/conversations/server/publications.js';
+
+import '../../api/messagerie/conversation-messages/conversation-messages.js';
+import '../../api/messagerie/conversation-messages/methods.js';
+//import '../../api/messagerie/conversation-messages/server/publications.js';
+
 import '../../api/users/server/publications.js';
