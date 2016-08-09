@@ -4,23 +4,25 @@ import { FriendsListItemComponent } from './friends-list-item-component.js';
 export class FriendsListComponent extends React.Component {
   render(){
         let friends =  _.map(this.props.friends, (message) => {
-        let user = message[0].sender._id === Meteor.userId() ? message[0].receiver : message[0].sender;
+        let user = (message.from.userId === Meteor.userId()) ? Meteor.users.findOne({ _id: message.to.userId }, { fields: { profile : 1 } }) : Meteor.users.findOne({ _id: message.from.userId }, { fields: { profile : 1 } });
+
         let active = "";
-        if(!message[0].read && (message[0].sender._id !== Meteor.userId()))
+        if(!message.to.read && (message.from.userId !== Meteor.userId()))
           active = "active bounceInDown";
-        else if(this.props.userId === user._id)
+        else if(this.props.conversationId === message.conversationId)
           active = "active";
         return {
-              _id: message[0]._id,
+              _id: message._id,
               avatar: user.profile.avatar,
               name: user.profile.name.first + ' ' + user.profile.name.last,
-              lastMessage: message[0].content,
+              lastMessage: message.body,
               date:"2 min ago",
-              count:message[0].count,
+              count:1,
               active: active,
-              sended: message[0].sender._id === Meteor.userId(),
-              read: message[0].read,
-              user: user
+              sended:  message.from.userId === Meteor.userId(),
+              read: message.to.read,
+              user: user,
+              conversationId: message.conversationId
         }
       });
 

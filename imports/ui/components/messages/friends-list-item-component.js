@@ -10,7 +10,7 @@ export class FriendsListItemComponent extends React.Component {
       if(error)
         Bert.alert(error.reason, 'warning');
     });
-    browserHistory.push('/messages/conversation/' + this.props.friend.user._id);
+    browserHistory.push('/messages/conversation/' + this.props.friend.conversationId);
   }
 
   render(){

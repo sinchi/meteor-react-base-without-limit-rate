@@ -32,10 +32,10 @@ getUser(userId){
         <div className="row">
             <FriendsListContentComponent>
               <EnteteComponent title={ "Ma boite de réception" }/>
-              <FriendsListComponent userId={ this.props.params.userId }/>
+              <FriendsListComponent conversationId={ this.props.params.conversationId }/>
             </FriendsListContentComponent>
             <DetailFriendMessageContentComponent>
-              <ChatMessageListComponent userId={ this.props.params.userId }/>
+              <ChatMessageListComponent conversationId={ this.props.params.conversationId }/>
               { chatBox }
             </DetailFriendMessageContentComponent>
         </div>

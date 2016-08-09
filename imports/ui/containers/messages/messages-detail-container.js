@@ -3,45 +3,30 @@ import { Messages } from '../../../api/messages/messages.js';
 import { ChatMessageListComponent } from "../../components/messages/chat-message-list-component.js";
 import { Loading } from '../../components/loading.js';
 import { Meteor } from 'meteor/meteor';
-
+import { ConversationMessages } from '../../../api/messagerie/conversation-messages/conversation-messages.js';
 const composer = (params, onData) => {
-	const subscriptions = Meteor.subscribe('messages', 5);
-  	if(subscriptions.ready()) {
-			let details = null;
-			if(params.userId){
-				 details =  Messages.find({
-					$or:[
-						{
-							sender: params.userId,
-							receiver: Meteor.userId()
-						},
-						{
-							sender: Meteor.userId(),
-							receiver: params.userId
-						}
-				]}, {sort:{ order: 1 } }).fetch();
-			}
+	let conversationMessages = ConversationMessages.find({conversationId: params.conversationId}).fetch();
 
-				const messagesDetail = _.map(details, (msg) => {
+				const messagesDetail = _.map(conversationMessages, (msg) => {
 					let user = null;
-					if(msg.sender === Meteor.userId())
+					if(msg.from.userId === Meteor.userId())
 						user = Meteor.user();
-					else if(msg.receiver === Meteor.userId())
-						user = Meteor.users.findOne({ _id: msg.sender }, { fields: { profile: 1 } });
+					else if(msg.to.userId === Meteor.userId())
+						user = Meteor.users.findOne({ _id: msg.from.userId }, { fields: { profile: 1 } });
 					return {
 						_id: msg._id,
-						position: msg.sender !== Meteor.userId() ? 'left' : 'right',
+						position: msg.from.userId !== Meteor.userId() ? 'left' : 'right',
 						image:{
 							src: user.profile.avatar,
 							alt: "User Avatar",
 						},
 						username: user.profile.name.first + ' ' + user.profile.name.last,
 						date: "12 min ago",
-						content: msg.content
+						content: msg.body
 					}
 				});
 
 			onData(null, {messagesDetail });
-    }
+
 };
 export default composeWithTracker(composer, Loading)(ChatMessageListComponent);

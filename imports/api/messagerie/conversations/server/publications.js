@@ -10,7 +10,11 @@ Meteor.publishComposite('conversations.friends', function(){
     children:[
       {
         find: function(conversation){
-          return ConversationMessages.find({ conversationId: conversation._id }, {sort:{ order: -1 }, limit:1} );
+          let conversationId = "YN77nSz5AJxXBvXx8";
+          if(conversation._id === conversationId)
+            return ConversationMessages.find({ conversationId: conversation._id }, {sort:{ order: -1 }, limit:3} );
+            
+          return ConversationMessages.find({ conversationId: conversation._id }, {sort:{ order: -1 }, limit:10} );
         },
         children:[
           {
