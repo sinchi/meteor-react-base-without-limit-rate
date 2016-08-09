@@ -50,11 +50,12 @@ ConversationMessages.schema = new SimpleSchema({
   originatingFromIdDeleted: {
     type: Boolean,
     label: "Is this message is removed by the sender? ",
-    defaultValue: false
+    defaultValue: false,
   },
   originatingToIdDeleted:{
     type: Boolean,
-    label: "Is this message is removed by the receiver ?"
+    label: "Is this message is removed by the receiver ?",
+    defaultValue: false
   },
   order:{
     type: Number,

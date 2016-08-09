@@ -5,6 +5,10 @@ import { Loading } from '../components/loading.js';
 import { Meteor } from 'meteor/meteor';
 
 const composer = (params, onData) => {
+	const friends = Meteor.subscribe('conversations.friends');
+	if(friends.ready()){
+		console.log("conversation with friends is ready");
+	}
 	const subscriptions = Meteor.subscribe('annoncesWithRelation', params.text);
 	if(subscriptions.ready()) {
 		const annonces = Annonces.find({}, {sort:{ publication: -1 }}).fetch();

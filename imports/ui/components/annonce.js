@@ -9,6 +9,11 @@ import { insertMessage } from '../../api/messages/methods';
 import { Sequence } from '../../api/sequences/sequence';
 import { sequenceInc } from '../../api/sequences/methods';
 
+import { Conversations } from '../../api/messagerie/conversations/conversations.js';
+import { ConversationMessages } from '../../api/messagerie/conversation-messages/conversation-messages.js';
+import { insertConversationMessages } from '../../api/messagerie/conversation-messages/methods.js';
+import { insertConversation } from '../../api/messagerie/conversations/methods.js';
+
 
 export class Annonce extends React.Component{
 
@@ -42,7 +47,7 @@ export class Annonce extends React.Component{
 	}
 
 	 getUser(annonce){
-		 const user = Meteor.users.findOne(annonce.owner);
+		const user = Meteor.users.findOne(annonce.owner);
 		return user.profile.name.first + ' ' + user.profile.name.last;
 		//return Meteor.user().profile.name.first;
 	}
@@ -74,6 +79,31 @@ messageText(event){
 	 event.preventDefault();
 	 sequenceInc.call({ name: 'messages' });
 
+	 let conversationExist = Conversations.findOne({$or: [{'originatingFromId': Meteor.userId()}, {'originatingToId': Meteor.userId()}], $or: [{'originatingFromId': this.props.annonce.owner}, {'originatingToId': this.props.annonce.owner}]});
+	 if(conversationExist){
+		 let message = {
+			 conversationId: conversationExist._id,
+			 from:{
+				 userId: Meteor.userId()
+			 },
+			 to:{
+				 userId: this.props.annonce.owner,
+				 read: false
+			 },
+			 body: this.state.messageContent,
+			 order: Sequence.findOne().seq
+		 };
+		 insertConversationMessages.call(message);
+	 }else{
+		 let newConversation = {
+			 	originatingToId: this.props.annonce.owner,
+		 		originatingToName: this.getUser(this.props.annonce),
+		 		body: this.state.messageContent,
+				order: Sequence.findOne().seq
+	 		};
+
+		 insertConversation.call(newConversation);
+	 }
 	 const msg = {
 		 sender: Meteor.userId(),
 		 receiver: this.props.annonce.owner,

@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { insertMessage, messageReceived } from '../../../api/messages/methods.js';
 
+import { Conversations } from '../../../api/messagerie/conversations/conversations.js';
+import { ConversationMessages } from '../../../api/messagerie/conversation-messages/conversation-messages.js';
+import { insertConversationMessages } from '../../../api/messagerie/conversation-messages/methods.js';
+
 import { sequenceInc } from '../../../api/sequences/methods';
 import { Sequence } from '../../../api/sequences/sequence';
 import { getInputValue } from '../../../modules/get-input-value';
@@ -29,6 +33,22 @@ export class ChatBoxMessage extends React.Component{
 
     if(this.state.content && this.state.content !== ""){
         sequenceInc.call({ name: 'messages' });
+        let conversationExist = Conversations.findOne({$or: [{'originatingFromId': Meteor.userId()}, {'originatingToId': Meteor.userId()}], $or: [{'originatingFromId': this.props.userId}, {'originatingToId': this.props.userId}]});
+        if(conversationExist){
+          let message = {
+            conversationId: conversationExist._id,
+            from:{
+              userId: Meteor.userId()
+            },
+            to:{
+              userId: this.props.userId,
+              read: false
+            },
+            body: this.state.content,
+            order: Sequence.findOne().seq
+          };
+          insertConversationMessages.call(message);
+        }
          var msg = {
            sender: Meteor.userId(),
            receiver: this.props.userId,
@@ -60,6 +80,22 @@ export class ChatBoxMessage extends React.Component{
   onEnterPress(event){
     if(event.key === 'Enter' && event.target.value !== ""){
       sequenceInc.call({ name: 'messages' });
+      let conversationExist = Conversations.findOne({$or: [{'originatingFromId': Meteor.userId()}, {'originatingToId': Meteor.userId()}], $or: [{'originatingFromId': this.props.userId}, {'originatingToId': this.props.userId}]});
+      if(conversationExist){
+        let message = {
+          conversationId: conversationExist._id,
+          from:{
+            userId: Meteor.userId()
+          },
+          to:{
+            userId: this.props.userId,
+            read: false
+          },
+          body: this.state.content,
+          order: Sequence.findOne().seq
+        };
+        insertConversationMessages.call(message);
+      }
        var msg = {
          sender: Meteor.userId(),
          receiver: this.props.userId,

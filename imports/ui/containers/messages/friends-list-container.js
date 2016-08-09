@@ -53,7 +53,7 @@ const composer = (params, onData) => {
 		let conversationMessages = ConversationMessages.find().fetch();
 		console.log("conversations", conversations);
 		console.log("conversationMessages",conversationMessages);
-		return;
+		//return;
 	}
 	const sended = Meteor.subscribe('countSendedMessagesByUser');
 	const received = Meteor.subscribe('countReceivedMessagesByUser');

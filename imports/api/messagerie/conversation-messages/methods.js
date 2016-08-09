@@ -32,10 +32,12 @@ export const insertConversationMessages = new ValidatedMethod({
       label: "if this message is read by the receiver ?",
       defaultValue: false
     },
-
     body:{
       type: String,
       label: "the content of the message"
+    },
+    order:{
+      type:Number
     }
   }).validator(),
   run(conversationMessage){
