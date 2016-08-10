@@ -10,6 +10,7 @@ import { insertAbonnementCategory } from '../../api/annonces/abonnements/methods
 import { updateToReadNotificationNewAnnonce } from '../../api/annonces/notifications/methods.js';
 import { Bert } from 'meteor/themeteorchef:bert';
 import DropDownAbonnement from '../containers/drop-down-abonnement-container.js';
+import DropDownMessagesComponent from '../containers/messages/friends-list-navigation-container.js';
 
 export class AuthenticatedNavigation extends React.Component{
 
@@ -86,9 +87,10 @@ export class AuthenticatedNavigation extends React.Component{
          <LinkContainer to="/my-annonces">
            <NavItem eventKey={ 3 } href="/annonces"><Icon size='lg' name="bullhorn"/> Mes annonces</NavItem>
          </LinkContainer>
-         <LinkContainer to="/messages">
+         <DropDownMessagesComponent />
+        {/* <LinkContainer to="/messages">
            <NavItem eventKey={ 4 } href="/messages"><Icon size='lg' name="envelope-o"/> Messages</NavItem>
-         </LinkContainer>
+         </LinkContainer>*/}
          <LinkContainer to="/discussion">
            <NavItem eventKey={ 4 } href="/discussion"><Icon size='lg' name="comments-o"/> Discussions</NavItem>
          </LinkContainer>
