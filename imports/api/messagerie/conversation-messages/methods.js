@@ -44,3 +44,14 @@ export const insertConversationMessages = new ValidatedMethod({
     ConversationMessages.insert(conversationMessage);
   }
 });
+
+export const readThemAll = new ValidatedMethod({
+  name: "conversationMessage.readThemAll",
+  validate: new SimpleSchema({
+    conversationId: { type: String },
+    read: { type: Boolean }
+  }).validator(),
+  run({ conversationId, read }){
+    ConversationMessages.update({ conversationId: conversationId, "to.userId":this.userId }, { $set:{ "to.read": read } }, {multi: true});
+  }
+})

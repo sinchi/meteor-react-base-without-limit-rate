@@ -14,7 +14,9 @@ const composer = (params, onData) => {
 		let conversations = Conversations.find().fetch();
 		let friends = _.map(conversations, (conversation) => {
 			return ConversationMessages.findOne({conversationId: conversation._id}, {sort: { order: -1 }, limit:1});
-		});	
+		}).sort((msg1, msg2) => {
+			return msg2.order - msg1.order; // DESC by order 
+		});
 		  onData(null, {friends});
 	}
 

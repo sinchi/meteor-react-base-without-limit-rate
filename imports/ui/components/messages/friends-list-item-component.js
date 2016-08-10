@@ -1,16 +1,29 @@
 import React from 'react';
 import { messageReceived } from '../../../api/messages/methods.js';
 import { browserHistory } from 'react-router';
+import { ConversationMessages } from '../../../api/messagerie/conversation-messages/conversation-messages.js';
+import { readThemAll } from '../../../api/messagerie/conversation-messages/methods.js';
 
 export class FriendsListItemComponent extends React.Component {
 
   getConversation(event){
     event.preventDefault();
-    messageReceived.call({ sender: this.props.friend.user._id }, (error)=>{
+    // messageReceived.call({ sender: this.props.friend.user._id }, (error)=>{
+    //   if(error)
+    //     Bert.alert(error.reason, 'warning');
+    // });
+    readThemAll.call({ conversationId: this.props.friend.conversationId, read: true }, (error) => {
       if(error)
-        Bert.alert(error.reason, 'warning');
+        Bert.alert(error.reason, "warning");
     });
-    browserHistory.push('/messages/conversation/' + this.props.friend.conversationId);
+    let message = ConversationMessages.findOne({ conversationId: this.props.friend.conversationId }, { sort:{ order: -1 }, limit: 1 });
+    let toUserId = "";
+    if(message.from.userId === Meteor.userId()){
+      toUserId = message.to.userId;
+    }else{
+      toUserId = message.from.userId
+    }
+    browserHistory.push('/messages/conversation/' + this.props.friend.conversationId +"/" + toUserId);
   }
 
   render(){

@@ -26,7 +26,7 @@ getUser(userId){
 
 
   render(){
-    let chatBox = (this.props.params.userId) ?  <ChatBoxMessage userId={ this.props.params.userId }  /> : '';
+    let chatBox = (this.props.params.conversationId && this.props.params.toUserId) ?  <ChatBoxMessage conversationId={ this.props.params.conversationId } toUserId={ this.props.params.toUserId }  /> : '';
     return (
       <div className="container bootstrap snippet">
         <div className="row">

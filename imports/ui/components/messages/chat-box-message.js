@@ -33,38 +33,46 @@ export class ChatBoxMessage extends React.Component{
 
     if(this.state.content && this.state.content !== ""){
         sequenceInc.call({ name: 'messages' });
-        let conversationExist = Conversations.findOne({$or: [{'originatingFromId': Meteor.userId()}, {'originatingToId': Meteor.userId()}], $or: [{'originatingFromId': this.props.userId}, {'originatingToId': this.props.userId}]});
+        let conversationExist = Conversations.findOne({$or: [{'originatingFromId': Meteor.userId()}, {'originatingToId': Meteor.userId()}], $or: [{'originatingFromId': this.props.toUserId}, {'originatingToId': this.props.toUserId}]});
         if(conversationExist){
+          console.log("toUserId", this.props.toUserId);
           let message = {
             conversationId: conversationExist._id,
             from:{
               userId: Meteor.userId()
             },
             to:{
-              userId: this.props.userId,
+              userId: this.props.toUserId,
               read: false
             },
             body: this.state.content,
             order: Sequence.findOne().seq
           };
-          insertConversationMessages.call(message);
-        }
-         var msg = {
-           sender: Meteor.userId(),
-           receiver: this.props.userId,
-           publication: new Date(),
-           read: false,
-           content: this.state.content,
-           order: Sequence.findOne().seq
-         };
-         let that = this;
-         insertMessage.call(msg, function(error){
-           if(error)
-            Bert.alert(error.reason,"warning");
+          let that = this;
+          insertConversationMessages.call(message, (error) => {
+            if(error)
+             Bert.alert(error.reason,"warning");
 
-            that.setState({ content: "" });
-            ReactDOM.findDOMNode(that.refs.msgContent).value = "";
-         });
+             that.setState({ content: "" });
+             ReactDOM.findDOMNode(that.refs.msgContent).value = "";
+          });
+        }
+        //  var msg = {
+        //    sender: Meteor.userId(),
+        //    receiver: this.props.userId,
+        //    publication: new Date(),
+        //    read: false,
+        //    content: this.state.content,
+        //    order: Sequence.findOne().seq
+        //  };
+        //  let that = this;
+        //  insertMessage.call(msg, function(error){
+        //    if(error)
+        //     Bert.alert(error.reason,"warning");
+         //
+        //     that.setState({ content: "" });
+        //     ReactDOM.findDOMNode(that.refs.msgContent).value = "";
+        //  });
 
       }
     }
@@ -80,38 +88,46 @@ export class ChatBoxMessage extends React.Component{
   onEnterPress(event){
     if(event.key === 'Enter' && event.target.value !== ""){
       sequenceInc.call({ name: 'messages' });
-      let conversationExist = Conversations.findOne({$or: [{'originatingFromId': Meteor.userId()}, {'originatingToId': Meteor.userId()}], $or: [{'originatingFromId': this.props.userId}, {'originatingToId': this.props.userId}]});
+      let conversationExist = Conversations.findOne({$or: [{'originatingFromId': Meteor.userId()}, {'originatingToId': Meteor.userId()}], $or: [{'originatingFromId': this.props.toUserId}, {'originatingToId': this.props.toUserId}]});
       if(conversationExist){
+        console.log("toUserId", this.props.toUserId);
         let message = {
           conversationId: conversationExist._id,
           from:{
             userId: Meteor.userId()
           },
           to:{
-            userId: this.props.userId,
+            userId: this.props.toUserId,
             read: false
           },
           body: this.state.content,
           order: Sequence.findOne().seq
         };
-        insertConversationMessages.call(message);
-      }
-       var msg = {
-         sender: Meteor.userId(),
-         receiver: this.props.userId,
-         publication: new Date(),
-         read: false,
-         content: this.state.content,
-         order: Sequence.findOne().seq
-       };
-       let that = this;
-       insertMessage.call(msg, function(error){
-         if(error)
-          Bert.alert(error.reason,"warning");
+        let that = this;
+        insertConversationMessages.call(message, (error) => {
+          if(error)
+           Bert.alert(error.reason,"warning");
 
-          that.setState({ content: "" });
-          ReactDOM.findDOMNode(that.refs.msgContent).value = "";
-       });
+           that.setState({ content: "" });
+           ReactDOM.findDOMNode(that.refs.msgContent).value = "";
+        });
+      }
+      //  var msg = {
+      //    sender: Meteor.userId(),
+      //    receiver: this.props.userId,
+      //    publication: new Date(),
+      //    read: false,
+      //    content: this.state.content,
+      //    order: Sequence.findOne().seq
+      //  };
+      //  let that = this;
+      //  insertMessage.call(msg, function(error){
+      //    if(error)
+      //     Bert.alert(error.reason,"warning");
+       //
+      //     that.setState({ content: "" });
+      //     ReactDOM.findDOMNode(that.refs.msgContent).value = "";
+      //  });
     }
   }
 

@@ -5,8 +5,10 @@ import { Loading } from '../../components/loading.js';
 import { Meteor } from 'meteor/meteor';
 import { ConversationMessages } from '../../../api/messagerie/conversation-messages/conversation-messages.js';
 const composer = (params, onData) => {
-	let conversationMessages = ConversationMessages.find({conversationId: params.conversationId}).fetch();
+	// search the detail of the conversation by the route param conversationId and sort the result by order DESC
+	let conversationMessages = ConversationMessages.find({conversationId: params.conversationId}, { sort:{ order: 1 } }).fetch();
 
+				// construct the view of the message to render it
 				const messagesDetail = _.map(conversationMessages, (msg) => {
 					let user = null;
 					if(msg.from.userId === Meteor.userId())

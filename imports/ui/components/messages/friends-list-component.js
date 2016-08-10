@@ -1,5 +1,6 @@
 import React from 'react';
 import { FriendsListItemComponent } from './friends-list-item-component.js';
+import { ConversationMessages } from '../../../api/messagerie/conversation-messages/conversation-messages.js';
 
 export class FriendsListComponent extends React.Component {
   render(){
@@ -11,13 +12,15 @@ export class FriendsListComponent extends React.Component {
           active = "active bounceInDown";
         else if(this.props.conversationId === message.conversationId)
           active = "active";
+
+        let countReceivedMessageNumber = ConversationMessages.find({ conversationId: message.conversationId, "to.userId": Meteor.userId(), "to.read": false }).count();
         return {
               _id: message._id,
               avatar: user.profile.avatar,
               name: user.profile.name.first + ' ' + user.profile.name.last,
               lastMessage: message.body,
               date:"2 min ago",
-              count:1,
+              count: (countReceivedMessageNumber > 22) ? "+23" : countReceivedMessageNumber ,
               active: active,
               sended:  message.from.userId === Meteor.userId(),
               read: message.to.read,
