@@ -35,7 +35,7 @@ export class DropDownMessagesMenuItemComponent extends React.Component {
 
     return (<MenuItem onClick={ this.getConversation.bind(this) }  href="" eventKey={ this.props.friend._id } title={ this.props.friend.name }>
                 <div>
-                  <strong>{newOneOrSendedTo} { receiverReaded } { this.props.friend.name }   { receive }{ senderReaded }</strong>
+                  <strong>{newOneOrSendedTo} { receiverReaded } { senderReaded } { this.props.friend.name }   { receive }</strong>
                   <div className="last-message text-muted">{ this.props.friend.lastMessage }</div>
                   <small className="time text-muted">{ this.props.friend.date }</small>
 

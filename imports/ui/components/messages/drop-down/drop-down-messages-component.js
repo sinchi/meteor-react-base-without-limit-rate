@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { browserHistory } from 'react-router';
 import { DropDownMessagesMenuItemComponent } from './drop-down-messages-menu-item-component.js';
 import { ConversationMessages } from '../../../../api/messagerie/conversation-messages/conversation-messages.js';
 
@@ -19,6 +20,11 @@ export class DropDownMessagesComponent extends React.Component{
           return <Badge pullRight>+23</Badge>
         else
           return <Badge pullRight>{count}</Badge>
+  }
+
+  goToMessagePage(event){
+    event.preventDefault();
+    browserHistory.push('/messages');
   }
 
   render(){
@@ -51,7 +57,6 @@ export class DropDownMessagesComponent extends React.Component{
         console.log("friends", friends);
     let eventKey = 2;
     let friendsMenuItems = _.map(friends,  (friend) => {
-      eventKey++;
         return <DropDownMessagesMenuItemComponent friend= { friend }/>
     });
 
@@ -60,7 +65,7 @@ export class DropDownMessagesComponent extends React.Component{
         eventKey={ 2 }
         title={<span>  Messages { this.getTotalMessagesCountBadge(countAllMessage ) } </span> }
         id="basic-nav-dropdown">
-        <MenuItem eventKey={ 2.1 } ><Icon name="plus-circle" size="lg" /> Afficher Tous </MenuItem>
+        {<MenuItem onClick={ this.goToMessagePage.bind(this) } eventKey={ 2.1 } ><Icon name="exclamation-circle" size="lg" /> Afficher Tous </MenuItem>}
         <MenuItem divider />
         { friendsMenuItems }
         {/* menuItems */}
