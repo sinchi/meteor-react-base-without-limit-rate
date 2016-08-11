@@ -7,12 +7,9 @@ import { ConversationMessages } from '../../../../api/messagerie/conversation-me
 import { NavDropdown,MenuItem, Badge } from 'react-bootstrap';
 import { Icon } from 'react-fa';
 
+import moment from '../../../../modules/moment.js';
+
 export class DropDownMessagesComponent extends React.Component{
-
-  constructor(){
-    super(...arguments);
-
-  }
 
   getTotalMessagesCountBadge(count){
       if(count > 0)
@@ -39,19 +36,25 @@ export class DropDownMessagesComponent extends React.Component{
           else if(this.props.conversationId === message.conversationId)
             active = true;
           let countReceivedMessageNumber = ConversationMessages.find({ conversationId: message.conversationId, "to.userId": Meteor.userId(), "to.read": false }).count();
-          countAllMessage += countReceivedMessageNumber;
+          if(countReceivedMessageNumber > 0){
+            countAllMessage +=1;
+          }
+          moment.locale('fr');
+          let date = moment(message.publication);
+
           return {
                 _id: message._id,
                 avatar: user.profile.avatar,
                 name: user.profile.name.first + ' ' + user.profile.name.last,
                 lastMessage: message.body,
-                date:"2 min ago",
+                date: date.fromNow(true),
                 count: (countReceivedMessageNumber > 22) ? "+23" : countReceivedMessageNumber ,
                 active: active,
                 sended:  message.from.userId === Meteor.userId(),
                 read: message.to.read,
                 user: user,
-                conversationId: message.conversationId
+                conversationId: message.conversationId,
+                to: message.to.userId
           }
         });
         console.log("friends", friends);

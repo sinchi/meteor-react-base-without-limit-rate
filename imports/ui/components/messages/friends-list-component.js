@@ -14,12 +14,13 @@ export class FriendsListComponent extends React.Component {
           active = "active";
 
         let countReceivedMessageNumber = ConversationMessages.find({ conversationId: message.conversationId, "to.userId": Meteor.userId(), "to.read": false }).count();
+
         return {
               _id: message._id,
               avatar: user.profile.avatar,
               name: user.profile.name.first + ' ' + user.profile.name.last,
               lastMessage: message.body,
-              date:"2 min ago",
+              date: message.publication,
               count: (countReceivedMessageNumber > 22) ? "+23" : countReceivedMessageNumber ,
               active: active,
               sended:  message.from.userId === Meteor.userId(),

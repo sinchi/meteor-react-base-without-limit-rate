@@ -46,6 +46,7 @@ export class ChatBoxMessage extends React.Component{
               read: false
             },
             body: this.state.content,
+            publication: new Date(),
             order: Sequence.findOne().seq
           };
           let that = this;
@@ -101,6 +102,7 @@ export class ChatBoxMessage extends React.Component{
             read: false
           },
           body: this.state.content,
+          publication: new Date(),
           order: Sequence.findOne().seq
         };
         let that = this;

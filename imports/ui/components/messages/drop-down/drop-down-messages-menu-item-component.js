@@ -6,6 +6,14 @@ import { readThemAll } from '../../../../api/messagerie/conversation-messages/me
 
 export class DropDownMessagesMenuItemComponent extends React.Component {
 
+  constructor(){
+    super(...arguments);
+  }
+
+  componentDidMount(){
+    console.log('im drop down item up');
+  }
+
   getConversation(event){
     event.preventDefault();
     // messageReceived.call({ sender: this.props.friend.user._id }, (error)=>{
@@ -28,18 +36,19 @@ export class DropDownMessagesMenuItemComponent extends React.Component {
 
   render(){
     const sended = this.props.friend.sended && !this.props.friend.read ? (<small className="chat-alert text-muted"><i className="fa fa-reply"></i></small>) : '';
-    const receive = (!this.props.friend.sended && this.props.friend.count > 0) ? (<small className="chat-alert label label-danger">{ this.props.friend.count }</small>) : '';
+    const receive = (!this.props.friend.sended && this.props.friend.count > 0) ? (<small className="chat-alert label label-danger pullRight">{ this.props.friend.count }</small>) : '';
     const senderReaded  = (this.props.friend.sended && this.props.friend.read ) ? (<small className="chat-alert text-muted"><i className="fa fa-check"></i></small>) : '';
     const receiverReaded = (!this.props.friend.sended && this.props.friend.count === 0 ) ? (<small className="chat-alert text-muted"><i className="fa fa-envelope-o"></i></small>) : '';
     const newOneOrSendedTo = (receive) ? <small className="chat-alert text-muted"><i className="fa fa-envelope"></i></small> : sended;
+    const body = (this.props.friend.lastMessage.length > 50) ? this.props.friend.lastMessage.substring(0,50) + "..." : this.props.friend.lastMessage;
 
-    return (<MenuItem onClick={ this.getConversation.bind(this) }  href="" eventKey={ this.props.friend._id } title={ this.props.friend.name }>
+
+
+    return (<MenuItem onClick={ this.getConversation.bind(this) }   href="" eventKey={ this.props.friend._id } title={ this.props.friend.name }>
                 <div>
                   <strong>{newOneOrSendedTo} { receiverReaded } { senderReaded } { this.props.friend.name }   { receive }</strong>
-                  <div className="last-message text-muted">{ this.props.friend.lastMessage }</div>
-                  <small className="time text-muted">{ this.props.friend.date }</small>
-
-
+                  <div className="last-message text-muted">{ body }</div>
+                  <small className="time text-muted"><i className="fa fa-clock-o"></i> { this.props.friend.date }</small>
                 </div>
                 {/*<img src={ this.props.friend.avatar } alt="" className="img-circle" />
                 <div className="friend-name">

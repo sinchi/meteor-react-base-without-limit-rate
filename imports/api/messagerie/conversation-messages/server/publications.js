@@ -20,3 +20,16 @@ Meteor.publish('conversation-messages', function(conversationId, limit){
     );
 
 });
+
+
+
+Meteor.publish('newMessage', function(){
+  var subscription = this;
+
+  ConversationMessages.find({"to.userId": this.userId, "to.read": false, notificationSound: true}).observeChanges({
+    added: function(id, fields){
+      subscription.added('newMessage', id, fields);
+      subscription.ready();
+    }
+  });
+});

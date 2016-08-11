@@ -30,6 +30,7 @@ export const insertConversation = new ValidatedMethod({
         read: false
       },
       body: body,
+      publication: new Date(),
       order: order
     };
     ConversationMessages.insert(message);

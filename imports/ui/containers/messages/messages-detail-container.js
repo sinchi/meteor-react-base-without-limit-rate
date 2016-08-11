@@ -23,8 +23,10 @@ const composer = (params, onData) => {
 							alt: "User Avatar",
 						},
 						username: user.profile.name.first + ' ' + user.profile.name.last,
-						date: "12 min ago",
-						content: msg.body
+						date: msg.publication,
+						content: msg.body,
+						from: msg.from.userId,
+						to: msg.to.userId
 					}
 				});
 

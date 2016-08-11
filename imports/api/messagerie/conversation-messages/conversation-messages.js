@@ -44,7 +44,6 @@ ConversationMessages.schema = new SimpleSchema({
   publication:{
     type: Date,
     label: "The date of the message",
-    defaultValue: new Date()
   },
 
   originatingFromIdDeleted: {
@@ -60,6 +59,10 @@ ConversationMessages.schema = new SimpleSchema({
   order:{
     type: Number,
     label: "the order of the message "
+  },
+  notificationSound: {
+    type: Boolean,
+    defaultValue: true
   }
 
 });

@@ -36,6 +36,10 @@ export const insertConversationMessages = new ValidatedMethod({
       type: String,
       label: "the content of the message"
     },
+    publication: {
+      type: Date,
+      label: "the date of the message"
+    },
     order:{
       type:Number
     }
@@ -54,4 +58,15 @@ export const readThemAll = new ValidatedMethod({
   run({ conversationId, read }){
     ConversationMessages.update({ conversationId: conversationId, "to.userId":this.userId }, { $set:{ "to.read": read } }, {multi: true});
   }
-})
+});
+
+export const setNotificationSoundOff = new ValidatedMethod({
+  name: "conversationMessages.setNotificationSoundOff",
+  validate: new SimpleSchema({
+    conversationMessagesId: { type: String }
+  }).validator(),
+  run({ conversationMessagesId }){
+    //console.log("id from validated-method ", conversationMessagesId);
+    ConversationMessages.update({ _id: conversationMessagesId }, { $set: { notificationSound: false } });
+  }
+});

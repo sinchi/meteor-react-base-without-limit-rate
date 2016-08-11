@@ -15,8 +15,16 @@ const composer = (params, onData) => {
 		}).sort((msg1, msg2) => {
 			return msg2.order - msg1.order; // DESC by order
 		});
+		console.log('firstFriend', friends[0]);
 		  onData(null, {friends});
 	}
 
 };
 export default composeWithTracker(composer, Loading)(DropDownMessagesComponent);
+// var playSound = (function beep() {
+// var sound = new Audio("https://s3.eu-central-1.amazonaws.com/annoncio-photos/knob.ogg");
+// 		return function() {
+// 				sound.play();
+// 			}
+// 			})();
+// 	playSound(); // Play first time

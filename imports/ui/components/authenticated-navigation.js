@@ -21,6 +21,10 @@ export class AuthenticatedNavigation extends React.Component{
     }
   }
 
+  componentDidMount(){
+    console.log('im the navigator up ' + Meteor.userId());
+  }
+
   open(){
     this.setState({ showModal: true });
   }

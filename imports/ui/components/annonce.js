@@ -91,6 +91,7 @@ messageText(event){
 				 read: false
 			 },
 			 body: this.state.messageContent,
+			 publication: new Date(),
 			 order: Sequence.findOne().seq
 		 };
 		 insertConversationMessages.call(message);
