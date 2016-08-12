@@ -38,3 +38,5 @@ underscore
 ddp-rate-limiter
 jcbernack:reactive-aggregate
 meteorhacks:aggregate
+service-configuration
+twbs:bootstrap
