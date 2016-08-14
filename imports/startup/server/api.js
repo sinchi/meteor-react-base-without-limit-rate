@@ -37,4 +37,5 @@ import '../../api/messagerie/conversation-messages/conversation-messages.js';
 import '../../api/messagerie/conversation-messages/methods.js';
 import '../../api/messagerie/conversation-messages/server/publications.js';
 
+import '../../api/users/methods.js';
 import '../../api/users/server/publications.js';

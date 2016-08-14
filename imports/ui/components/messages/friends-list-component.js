@@ -5,7 +5,7 @@ import { ConversationMessages } from '../../../api/messagerie/conversation-messa
 export class FriendsListComponent extends React.Component {
   render(){
         let friends =  _.map(this.props.friends, (message) => {
-        let user = (message.from.userId === Meteor.userId()) ? Meteor.users.findOne({ _id: message.to.userId }, { fields: { profile : 1 } }) : Meteor.users.findOne({ _id: message.from.userId }, { fields: { profile : 1 } });
+        let user = (message.from.userId === Meteor.userId()) ? Meteor.users.findOne({ _id: message.to.userId }, { fields: { profile : 1, status: 1 } }) : Meteor.users.findOne({ _id: message.from.userId }, { fields: { profile : 1, status: 1 } });
 
         let active = "";
         if(!message.to.read && (message.from.userId !== Meteor.userId()))

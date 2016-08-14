@@ -3,7 +3,6 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { UserProfile } from './users.js';
 import { Accounts } from 'meteor/accounts-base';
-import { Meteor } from 'meteor/meteor';
 
 export const insertUser = new ValidatedMethod({
 	name: 'users.insert',
@@ -11,6 +10,7 @@ export const insertUser = new ValidatedMethod({
 		username: { type: String, optional: true },
 		'profile.firstName': { type: String , optional: true},
 		'profile.lastName': { type: String , optional: true},
+		'profile.status': {type: Boolean },
 		createdAt: { type: Date }
 	}).validator(),
 	run(user){
@@ -36,27 +36,38 @@ export const updateUser = new ValidatedMethod({
 
 
 export const removeUser = new ValidatedMethod({
-	name: 'user.remove',
+	name: 'users.remove',
 	validate: new SimpleSchema({
 		_id: { type: String }
 	}).validator(),
 	run({ _id }){
 		Meteor.users.remove(_id);
 	}
-});	
+});
+
+export const updateStatus = new ValidatedMethod({
+	name: "users.status",
+	validate: new SimpleSchema({
+		userId: { type: String },
+		status : { type: Boolean }
+	}).validator(),
+	run({ userId, status }){
+
+		Meteor.users.update({_id: userId}, { $set: { "profile.status": status  } });
+	}
+});
 
 
 export const followUser = new ValidatedMethod({
 	name: "users.followUser",
 	validate: new SimpleSchema({
-		userId: { type: String },
 		followerId: { type: String }
 	}).validator(),
-	run({ userId, followerId }){
-		const user = Meteor.users.findOne(userId);
+	run({ followerId }){
+		const user = Meteor.users.findOne(this.userId);
 		if(user)
-			Meteor.users.update(userId, { $addToSet: { profile: { followers: followerId } } });
+			Meteor.users.update(this.userId, { $addToSet: { profile: { followers: followerId } } });
 		else
 			throw new Meteor.Error(404, "This user don't exist")
 	}
-})
+});

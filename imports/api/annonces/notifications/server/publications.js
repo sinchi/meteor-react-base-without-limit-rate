@@ -33,7 +33,7 @@ Meteor.publishComposite('notification-annonce-by-category', function(categoryId)
           return Annonces.find({ _id: notificationAnnonce.annonceId });
         },
         find: function(notificationAnnonce){
-          return Meteor.users.find({ _id: notificationAnnonce.userId })
+          return Meteor.users.find({ _id: notificationAnnonce.userId }, { fields: { profile: 1 } })
         }
       }
     ]

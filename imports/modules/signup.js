@@ -19,17 +19,19 @@ const getUserData = () => ({
       // telephone: numero de son téléphone,
       // adresse: adresse d'annonceur
     },
-    avatar : "https://s3.eu-central-1.amazonaws.com/annoncio-photos/avatar.png",
-  },
+    status: true,
+    avatar : "https://s3.eu-central-1.amazonaws.com/annoncio-photos/avatar.png"
+  }
 });
 
 const signUp = () => {
   const user = getUserData();
-
+  console.log("userData", user);
   Accounts.createUser(user, (error) => {
     if (error) {
       Bert.alert(error.reason, 'danger');
     } else {
+      console.log("usercreated", user);
       browserHistory.push('/');
       Bert.alert('Bienvenue avec nous sur Annoncio !', 'success');
     }

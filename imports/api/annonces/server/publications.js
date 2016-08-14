@@ -37,7 +37,7 @@ Meteor.publishComposite('annonceItem', function(annonceId){
 		children:[
 			{
 				find: function(annonce){
-					return Meteor.users.find({ _id: annonce.owner });
+					return Meteor.users.find({ _id: annonce.owner }, { fields: { profile: 1} });
 				}
 			}
 		]
@@ -54,7 +54,7 @@ Meteor.publishComposite('annoncesByCategory', function(categoryId){
 		children:[
 			{
 				find: function(annonce){
-					return Meteor.users.find({ _id: annonce.owner });
+					return Meteor.users.find({ _id: annonce.owner }, { fields: { profile: 1 } });
 				}
 			}
 		]
@@ -67,7 +67,6 @@ Meteor.publish('my-annonces', function(){
 
 
 Meteor.publishComposite('annoncesWithRelation', function(search){
-
 
   check( search, Match.OneOf( String, null, undefined ) );
 
@@ -92,7 +91,7 @@ Meteor.publishComposite('annoncesWithRelation', function(search){
     		children:[
     			{
     				find: function(annonce){
-    					return Meteor.users.find({ _id: annonce.owner });
+    					return Meteor.users.find({ _id: annonce.owner }, { fields: { profile: 1 } });
     				}
     			}
     		]
@@ -106,7 +105,7 @@ Meteor.publishComposite('annoncesWithRelation', function(search){
       children:[
         {
           find: function(annonce){
-            return Meteor.users.find({ _id: annonce.owner });
+            return Meteor.users.find({ _id: annonce.owner }, { fields: { profile: 1 } });
           }
         }
       ]

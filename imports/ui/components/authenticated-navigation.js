@@ -12,6 +12,8 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import DropDownAbonnement from '../containers/drop-down-abonnement-container.js';
 import DropDownMessagesComponent from '../containers/messages/friends-list-navigation-container.js';
 
+import { updateStatus } from '../../api/users/methods.js';
+
 export class AuthenticatedNavigation extends React.Component{
 
   constructor(){
@@ -62,6 +64,19 @@ export class AuthenticatedNavigation extends React.Component{
 
   }
 
+  handleLogout(){
+
+    let userStatus = { userId: Meteor.userId(), status: false };
+    updateStatus.call(userStatus);
+
+    Meteor.logout( (error) => {
+      if(!error){
+
+        browserHistory.push('/login');
+      }
+    });
+  }
+
   render(){
     const userName = () => {
       const user = Meteor.user();
@@ -70,7 +85,6 @@ export class AuthenticatedNavigation extends React.Component{
        return user ? <span><i className="fa fa-user fa-lg"></i> {`${name.first} ${name.last}`} </span>    : '';
     }
 
-    const handleLogout = () => Meteor.logout( () => browserHistory.push('/login'));
 
     return (
 
@@ -104,7 +118,7 @@ export class AuthenticatedNavigation extends React.Component{
           <NavItem eventKey = { 4 } href="/add-annonce"><Icon name="flash" size="lg" /> Publier une annonce</NavItem>
         </LinkContainer>
            <NavDropdown eventKey={ 5 } title={ userName() } id="basic-nav-dropdown">
-            <MenuItem eventKey={ 5.1 } onClick={ handleLogout }>Déconnexion</MenuItem>
+            <MenuItem eventKey={ 5.1 } onClick={ this.handleLogout.bind(this) }>Déconnexion</MenuItem>
           </NavDropdown>
         </Nav>
         <AddAbonnementCategory abonner={ this.abonner.bind(this) } close={ this.close.bind(this) } showModal={ this.state.showModal }/>

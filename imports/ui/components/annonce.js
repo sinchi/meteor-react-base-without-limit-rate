@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ListGroupItem, Row, Col, FormControl, Thumbnail, Button, Link, ButtonToolbar,OverlayTrigger, DropdownButton, MenuItem, Tooltip} from 'react-bootstrap';
+import { ListGroupItem, Row, Col, FormControl, Thumbnail, Button, Link, ButtonToolbar,OverlayTrigger, DropdownButton, MenuItem, Tooltip, Image} from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { Icon } from 'react-fa';
 import { Message } from './message';
@@ -46,26 +46,30 @@ export class Annonce extends React.Component{
 		}
 	}
 
-	 getUser(annonce){
+	 getUserName(annonce){
 		const user = Meteor.users.findOne(annonce.owner);
 		return user.profile.name.first + ' ' + user.profile.name.last;
-		//return Meteor.user().profile.name.first;
+	}
+	
+	getUserStatus(annonce){
+		const user = Meteor.users.findOne({_id: annonce.owner});
+		return user.profile.status;
 	}
 
 	voir(){
 	 	browserHistory.push('/annonces/'+this.props.annonce._id);
-	 //console.log('voir' + this.props.annonce._id);
  }
 
  getUserIcon(){
-	 return <span><Icon name="user" size="lg" /> { this.getUser(this.props.annonce)}</span>
+	 const status = this.getUserStatus(this.props.annonce) ? <Image src="https://s3.eu-central-1.amazonaws.com/annoncio-photos/online.png" /> : <Image src="https://s3.eu-central-1.amazonaws.com/annoncio-photos/offline.png" />;
+	 return  <span> {status} {/*<Icon name="user" size="lg" />*/} { this.getUserName(this.props.annonce)}</span>
  }
 
  jaime(){
 //	 console.log('jaime');
  }
  message(){
-	  this.open();
+	 this.open();
  }
  comment(){
 	// console.log('comment');
@@ -98,7 +102,7 @@ messageText(event){
 	 }else{
 		 let newConversation = {
 			 	originatingToId: this.props.annonce.owner,
-		 		originatingToName: this.getUser(this.props.annonce),
+		 		originatingToName: this.getUserName(this.props.annonce),
 		 		body: this.state.messageContent,
 				order: Sequence.findOne().seq
 	 		};
@@ -116,7 +120,7 @@ messageText(event){
 
 	 if(this.props.annonce.owner !== Meteor.userId())
 	 		insertMessage.call(msg, (error) => {
-			Bert.alert('Votre message a été envoyé à ' + this.getUser(this.props.annonce) + ' avec succée','success');
+			Bert.alert('Votre message a été envoyé à ' + this.getUserName(this.props.annonce) + ' avec succée','success');
 		 	this.close();
 	 });
 
@@ -140,9 +144,9 @@ messageText(event){
 				<Row>
 					<Col md={2}  mdOffset={1}>
 						<ButtonToolbar>
-							<DropdownButton title={ this.getUserIcon() } id="dropdown-size-medium">
+							<DropdownButton title= { this.getUserIcon() } id="dropdown-size-medium">
 								<MenuItem eventKey="1"><Icon name="users" size="lg" /> Suivre</MenuItem>
-								<MenuItem eventKey="2" onClick={this.message.bind(this)}><Icon name="envelope" size="lg" /> Message</MenuItem>
+								<MenuItem eventKey="2" disabled={ this.state.disabled }  onClick={this.message.bind(this)}><Icon name="envelope" size="lg" /> Message</MenuItem>
 								<MenuItem eventKey="3"><Icon name="phone" size="lg" /> Appeler</MenuItem>
 							</DropdownButton>
 						</ButtonToolbar>

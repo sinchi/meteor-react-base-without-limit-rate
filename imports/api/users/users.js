@@ -14,13 +14,17 @@ Schema.UserCountry = new SimpleSchema({
 });
 
 Schema.UserProfile = new SimpleSchema({
-    firstName: {
+    first: {
         type: String,
         optional: true
     },
-    lastName: {
+    last: {
         type: String,
         optional: true
+    },
+    status: {
+      type: Boolean,
+      optional: true
     },
     birthday: {
         type: Date,
@@ -127,5 +131,4 @@ Schema.User = new SimpleSchema({
     }
 });
 
-Meteor.users.attachSchema(Schema.User);
-
+//Meteor.users.attachSchema(Schema.User);

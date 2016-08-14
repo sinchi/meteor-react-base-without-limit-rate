@@ -13,7 +13,7 @@ export class MessagesComponent extends React.Component{
 }
 
 getUser(userId){
-  return Meteor.users.findOne(userId, { fields: { profile: 1 } });
+  return Meteor.users.findOne(userId, { fields: { profile: 1, status: 1 } });
 }
 
   envoyer(event){

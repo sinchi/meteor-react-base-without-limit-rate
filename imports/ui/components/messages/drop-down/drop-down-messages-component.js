@@ -27,7 +27,7 @@ export class DropDownMessagesComponent extends React.Component{
   render(){
           let countAllMessage = 0;
           let friends =  _.map(this.props.friends, (message) => {
-          let user = (message.from.userId === Meteor.userId()) ? Meteor.users.findOne({ _id: message.to.userId }, { fields: { profile : 1 } }) : Meteor.users.findOne({ _id: message.from.userId }, { fields: { profile : 1 } });
+          let user = (message.from.userId === Meteor.userId()) ? Meteor.users.findOne({ _id: message.to.userId }, { fields: { profile : 1, status: 1 } }) : Meteor.users.findOne({ _id: message.from.userId }, { fields: { profile : 1, status: 1 } });
           let that = this;
           let active = false;
 
