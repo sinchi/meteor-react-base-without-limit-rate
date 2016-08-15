@@ -27,6 +27,14 @@ export class AuthenticatedNavigation extends React.Component{
     console.log('im the navigator up ' + Meteor.userId());
   }
 
+  componentWillUnmount(){
+    window.addEventListener("beforeunload", (ev) =>
+    {
+        ev.preventDefault();
+        return ev.returnValue = 'Are you sure you want to close?';
+    });
+  }
+
   open(){
     this.setState({ showModal: true });
   }

@@ -100,7 +100,7 @@ Meteor.publishComposite('annoncesWithRelation', function(search){
 
     return{
       find: function(){
-        return Annonces.find({public: true});
+        return Annonces.find({public: true}, projection);
       },
       children:[
         {

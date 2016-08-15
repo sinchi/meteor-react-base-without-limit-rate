@@ -33,8 +33,9 @@ Meteor.startup(() => {
         <IndexRoute name="annonces" component={ Annonces } onEnter={ requireAuth } />
         {/*<IndexRoute name="index" component={ Index } onEnter={ requireAuth } />*/}
         {/* <Route name="documents" path="/documents" component={ Documents } onEnter={ requireAuth } /> */}
+        <Route name="annoncesLimit" path="/annonces/:limit" component={ Annonces } onEnter={ requireAuth } />
         <Route name="annonces" path="/annonces" component={ Annonces } onEnter={ requireAuth } />
-        <Route name="annonceItem" path="/annonces/:annonceId" component = { AnnonceItem } onEnter={ requireAuth } />
+        <Route name="annonceItem" path="/annonces/item/:annonceId" component = { AnnonceItem } onEnter={ requireAuth } />
         <Route name="notification-categories" path="/annonces/categories/:categoryId" component={ NotificationsCategoriesPage } onEnter={requireAuth}/>
         <Route name="my-annonces" path="/my-annonces" component={ MyAnnoncesPage } onEnter={ requireAuth }/>
         <Route name="add-annonce" path="/add-annonce" component={ AddAnnonce } onEnter={ requireAuth } />

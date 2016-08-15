@@ -48,16 +48,18 @@ export class Annonce extends React.Component{
 
 	 getUserName(annonce){
 		const user = Meteor.users.findOne(annonce.owner);
-		return user.profile.name.first + ' ' + user.profile.name.last;
+		let firstName = user.profile.name.first;
+
+		return firstName.charAt(0).toUpperCase() + firstName.slice(1);
 	}
-	
+
 	getUserStatus(annonce){
 		const user = Meteor.users.findOne({_id: annonce.owner});
 		return user.profile.status;
 	}
 
 	voir(){
-	 	browserHistory.push('/annonces/'+this.props.annonce._id);
+	 	browserHistory.push('/annonces/item/'+this.props.annonce._id);
  }
 
  getUserIcon(){
@@ -142,7 +144,7 @@ messageText(event){
 		return (
 
 				<Row>
-					<Col md={2}  mdOffset={1}>
+					<Col md={2} mdOffset={1}>
 						<ButtonToolbar>
 							<DropdownButton title= { this.getUserIcon() } id="dropdown-size-medium">
 								<MenuItem eventKey="1"><Icon name="users" size="lg" /> Suivre</MenuItem>

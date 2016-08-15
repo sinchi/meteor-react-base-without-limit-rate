@@ -3,7 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import { AppNavigation } from '../components/app-navigation';
 import { ConversationMessages } from '../../api/messagerie/conversation-messages/conversation-messages';
 import { setNotificationSoundOff } from '../../api/messagerie/conversation-messages/methods';
-
+import { Bert } from 'meteor/themeteorchef:bert';
+import { browserHistory, Router, Route, IndexRoute, Link } from 'react-router'
 const composer = (props, onData) => {
   const sub = Meteor.subscribe("newMessage");
   console.log("sub from app navigationready", sub.ready());
@@ -17,6 +18,12 @@ const composer = (props, onData) => {
       				sound.play();
       			}
       			})();
+        let user = Meteor.users.findOne({ _id: message[0].from.userId }).profile.name.first + " " + Meteor.users.findOne({ _id: message[0].from.userId }).profile.name.last ;
+
+        // var currentRoutes = this.context.router.getCurrentRoutes();
+        // var activeRouteName = currentRoutes[currentRoutes.length - 1].name;
+        // console.log("path location",props);
+        Bert.alert( user +  ': ' + message[0].body  , 'info');
       	playSound(); // Play first time
         console.log("message from app navigation container", message[0]._id);
         setNotificationSoundOff.call({conversationMessagesId: message[0]._id});

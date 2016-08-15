@@ -6,6 +6,7 @@ import { Sequence } from "../../api/sequences/sequence.js";
 
 import { Conversations } from "../../api/messagerie/conversations/conversations.js";
 import { ConversationMessages } from "../../api/messagerie/conversation-messages/conversation-messages.js";
+import { updateStatus } from "../../api/users/methods.js";
 
 const users = [{
   email: 'admin@admin.com',
@@ -26,6 +27,27 @@ users.forEach(({ email, password, profile, roles }) => {
 });
 
 Meteor.startup(() => {
+
+//  console.log('------------------------------------------------');
+
+   if(Meteor.isClient){
+     $(window).bind('beforeunload', function() {
+         closingWindow();
+
+         // have to return null, unless you want a chrome popup alert
+      //   return null;
+
+         // have to return null, unless you want a chrome popup alert
+         //return 'Are you sure you want to leave your Vonvo?';
+     });
+
+     closingWindow = function(){
+       console.log('closingWindow');
+       updateStatus.call({ userId: Meteor.userId(), status: false });
+     }
+   }
+
+
   if(Conversations.find().count() === 0 && ConversationMessages.find().count() === 0){
     // ayoub sinchi = nzTPZu435fXmHGhwE
     // moaad = bWPdq4r6LuJdqLuaK
@@ -114,4 +136,4 @@ Meteor.startup(() => {
   });
 }
 
-})
+});
